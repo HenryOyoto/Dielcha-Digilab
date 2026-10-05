@@ -93,29 +93,27 @@ function ProjectPage() {
               )}
             </div>
 
-            <aside className="space-y-5">
+            <section className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               <section className="engineering-card p-6">
-                <p className="label-mono text-primary">Technology stack</p>
-                <h2 className="mt-2 text-xl font-bold text-primary">Tools and platforms</h2>
-                <div className="mt-5 grid gap-2">
+                <h2 className="text-xl font-bold text-primary">Tools and platforms</h2>
+                <div className="mt-5 grid gap-2 sm:grid-cols-2">
                   {p.technologies.map((x, i) => <span key={x} className={`rounded-md border px-3 py-2 text-sm ${i % 3 === 1 ? "border-secondary/30 text-secondary" : i % 3 === 2 ? "border-destructive/30 text-destructive" : "border-primary/20 text-primary"}`}>{x}</span>)}
                 </div>
               </section>
 
               <section className="engineering-card p-6">
-                <p className="label-mono text-secondary">Deliverables</p>
-                <h2 className="mt-2 text-xl font-bold text-secondary">What the work produces</h2>
+                <h2 className="text-xl font-bold text-secondary">What the work produces</h2>
                 <ul className="mt-5 space-y-3 text-sm leading-6 text-foreground">
                   {p.deliverables.map((x) => <li key={x} className="flex gap-3"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-secondary" />{x}</li>)}
                 </ul>
               </section>
 
-              <section className="rounded-xl border border-border bg-primary p-6 text-primary-foreground shadow-card">
-                <p className="label-mono text-white">Project status / note</p>
+              <section className="rounded-xl border border-border bg-primary p-6 text-primary-foreground shadow-card md:col-span-2 xl:col-span-1">
+                <h2 className="text-xl font-bold text-white">Project status and notes</h2>
                 <p className="mt-3 text-sm leading-7">{p.notes.join(" ")}</p>
                 <a href={p.githubUrl} target="_blank" rel="noreferrer" className="mt-5 inline-block rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-primary hover:text-destructive">View Repository →</a>
               </section>
-            </aside>
+            </section>
           </div>
 
           <section className="mt-12 grid gap-5 md:grid-cols-3">

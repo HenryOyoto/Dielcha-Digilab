@@ -54,23 +54,21 @@ function ArticlePage() {
               </div>
             </article>
 
-            <aside className="space-y-5">
+            <section className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               <section className="engineering-card p-6">
-                <p className="label-mono text-primary">How to use it</p>
-                <h2 className="mt-2 text-xl font-bold text-primary">Apply the note during review</h2>
+                <h2 className="text-xl font-bold text-primary">Apply the note during review</h2>
                 <p className="mt-3 text-sm leading-7 text-foreground">Use the sections as a working review sequence. Compare the guidance with the actual schematic, layout, measurements or prototype, then record decisions rather than relying on memory.</p>
               </section>
               <section className="engineering-card p-6">
-                <p className="label-mono text-secondary">Engineering habit</p>
-                <h2 className="mt-2 text-xl font-bold text-secondary">Document what you find</h2>
+                <h2 className="text-xl font-bold text-secondary">Document what you find</h2>
                 <p className="mt-3 text-sm leading-7 text-foreground">A good engineering note is most useful when it leads to an observable action: a changed component, a checked dimension, a measured value, a revised routing decision or a documented manufacturing constraint.</p>
               </section>
-              <section className="rounded-xl border border-border bg-primary p-6 text-primary-foreground shadow-card">
-                <p className="label-mono text-white">More technical material</p>
+              <section className="rounded-xl border border-border bg-primary p-6 text-primary-foreground shadow-card md:col-span-2 xl:col-span-1">
+                <h2 className="text-xl font-bold text-white">More technical material</h2>
                 <p className="mt-3 text-sm leading-6">Additional examples, diagrams and project documentation can be followed through the DIELCHA DIGILAB GitHub repository.</p>
                 <a href={githubLink} target="_blank" rel="noreferrer" className="mt-4 inline-block rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-primary hover:text-destructive">View on GitHub</a>
               </section>
-            </aside>
+            </section>
           </div>
         </div>
       </main>

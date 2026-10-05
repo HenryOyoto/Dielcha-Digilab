@@ -71,7 +71,7 @@
 
   /* Keep UI surfaces white rather than introducing grey into the brand system. */
   --muted: color-mix(in srgb, var(--brand-blue) 3%, var(--brand-white));
-  --muted-foreground: #405867;
+  --muted-foreground: #2f4654;
 
   --destructive: var(--brand-red);
   --destructive-foreground: var(--brand-white);
@@ -82,9 +82,9 @@
 
   /* Text over photography */
   --on-image: var(--brand-white);
-  --on-image-muted: color-mix(in srgb, var(--brand-white) 92%, transparent);
-  --overlay: linear-gradient(90deg, color-mix(in srgb, var(--brand-blue) 52%, transparent) 0%, color-mix(in srgb, var(--brand-blue) 27%, transparent) 52%, color-mix(in srgb, var(--brand-blue) 7%, transparent) 100%);
-  --overlay-soft: linear-gradient(180deg, color-mix(in srgb, var(--brand-blue) 24%, transparent) 0%, color-mix(in srgb, var(--brand-blue) 48%, transparent) 100%);
+  --on-image-muted: #f4f7f8;
+  --overlay: linear-gradient(90deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.50) 52%, rgba(0, 0, 0, 0.18) 100%);
+  --overlay-soft: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.58) 100%);
 
   --gradient-brand: linear-gradient(120deg, var(--brand-blue) 0%, var(--brand-green) 55%, var(--brand-red) 100%);
   --shadow-card: 0 1px 2px color-mix(in srgb, var(--brand-blue) 8%, transparent), 0 12px 28px -18px color-mix(in srgb, var(--brand-blue) 30%, transparent);
@@ -314,42 +314,39 @@
   }
 }
 
-/* Hero photography stays visible while a restrained brand-colour tint keeps white copy readable.
-   Slider colours cross-fade independently from the photographs, so the image itself never changes. */
+/* Hero photography remains visible beneath a neutral black readability overlay.
+   Brand colours are reserved for interface elements so the photography and white hero copy stay clear. */
 .hero-slide-overlay,
 .page-hero-overlay {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  transition: opacity 900ms ease-in-out;
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
   pointer-events: none;
 }
 
-.hero-slide-overlay.is-active { opacity: 1; }
+.hero-slide-overlay--black,
+.page-hero-overlay--black {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.50) 52%, rgba(0, 0, 0, 0.18) 100%);
+}
 
+/* Backwards-compatible names for any existing page that still references a tone.
+   They intentionally use the same neutral black overlay rather than coloured gradients. */
 .hero-slide-overlay--blue,
-.page-hero-overlay--blue {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-blue) 64%, transparent) 0%, color-mix(in srgb, var(--brand-blue) 34%, transparent) 48%, color-mix(in srgb, var(--brand-blue) 8%, transparent) 100%);
-}
-
 .hero-slide-overlay--green,
-.page-hero-overlay--green {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-green) 60%, transparent) 0%, color-mix(in srgb, var(--brand-green) 30%, transparent) 48%, color-mix(in srgb, var(--brand-green) 7%, transparent) 100%);
-}
-
 .hero-slide-overlay--red,
+.page-hero-overlay--blue,
+.page-hero-overlay--green,
 .page-hero-overlay--red {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-red) 60%, transparent) 0%, color-mix(in srgb, var(--brand-red) 29%, transparent) 48%, color-mix(in srgb, var(--brand-red) 7%, transparent) 100%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.50) 52%, rgba(0, 0, 0, 0.18) 100%);
 }
-
-.page-hero-overlay { opacity: 1; }
 
 .hero-copy {
-  text-shadow: 0 2px 18px color-mix(in srgb, var(--brand-blue) 45%, transparent);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.72);
 }
 
 .hero-copy--muted {
-  text-shadow: 0 1px 12px color-mix(in srgb, var(--brand-blue) 52%, transparent);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.70);
 }
 
 /* Engineering notes: dark reading text, colour-coded headings and restrained emphasis. */
@@ -384,7 +381,7 @@
 
 .lab-detail-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.9fr) minmax(16rem, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
   align-items: start;
 }
@@ -394,7 +391,7 @@
 }
 
 @media (max-width: 900px) {
-  .lab-detail-grid, .lab-detail-grid--three { grid-template-columns: 1fr 1fr; }
+  .lab-detail-grid, .lab-detail-grid--three { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
@@ -433,6 +430,7 @@
 }
 
 @utility label-mono {
+  display: none;
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.16em;

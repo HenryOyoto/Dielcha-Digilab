@@ -45,8 +45,7 @@ function ResourcePage() {
               <section className="engineering-card p-6 sm:p-8">
                 <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
                   <div>
-                    <p className="label-mono text-primary">Ready to use</p>
-                    <h2 className="mt-2 text-2xl font-bold text-primary">{resource.fileLabel}</h2>
+                    <h2 className="text-2xl font-bold text-primary">{resource.fileLabel}</h2>
                     <p className="mt-2 text-sm text-foreground">Free to download and intended to support a structured engineering review.</p>
                   </div>
                   <a href={resource.downloadUrl} target="_blank" rel="noreferrer" className="rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-destructive">
@@ -59,38 +58,21 @@ function ResourcePage() {
                 <p className="mt-4">Work through the resource in order, mark each item against the actual design or documentation, and record exceptions that need an engineer's attention. The goal is not simply to tick boxes; it is to make important assumptions visible before they become expensive problems.</p>
 
                 <h2 className="mt-10 text-2xl font-bold text-secondary">What it covers</h2>
-                <div className="mt-5 grid gap-4 md:grid-cols-2">
+                <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
                   {resource.points.map((point, index) => (
-                    <div key={point} className={`rounded-xl border border-border p-5 ${index % 2 === 0 ? "border-l-4 border-l-primary" : "border-l-4 border-l-secondary"}`}>
+                    <div key={point} className={`rounded-xl border border-border p-5 ${index % 2 === 0 ? "border-t-4 border-t-primary" : "border-t-4 border-t-secondary"}`}>
                       <h3 className="font-display font-semibold text-primary">{point}</h3>
-                      <p className="mt-2 text-sm leading-6 text-foreground">This check should be confirmed against the actual project files and documented when a decision, exception or correction is required.</p>
+                      <p className="mt-3 text-sm leading-7 text-foreground">Review this area against the actual project evidence. Confirm the requirement, identify any mismatch or missing information, and record the action needed before the design moves to procurement, fabrication, assembly or release.</p>
                     </div>
                   ))}
                 </div>
 
                 <div className="mt-10 rounded-xl border-l-4 border-l-destructive bg-white p-5 shadow-card">
-                  <p className="label-mono text-destructive">DIELCHA Note</p>
+                  <h2 className="text-xl font-bold text-destructive">DIELCHA Note</h2>
                   <p className="mt-2 text-sm leading-7 text-foreground">Use this as a working reference alongside your own design review process. It supports engineering judgement; it does not replace a full manufacturing, safety or compliance sign-off where one is required.</p>
                 </div>
               </section>
             </article>
-
-            <aside className="space-y-5">
-              <section className="engineering-card p-6">
-                <p className="label-mono text-primary">Best use</p>
-                <h2 className="mt-2 text-xl font-bold text-primary">Before the next handoff</h2>
-                <p className="mt-3 text-sm leading-7 text-foreground">Use the worksheet before procurement, fabrication, assembly or a formal design review. Catching inconsistencies while files are still editable is normally faster and cheaper than correcting them later.</p>
-              </section>
-              <section className="engineering-card p-6">
-                <p className="label-mono text-secondary">Working method</p>
-                <h2 className="mt-2 text-xl font-bold text-secondary">Check · Record · Resolve</h2>
-                <ol className="mt-4 space-y-3 text-sm text-foreground">
-                  <li><strong className="text-primary">01.</strong> Check the project evidence.</li>
-                  <li><strong className="text-secondary">02.</strong> Record anything unclear or inconsistent.</li>
-                  <li><strong className="text-destructive">03.</strong> Resolve the finding before release.</li>
-                </ol>
-              </section>
-            </aside>
           </div>
 
           {related.length > 0 && (

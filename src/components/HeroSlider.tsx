@@ -8,11 +8,7 @@ export function HeroSlider() {
   return (
     <section className="relative isolate overflow-hidden">
       {heroSlides.map((slide, i) => <img key={slide.label} src={slide.image} alt="" aria-hidden width={1600} height={900} loading={i === 0 ? "eager" : "lazy"} className={`absolute inset-0 size-full object-cover transition-opacity duration-[1800ms] ease-in-out ${i === index ? "opacity-100" : "opacity-0"}`} />)}
-      <div className="hero-slide-overlays absolute inset-0" aria-hidden>
-        <div className={`hero-slide-overlay hero-slide-overlay--blue ${index % 3 === 0 ? "is-active" : ""}`} />
-        <div className={`hero-slide-overlay hero-slide-overlay--green ${index % 3 === 1 ? "is-active" : ""}`} />
-        <div className={`hero-slide-overlay hero-slide-overlay--red ${index % 3 === 2 ? "is-active" : ""}`} />
-      </div>
+      <div className="hero-slide-overlay hero-slide-overlay--black absolute inset-0 is-active" aria-hidden />
       <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 md:py-36">
         {/* Label hidden on the website: <p className="label-mono text-accent">{brand.name}</p> */}
         <h1 className="hero-copy mt-4 max-w-4xl text-4xl font-bold tracking-tight text-on-image md:text-6xl">Electronics, Embedded Systems &amp; Engineering Design</h1>
