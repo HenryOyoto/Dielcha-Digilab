@@ -1,0 +1,681 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * DIELCHA DIGILAB design system.
+ * Light, colourful, engineering-led. The interface uses the supplied blue, red, green and white brand palette.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-overlay: var(--overlay);
+  --color-on-image: var(--on-image);
+  --color-on-image-muted: var(--on-image-muted);
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Exact flat brand palette sampled from the supplied logo. */
+  --brand-blue: #035086;
+  --brand-red: #e53c15;
+  --brand-green: #2b7c1f;
+  --brand-white: #ffffff;
+
+  --background: var(--brand-white);
+  --foreground: #12364d;
+
+  --card: var(--brand-white);
+  --card-foreground: #12364d;
+  --popover: var(--brand-white);
+  --popover-foreground: #12364d;
+
+  --primary: var(--brand-blue);
+  --primary-foreground: var(--brand-white);
+
+  --secondary: var(--brand-green);
+  --secondary-foreground: var(--brand-white);
+
+  --accent: var(--brand-blue);
+  --accent-foreground: var(--brand-white);
+
+  /* Keep UI surfaces white rather than introducing grey into the brand system. */
+  --muted: color-mix(in srgb, var(--brand-blue) 3%, var(--brand-white));
+  --muted-foreground: #405867;
+
+  --destructive: var(--brand-red);
+  --destructive-foreground: var(--brand-white);
+
+  --border: color-mix(in srgb, var(--brand-blue) 16%, white);
+  --input: color-mix(in srgb, var(--brand-blue) 22%, white);
+  --ring: var(--brand-blue);
+
+  /* Text over photography */
+  --on-image: var(--brand-white);
+  --on-image-muted: color-mix(in srgb, var(--brand-white) 92%, transparent);
+  --overlay: linear-gradient(90deg, color-mix(in srgb, var(--brand-blue) 52%, transparent) 0%, color-mix(in srgb, var(--brand-blue) 27%, transparent) 52%, color-mix(in srgb, var(--brand-blue) 7%, transparent) 100%);
+  --overlay-soft: linear-gradient(180deg, color-mix(in srgb, var(--brand-blue) 24%, transparent) 0%, color-mix(in srgb, var(--brand-blue) 48%, transparent) 100%);
+
+  --gradient-brand: linear-gradient(120deg, var(--brand-blue) 0%, var(--brand-green) 55%, var(--brand-red) 100%);
+  --shadow-card: 0 1px 2px color-mix(in srgb, var(--brand-blue) 8%, transparent), 0 12px 28px -18px color-mix(in srgb, var(--brand-blue) 30%, transparent);
+  --shadow-lift: 0 2px 6px color-mix(in srgb, var(--brand-blue) 10%, transparent), 0 24px 48px -24px color-mix(in srgb, var(--brand-blue) 38%, transparent);
+}
+
+/* Brand wordmark — exact flat palette from the supplied logo. */
+.brand-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.brand-wordmark__dielcha { color: var(--brand-blue); }
+.brand-wordmark__digi { color: var(--brand-red); }
+.brand-wordmark__lab { color: var(--brand-green); }
+
+/* Primary CTA: flat, crisp and deliberately free of non-brand gradients. */
+.btn-brand-primary {
+  background: var(--brand-blue);
+  box-shadow: 0 8px 20px -12px color-mix(in srgb, var(--brand-blue) 70%, transparent);
+  transition: transform 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+}
+
+.btn-brand-primary:hover {
+  background: var(--brand-red);
+  box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--brand-red) 70%, transparent);
+}
+
+.btn-brand-primary:active { transform: translateY(1px); }
+
+/* Top navigation: the menu is deliberately forgiving so the pointer can move
+   from the trigger into the dropdown without it disappearing. */
+.nav-menu { padding-bottom: 0.65rem; margin-bottom: -0.65rem; }
+.nav-menu:focus-within .nav-dropdown { opacity: 1; pointer-events: auto; visibility: visible; transform: translate(-50%, 0); }
+
+.nav-link {
+  position: relative;
+  padding-bottom: 0.3rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--brand-blue);
+  transition: color 150ms ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 9999px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+}
+
+.nav-link--primary:hover,
+.nav-link--primary.nav-link--active { color: var(--brand-blue); }
+.nav-link--primary::after { background: var(--brand-blue); }
+.nav-link--secondary:hover,
+.nav-link--secondary.nav-link--active { color: var(--brand-green); }
+.nav-link--secondary::after { background: var(--brand-green); }
+.nav-link--destructive:hover,
+.nav-link--destructive.nav-link--active { color: var(--brand-red); }
+.nav-link--destructive::after { background: var(--brand-red); }
+.nav-link:hover::after,
+.nav-link--active::after { transform: scaleX(1); }
+
+.nav-chevron { margin-top: -0.1rem; }
+.brand-whatsapp-link { color: var(--brand-green); transition: transform 150ms ease; }
+.brand-whatsapp-link:hover { transform: translateY(-1px); }
+
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% - 0.05rem);
+  left: 50%;
+  z-index: 60;
+  width: min(38rem, 82vw);
+  max-height: min(32rem, 70vh);
+  overflow-y: auto;
+  transform: translate(-50%, -8px);
+  border: 1px solid color-mix(in srgb, var(--brand-blue) 18%, white);
+  border-radius: 1rem;
+  background: var(--color-card);
+  box-shadow: 0 18px 45px -28px color-mix(in srgb, var(--brand-blue) 65%, transparent);
+  padding: 0.65rem;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+}
+
+/* Invisible bridge closes the old hover-gap problem. */
+.nav-dropdown::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -0.75rem;
+  height: 0.85rem;
+}
+
+.nav-dropdown--open {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.nav-dropdown__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--brand-blue) 12%, white);
+  padding: 0.65rem 0.65rem 0.75rem;
+}
+
+.nav-dropdown__all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: 0.55rem;
+  padding: 0.4rem;
+  color: var(--brand-blue);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.nav-dropdown__all:hover { background: color-mix(in srgb, var(--brand-blue) 9%, white); color: var(--brand-red); }
+
+.nav-dropdown__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.35rem;
+  padding: 0.45rem 0;
+}
+
+.nav-dropdown__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  min-width: 0;
+  border-radius: 0.7rem;
+  padding: 0.7rem;
+  font-size: 0.83rem;
+  font-weight: 650;
+  color: var(--brand-blue);
+  transition: background-color 150ms ease, color 150ms ease, transform 150ms ease;
+}
+
+.nav-dropdown__item:hover { transform: translateY(-1px); }
+.nav-dropdown__item--primary:hover { background: color-mix(in srgb, var(--brand-blue) 7%, white); color: var(--brand-blue); }
+.nav-dropdown__item--secondary:hover { background: color-mix(in srgb, var(--brand-green) 8%, white); color: var(--brand-green); }
+.nav-dropdown__item--destructive:hover { background: color-mix(in srgb, var(--brand-red) 8%, white); color: var(--brand-red); }
+
+.nav-dropdown__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+  border-radius: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+.nav-dropdown__number--primary { background: color-mix(in srgb, var(--brand-blue) 10%, white); color: var(--brand-blue); }
+.nav-dropdown__number--secondary { background: color-mix(in srgb, var(--brand-green) 10%, white); color: var(--brand-green); }
+.nav-dropdown__number--destructive { background: color-mix(in srgb, var(--brand-red) 10%, white); color: var(--brand-red); }
+
+.nav-dropdown__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-top: 1px solid color-mix(in srgb, var(--brand-blue) 12%, white);
+  padding: 0.7rem 0.5rem 0.45rem;
+  color: var(--brand-blue);
+  font-size: 0.76rem;
+  font-weight: 700;
+  transition: color 150ms ease;
+}
+.nav-dropdown__footer:hover { color: var(--brand-red); }
+
+.mobile-nav-link {
+  display: block;
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.9rem 0;
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+.mobile-nav-link--primary { color: var(--brand-blue); }
+.mobile-nav-link--secondary { color: var(--brand-green); }
+.mobile-nav-link--destructive { color: var(--brand-red); }
+
+@media (max-width: 767px) {
+  .nav-dropdown__grid { grid-template-columns: 1fr; }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Hero photography stays visible while a restrained brand-colour tint keeps white copy readable.
+   Slider colours cross-fade independently from the photographs, so the image itself never changes. */
+.hero-slide-overlay,
+.page-hero-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 900ms ease-in-out;
+  pointer-events: none;
+}
+
+.hero-slide-overlay.is-active { opacity: 1; }
+
+.hero-slide-overlay--blue,
+.page-hero-overlay--blue {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-blue) 64%, transparent) 0%, color-mix(in srgb, var(--brand-blue) 34%, transparent) 48%, color-mix(in srgb, var(--brand-blue) 8%, transparent) 100%);
+}
+
+.hero-slide-overlay--green,
+.page-hero-overlay--green {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-green) 60%, transparent) 0%, color-mix(in srgb, var(--brand-green) 30%, transparent) 48%, color-mix(in srgb, var(--brand-green) 7%, transparent) 100%);
+}
+
+.hero-slide-overlay--red,
+.page-hero-overlay--red {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--brand-red) 60%, transparent) 0%, color-mix(in srgb, var(--brand-red) 29%, transparent) 48%, color-mix(in srgb, var(--brand-red) 7%, transparent) 100%);
+}
+
+.page-hero-overlay { opacity: 1; }
+
+.hero-copy {
+  text-shadow: 0 2px 18px color-mix(in srgb, var(--brand-blue) 45%, transparent);
+}
+
+.hero-copy--muted {
+  text-shadow: 0 1px 12px color-mix(in srgb, var(--brand-blue) 52%, transparent);
+}
+
+/* Engineering notes: dark reading text, colour-coded headings and restrained emphasis. */
+.lab-reading {
+  color: #17242d;
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+.lab-reading p { color: #17242d; }
+.lab-reading strong { color: var(--brand-blue); font-weight: 750; }
+.lab-reading em { color: var(--brand-green); font-style: normal; font-weight: 650; }
+.lab-reading mark {
+  color: var(--brand-blue);
+  background: color-mix(in srgb, var(--brand-green) 16%, white);
+  border-radius: 0.2rem;
+  padding: 0.05em 0.22em;
+}
+
+.lab-section-card {
+  border-left: 4px solid var(--brand-blue);
+  background: var(--brand-white);
+  border-radius: 0.9rem;
+  padding: 1.25rem 1.35rem;
+  box-shadow: var(--shadow-card);
+}
+.lab-section-card:nth-child(3n + 2) { border-left-color: var(--brand-green); }
+.lab-section-card:nth-child(3n) { border-left-color: var(--brand-red); }
+.lab-section-card h2 { color: var(--brand-blue); }
+.lab-section-card:nth-child(3n + 2) h2 { color: var(--brand-green); }
+.lab-section-card:nth-child(3n) h2 { color: var(--brand-red); }
+
+.lab-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(16rem, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.lab-detail-grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .lab-detail-grid, .lab-detail-grid--three { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .lab-detail-grid, .lab-detail-grid--three { grid-template-columns: 1fr; }
+}
+
+.engineering-card {
+  border: 1px solid color-mix(in srgb, var(--brand-blue) 15%, white);
+  border-radius: 1rem;
+  background: var(--brand-white);
+  box-shadow: var(--shadow-card);
+}
+
+.engineering-card__title { color: var(--brand-blue); }
+.engineering-card__title--green { color: var(--brand-green); }
+.engineering-card__title--red { color: var(--brand-red); }
+
+@utility overlay-image {
+  background-image: var(--overlay);
+}
+
+@utility overlay-soft {
+  background-image: var(--overlay-soft);
+}
+
+@utility gradient-brand {
+  background-image: var(--gradient-brand);
+}
+
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+
+@utility shadow-lift {
+  box-shadow: var(--shadow-lift);
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Tools & technologies: one continuous row that auto-scrolls slowly.
+   Any touch, drag or wheel input immediately hands control back to the
+   visitor, so left/right scrolling is always manually overridable. */
+.tech-strip {
+  position: relative;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.tech-strip__viewport {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  mask-image: linear-gradient(to right, transparent, black 3%, black 97%, transparent);
+  cursor: grab;
+}
+
+.tech-strip__viewport:active {
+  cursor: grabbing;
+}
+
+.tech-strip__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.tech-strip__track {
+  display: flex;
+  width: max-content;
+  align-items: flex-start;
+  gap: 1.1rem;
+  padding: 0.15rem 0.35rem 0.4rem;
+}
+
+/* Manual navigation control underneath the carousel: a slim, polished
+   scrub bar. Click to jump to a position, or drag the thumb to scrub
+   left/right. Styled with the existing brand tokens, not a default
+   browser scrollbar or carousel widget. */
+.tech-strip__scrubber {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  margin-top: 1rem;
+  border-radius: 9999px;
+  background: var(--color-muted);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  touch-action: none;
+}
+
+.tech-strip__scrubber-thumb {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 8px;
+  width: 20%;
+  border-radius: 9999px;
+  background: var(--color-primary);
+  transition: filter 150ms ease;
+}
+
+.tech-strip__scrubber:hover .tech-strip__scrubber-thumb {
+  filter: brightness(1.1);
+}
+
+.tech-item {
+  display: flex;
+  min-width: 58px;
+  max-width: 64px;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.42rem;
+  text-align: center;
+}
+
+.tech-item__icon {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: 11px;
+  overflow: hidden;
+  animation: tech-pulse 5.4s ease-in-out infinite;
+  animation-delay: var(--tech-delay, 0s);
+  will-change: opacity, filter, transform;
+}
+
+.tech-item__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.tech-item__text {
+  display: inline-flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: clamp(0.55rem, 0.7vw, 0.68rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.tech-item__name {
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--color-muted-foreground);
+  font-size: clamp(0.52rem, 0.58vw, 0.64rem);
+  font-weight: 600;
+  line-height: 1.15;
+  white-space: nowrap;
+  text-overflow: clip;
+}
+
+/* Soft "powered-on" indicator glow, like a status LED breathing on lab equipment. */
+@keyframes tech-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 7px color-mix(in srgb, var(--color-accent) 55%, transparent));
+  }
+}
+
+
+
+/* Engineering workflow: single block diagram (left) + one image (right). */
+.workflow-diagram {
+  display: flex;
+  flex-direction: column;
+}
+
+.workflow-diagram__row {
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.workflow-diagram__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.workflow-diagram__node {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-card);
+}
+
+.workflow-diagram__connector {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 1.5rem;
+  width: 2.75rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.workflow-diagram__connector::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.workflow-diagram__connector svg {
+  position: relative;
+  z-index: 1;
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-muted-foreground);
+  background: var(--color-background);
+}
+
+.workflow-diagram__box {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-bottom: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  box-shadow: var(--shadow-card);
+  padding: 1.1rem 1.35rem;
+}
+
+.workflow-diagram__row:last-child .workflow-diagram__box {
+  margin-bottom: 0;
+}
+
+.workflow-diagram__image-wrap {
+  overflow: hidden;
+  border-radius: 1.25rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  box-shadow: var(--shadow-card);
+  height: 100%;
+}
+
+.workflow-diagram__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 16rem;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-item__icon {
+    animation: none !important;
+    transition: none !important;
+  }
+}

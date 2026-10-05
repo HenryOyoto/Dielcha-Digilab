@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://dielchadigilab.netlify.app/</loc><priority>1.0</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/services</loc><priority>0.8</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/work</loc><priority>0.8</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/lab</loc><priority>0.8</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/about</loc><priority>0.8</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/start-a-project</loc><priority>0.8</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/privacy-policy</loc><priority>0.8</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/terms-of-service</loc><priority>0.8</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/services/electronics-systems-pcb-design</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/services/embedded-systems-iot</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/services/engineering-design-product-cad</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/services/engineering-documentation-technical-support</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/work/esp32-drone-flight-controller-pcb</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/work/esp32-health-data-acquisition-monitoring-unit</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/work/tokenized-biometrics-school-feeding-program</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/work/pcb-design-review-dfm</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/lab/resources/pcb-pre-fabrication-checklist</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/lab/resources/pcb-design-review-checklist</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/lab/resources/bom-review-checklist</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/lab/resources/component-selection-worksheet</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/lab/articles/from-schematic-to-pcb</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/lab/articles/understanding-power-rails</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/lab/articles/esp32-prototype-notes</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/lab/articles/common-pcb-design-mistakes</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/work/excel-automation-system</loc><priority>0.6</priority></url>
+  <url><loc>https://dielchadigilab.netlify.app/work/work-tracker-desktop-app</loc><priority>0.6</priority></url>
+</urlset>
