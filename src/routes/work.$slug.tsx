@@ -25,7 +25,7 @@ function ProjectPage() {
             <Link to="/work" className="text-sm font-semibold text-primary hover:text-destructive">← Back to Projects</Link>
             <div className="mt-7 grid gap-9 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
               <div>
-                <p className="label-mono text-secondary">{p.category} · Engineering Case Study</p>
+                <p className="section-kicker text-secondary">{p.category} · Engineering case study</p>
                 <h1 className="mt-3 text-4xl font-bold text-primary md:text-5xl">{p.title}</h1>
                 <p className="mt-5 max-w-3xl text-lg leading-8 text-foreground">{p.summary}</p>
               </div>
@@ -38,25 +38,22 @@ function ProjectPage() {
           <div className="lab-detail-grid">
             <div className="min-w-0">
               <section className="engineering-card p-6 sm:p-8">
-                <p className="label-mono text-primary">Engineering context</p>
                 <h2 className="mt-2 text-2xl font-bold text-primary">What this project is about</h2>
                 <p className="mt-4 text-base leading-8 text-foreground">{p.overview}</p>
                 <p className="mt-4 text-base leading-8 text-foreground">The engineering focus is to turn the stated objective into a practical system with clear interfaces, deliberate component choices, accessible testing points and documentation that another engineer can understand and continue from.</p>
               </section>
 
               <section className="mt-7 rounded-xl border-l-4 border-l-destructive bg-white p-6 shadow-card sm:p-8">
-                <p className="label-mono text-destructive">Objective</p>
                 <h2 className="mt-2 text-2xl font-bold text-destructive">The problem being solved</h2>
                 <p className="mt-4 text-base leading-8 text-foreground">{p.objective}</p>
               </section>
 
               <section className="mt-10">
-                <p className="label-mono text-secondary">Implementation</p>
                 <h2 className="mt-2 text-2xl font-bold text-primary">Design approach</h2>
                 <div className="mt-6 grid gap-5 md:grid-cols-2">
                   {p.designApproach.map((item, i) => (
                     <article key={item} className={`engineering-card p-5 ${i % 3 === 1 ? "border-t-4 border-t-secondary" : i % 3 === 2 ? "border-t-4 border-t-destructive" : "border-t-4 border-t-primary"}`}>
-                      <span className={`label-mono ${i % 3 === 1 ? "text-secondary" : i % 3 === 2 ? "text-destructive" : "text-primary"}`}>Step {String(i + 1).padStart(2, "0")}</span>
+                      <span className={`step-kicker ${i % 3 === 1 ? "text-secondary" : i % 3 === 2 ? "text-destructive" : "text-primary"}`}>Step {String(i + 1).padStart(2, "0")}</span>
                       <p className="mt-3 text-sm leading-7 text-foreground">{item}</p>
                     </article>
                   ))}
@@ -64,7 +61,6 @@ function ProjectPage() {
               </section>
 
               <section className="mt-10">
-                <p className="label-mono text-destructive">Key decisions</p>
                 <h2 className="mt-2 text-2xl font-bold text-primary">Why the design is structured this way</h2>
                 <div className="mt-6 grid gap-5 md:grid-cols-2">
                   {p.decisions.map((item, i) => (
@@ -78,7 +74,6 @@ function ProjectPage() {
 
               {p.evidence.length > 0 && (
                 <section className="mt-12">
-                  <p className="label-mono text-secondary">Project evidence</p>
                   <h2 className="mt-2 text-2xl font-bold text-primary">Design views and technical evidence</h2>
                   <p className="mt-3 text-foreground">These views show the engineering work represented by this case study. Use the captions to understand what each view is intended to demonstrate.</p>
                   <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -117,9 +112,20 @@ function ProjectPage() {
           </div>
 
           <section className="mt-12 grid gap-5 md:grid-cols-3">
-            <div className="engineering-card p-6"><p className="label-mono text-primary">01 · Understand</p><h2 className="mt-2 text-lg font-bold text-primary">Requirements first</h2><p className="mt-3 text-sm leading-7 text-foreground">The project begins by making the intended function, interfaces and constraints explicit before implementation decisions are locked in.</p></div>
-            <div className="engineering-card p-6"><p className="label-mono text-secondary">02 · Engineer</p><h2 className="mt-2 text-lg font-bold text-secondary">Design for the real system</h2><p className="mt-3 text-sm leading-7 text-foreground">Hardware, firmware, software, mechanical access and manufacturing considerations are treated as connected parts of the same engineering problem.</p></div>
-            <div className="engineering-card p-6"><p className="label-mono text-destructive">03 · Document</p><h2 className="mt-2 text-lg font-bold text-destructive">Make the result usable</h2><p className="mt-3 text-sm leading-7 text-foreground">Clear files, decisions, notes and evidence make the design easier to review, build, debug and improve in a future revision.</p></div>
+            <div className="engineering-card p-6"><h2 className="text-lg font-bold text-primary">01 · Requirements first</h2><p className="mt-3 text-sm leading-7 text-foreground">The project begins by making the intended function, interfaces and constraints explicit before implementation decisions are locked in.</p></div>
+            <div className="engineering-card p-6"><h2 className="text-lg font-bold text-secondary">02 · Design for the real system</h2><p className="mt-3 text-sm leading-7 text-foreground">Hardware, firmware, software, mechanical access and manufacturing considerations are treated as connected parts of the same engineering problem.</p></div>
+            <div className="engineering-card p-6"><h2 className="text-lg font-bold text-destructive">03 · Make the result usable</h2><p className="mt-3 text-sm leading-7 text-foreground">Clear files, decisions, notes and evidence make the design easier to review, build, debug and improve in a future revision.</p></div>
+          </section>
+          <section className="mt-12 overflow-hidden rounded-xl bg-primary px-4 py-8 text-primary-foreground sm:px-6 sm:py-9 lg:px-8 lg:py-10">
+            <div className="w-full">
+              <p className="section-kicker text-accent">Next step</p>
+              <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">Bring the idea, existing files, or even the rough concept.</h2>
+              <p className="mt-4 w-full text-sm leading-7 text-on-image-muted sm:text-base sm:leading-7 lg:text-lg">You do not need a finished specification. If you want a project like this with different components or a different function, need hardware designed from an existing idea, have documentation or a proposal that needs proper engineering formatting, or have an idea that is still difficult to explain, Dielcha can help turn it into a clear, workable project brief and define the next engineering step.</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link to="/start-a-project" search={{ service: p.category }} className="inline-flex items-center rounded-md bg-white px-5 py-3 text-sm font-semibold text-primary hover:text-destructive">Discuss a Project →</Link>
+                <a href="https://wa.me/254715924448" target="_blank" rel="noreferrer" className="inline-flex items-center rounded-md border border-white/30 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">Ask About a Similar Project</a>
+              </div>
+            </div>
           </section>
         </div>
       </main>

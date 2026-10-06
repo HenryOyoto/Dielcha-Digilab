@@ -1,73 +1,98 @@
-# DIELCHA DIGILAB image plan
+# DIELCHA DIGILAB image replacement plan
 
-Use your own screenshots, PCB renders, CAD exports and photographs wherever possible. Do not use an internet image as evidence for work that DIELCHA did not perform.
+Every image slot below is intentionally tied to its own file path. During final website preparation, replace the individual file with the corresponding real project screenshot, render or photograph. The page code does not need to change when the replacement keeps the same filename and extension.
+
+## Project cover images
+
+Each project has a dedicated `00-cover.jpg` used by the Projects listing and the project detail header.
+
+- `src/assets/projects/esp32-drone-flight-controller-pcb/00-cover.jpg`
+- `src/assets/projects/esp32-health-data-acquisition-monitoring-unit/00-cover.jpg`
+- `src/assets/projects/tokenized-biometrics-school-feeding-program/00-cover.jpg`
+- `src/assets/projects/excel-automation-system/00-cover.jpg`
+- `src/assets/projects/work-tracker-desktop-app/00-cover.jpg`
+- `src/assets/projects/pcb-design-review-dfm/00-cover.jpg`
+- `src/assets/projects/autonomous-4-wheel-robot/00-cover.jpg`
+- `src/assets/projects/smart-parking-management-system-mpesa/00-cover.jpg`
 
 ## Project evidence images
 
-Create these folders under `src/assets/projects/`:
+### ESP32 Drone Flight Controller PCB
 
-- `esp32-drone-flight-controller-pcb/`
-- `custom-sensor-interface-board/`
-- `hardware-reverse-engineering/`
-- `pcb-design-review-dfm/`
+1. `01-schematic.jpg` — schematic view
+2. `02-pcb-layout.jpg` — PCB layout and routing
+3. `03-3d-board.jpg` — 3D board render
+4. `04-connector-usb-access.jpg` — programming/USB and connector access
 
-Use exactly four main images per project. Recommended filenames:
+### ESP32 Health Data Acquisition & Monitoring Unit
 
-### 01 — ESP32 Drone Flight Controller PCB
+1. `01-schematic.jpg` — system schematic and functional blocks
+2. `02-pcb-layout.jpg` — four-layer PCB layout
+3. `03-3d-board.jpg` — 3D board/component placement
+4. `04-sensor-interfaces.jpg` — sensors, storage and connectors
 
-1. `01-schematic.png` — KiCad/EasyEDA schematic view
-2. `02-pcb-layout.png` — PCB editor layout view
-3. `03-3d-board.png` — 3D PCB render
-4. `04-connector-usb-access.png` — close view showing USB/programming access and connector placement
+### Tokenized Biometrics-Enhanced School Feeding Program
 
-### 02 — Custom Sensor Interface Board
+1. `01-pcb-schematic.jpg` — registration/serving-node schematic
+2. `02-pcb-routed-layout.jpg` — routed PCB
+3. `03-pcb-3d.jpg` — 3D hardware view
+4. `04-actual-project.jpg` — physical project hardware
+5. `05-web-dashboard.jpg` — operations dashboard
+6. `06-payment-dashboard.jpg` — payment dashboard
 
-1. `01-schematic.png`
-2. `02-pcb-layout.png`
-3. `03-3d-board.png`
-4. `04-sensor-connectors.png`
+### Excel Automation System
 
-### 03 — Hardware Reverse Engineering & Schematic Recovery
+1. `01-input-workflow.jpg` — input workbook/data flow
+2. `02-processing-flow.jpg` — automation/processing flow
+3. `03-app-interface.jpg` — application interface
+4. `04-output-workbook.jpg` — generated output workbook
 
-1. `01-board-top.jpg` — actual board photograph
-2. `02-board-bottom.jpg` — underside photograph
-3. `03-tracing-notes.png` — your tracing/annotation work
-4. `04-reconstructed-schematic.png` — recovered schematic
+### Work Tracker Desktop App
 
-### 04 — PCB Design Review & DFM
+1. `01-dashboard.jpg` — main dashboard
+2. `02-work-entry.jpg` — work/schedule entry
+3. `03-client-projects.jpg` — client/project records
+4. `04-reports-invoices.jpg` — reports and invoices
 
-1. `01-original-layout.png` — design before review
-2. `02-review-markups.png` — your review findings
-3. `03-corrected-layout.png` — revised layout if actually completed
-4. `04-manufacturing-check.png` — fabrication/DFM review view
+### PCB Design Review & DFM
 
-## Other useful website images
+1. `01-original-layout.png` — original layout
+2. `02-review-markups.png` — review findings/markups
+3. `03-corrected-layout.png` — corrected layout
+4. `04-manufacturing-check.png` — manufacturing-readiness review
 
-If you have them, these are worth adding later:
+### Autonomous 4-Wheel Robot
 
-- `src/assets/hero-pcb.jpg` — your own high-quality PCB render or board photo
-- `src/assets/hero-embedded.jpg` — ESP32/embedded prototype photo
-- `src/assets/hero-cad.jpg` — enclosure/CAD render
-- `src/assets/hero-reverse.jpg` — actual board-analysis photograph
-- `src/assets/bg-start.jpg` — neutral engineering workspace/PCB/CAD background
+1. `01-robot.jpg` — robot platform/chassis
+2. `02-sensor-wiring.jpg` — sensors and motor wiring
+3. `03-control-flow.jpg` — autonomous/manual control flow
+4. `04-navigation-test.jpg` — navigation/obstacle test
 
-Recommended image properties:
+### Smart Parking & Management System with M-Pesa
 
-- Project evidence: PNG for screenshots/renders; JPG for photographs.
-- Use clear, uncropped screenshots where technical details matter.
-- Aim for at least 1600 px wide for full-width images.
-- Keep filenames lowercase with hyphens.
-- Do not put WhatsApp screenshots, personal phone numbers, client names or confidential documents in the public portfolio.
+1. `01-system.jpg` — system overview
+2. `02-slot-sensors.jpg` — slot sensing arrangement
+3. `03-dashboard.jpg` — live parking dashboard
+4. `04-payment-flow.jpg` — payment workflow
 
-## Search terms when an image is genuinely illustrative
+## DIELCHA LAB resource images
 
-Prefer your own project material. If an illustrative image is needed, search for terms such as:
+- `src/assets/resources/pcb-pre-fabrication-checklist.jpg`
+- `src/assets/resources/pcb-design-review-checklist.jpg`
+- `src/assets/resources/bom-review-checklist.jpg`
+- `src/assets/resources/component-selection-worksheet.jpg`
 
-- `ESP32 PCB 3D render`
-- `ESP32 development board electronics`
-- `PCB layout KiCad`
-- `electronics enclosure CAD render`
-- `PCB schematic electronics engineering`
-- `hardware reverse engineering PCB inspection`
+## DIELCHA LAB technical-note images
 
-For portfolio evidence, do not label a stock or internet image as DIELCHA project evidence.
+- `src/assets/articles/from-schematic-to-pcb.jpg`
+- `src/assets/articles/understanding-power-rails.jpg`
+- `src/assets/articles/esp32-prototype-notes.jpg`
+- `src/assets/articles/common-pcb-design-mistakes.jpg`
+
+## Other site imagery
+
+The main service/page hero images already have dedicated files such as `hero-pcb.jpg`, `hero-embedded.jpg`, `hero-cad.jpg`, `hero-reverse.jpg`, `bg-about.jpg`, `bg-lab.jpg` and `bg-work.jpg`. Replace these individually if you want your own final hero/background photography.
+
+## Important
+
+The new project/Lab slots include temporary neutral engineering placeholders where original project-specific images were not supplied. They are intentionally separate files so they can be replaced one-by-one during final content preparation.

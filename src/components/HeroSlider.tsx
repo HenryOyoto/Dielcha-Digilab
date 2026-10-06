@@ -19,7 +19,7 @@ export function HeroSlider() {
         </div>
         <div className="mt-14 flex flex-wrap items-center gap-6">
           <div className="flex gap-2">{heroSlides.map((slide, i) => <button key={slide.label} type="button" aria-label={slide.label} onClick={() => setIndex(i)} className={`h-1.5 rounded-full transition-all ${i === index ? "w-10 bg-accent" : "w-5 bg-on-image/50"}`} />)}</div>
-          {/* Label hidden on the website: <p className="label-mono text-on-image">{heroSlides[index]?.label}</p> */}
+          <p className="section-kicker text-on-image">{heroSlides[index]?.label}</p>
         </div>
       </div>
     </section>

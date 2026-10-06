@@ -31,10 +31,13 @@ function ResourcePage() {
             <nav className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground" aria-label="Breadcrumb">
               <Link to="/lab" className="font-semibold hover:text-primary">Lab</Link><span aria-hidden="true">/</span><span className="text-foreground">{resource.title}</span>
             </nav>
-            <div className="mt-7 max-w-4xl">
-              <p className="label-mono text-secondary">{resource.format} · Engineering Resource</p>
-              <h1 className="mt-3 text-4xl font-bold text-primary md:text-5xl">{resource.title}</h1>
-              <p className="mt-5 text-lg leading-8 text-foreground">{resource.description}</p>
+            <div className="mt-7 grid gap-8 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
+              <div>
+                <p className="section-kicker text-secondary">{resource.format} · Engineering resource</p>
+                <h1 className="mt-3 text-4xl font-bold text-primary md:text-5xl">{resource.title}</h1>
+                <p className="mt-5 text-lg leading-8 text-foreground">{resource.description}</p>
+              </div>
+              <img src={resource.image} alt="" aria-hidden className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card" />
             </div>
           </div>
         </header>
@@ -77,12 +80,11 @@ function ResourcePage() {
 
           {related.length > 0 && (
             <section className="mt-14">
-              <p className="label-mono text-destructive">Continue the review</p>
-              <h2 className="mt-2 text-2xl font-bold text-primary">Related Resources</h2>
+              <h2 className="text-2xl font-bold text-primary">Related Resources</h2>
               <div className="mt-6 grid gap-5 md:grid-cols-3">
                 {related.map((item, index) => (
                   <Link key={item.slug} to="/lab/resources/$slug" params={{ slug: item.slug }} className="engineering-card group p-5 hover:-translate-y-1">
-                    <span className={`label-mono ${index === 1 ? "text-secondary" : index === 2 ? "text-destructive" : "text-primary"}`}>{item.format}</span>
+                    <span className={`font-display text-xs font-bold uppercase tracking-[0.08em] ${index === 1 ? "text-secondary" : index === 2 ? "text-destructive" : "text-primary"}`}>{item.format}</span>
                     <p className="mt-3 font-display font-semibold text-primary group-hover:text-destructive">{item.title}</p>
                     <p className="mt-2 text-sm leading-6 text-foreground">{item.description}</p>
                   </Link>
@@ -93,7 +95,7 @@ function ResourcePage() {
 
           <section className="mt-14 rounded-2xl bg-primary p-8 text-center text-primary-foreground shadow-lift sm:p-10">
             <h2 className="text-2xl font-bold">Need help applying the checklist?</h2>
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-7">Share your requirements, design files, drawings or photographs and DIELCHA DIGILAB can help define the right engineering review or development scope.</p>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-7">Share your requirements, design files, drawings or photographs and Dielcha can help define the right engineering review or development scope.</p>
             <Link to="/start-a-project" className="mt-6 inline-block rounded-md bg-white px-6 py-3 text-sm font-semibold text-primary hover:text-destructive">Start a Project</Link>
           </section>
         </div>

@@ -9,8 +9,8 @@ import { TechBadges } from "@/components/TechBadges";
 import { projects } from "@/data/site";
 import bgStart from "@/assets/bg-start.jpg";
 
-const title = "DIELCHA DIGILAB | Engineering & Digital Product Development";
-const description = "DIELCHA DIGILAB is a modern engineering and digital product studio working across electronic hardware, embedded systems, IoT, engineering design and technical documentation.";
+const title = "DIELCHA DIGILAB | Electronics, Embedded Systems & Engineering Design";
+const description = "DIELCHA DIGILAB designs and develops electronic hardware, embedded systems, connected devices, engineering designs and supporting software for products, businesses and technical teams.";
 
 const whyDielcha = [
   { title: "Direct Engineering Communication", text: "You work directly on the engineering problem, with clear questions and clear answers at every stage.", color: "bg-primary text-primary-foreground" },
@@ -35,7 +35,7 @@ function Home() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <h2 className="text-3xl font-bold md:text-4xl">Four focused engineering services</h2>
-              <p className="mt-3 max-w-2xl text-muted-foreground">Hardware, embedded systems, engineering design and technical documentation across the product-development workflow.</p>
+              <p className="mt-3 max-w-2xl text-muted-foreground">Four practical areas covering electronic hardware, embedded systems, product design and the technical records needed to build, test and maintain them. Supporting software and automation can be added when the project requires it.</p>
             </div>
             <Link to="/services" className="text-sm font-semibold text-primary hover:text-destructive">All Services →</Link>
           </div>
@@ -52,7 +52,7 @@ function Home() {
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <h2 className="text-3xl font-bold md:text-4xl">Selected Work</h2>
-              <p className="mt-3 max-w-2xl text-muted-foreground">A focused selection of PCB, embedded and engineering design projects.</p>
+              <p className="mt-3 max-w-2xl text-muted-foreground">Examples of hardware, embedded, engineering design and Python automation work. Each project shows the kind of technical problem Dielcha can help develop, improve or document.</p>
             </div>
             <Link to="/work" className="text-sm font-semibold text-primary hover:text-destructive">View All Projects →</Link>
           </div>
@@ -72,14 +72,15 @@ function Home() {
 
         <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
           <h2 className="text-center text-2xl font-bold md:text-3xl">Tools &amp; Technologies</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">A working set of electronics, embedded, CAD, programming and development tools used across different project requirements.</p>
           <TechBadges />
         </section>
 
         <section className="border-y border-border bg-muted">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
             <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-3xl font-bold md:text-4xl">Why DIELCHA DIGILAB</h2>
-              <p className="mt-3 text-muted-foreground">What you can expect when you bring an engineering project to us.</p>
+              <h2 className="text-3xl font-bold md:text-4xl">Why work with Dielcha</h2>
+              <p className="mt-3 text-muted-foreground">A direct engineering approach focused on clear requirements, usable files and designs that can move beyond the screen.</p>
             </div>
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {whyDielcha.map((item) => (
@@ -97,8 +98,8 @@ function Home() {
           <img src={bgStart} alt="" aria-hidden className="absolute inset-0 size-full object-cover" />
           <div className="overlay-soft absolute inset-0" />
           <div className="relative mx-auto max-w-7xl px-4 py-20 text-center sm:px-6">
-            <h2 className="text-3xl font-bold text-on-image md:text-4xl">Have an Engineering Project?</h2>
-            <p className="mx-auto mt-4 max-w-xl text-on-image-muted">Share the requirements, drawings, files or photographs and we can define the appropriate engineering scope.</p>
+            <h2 className="text-3xl font-bold text-on-image md:text-4xl">Have a Product or Engineering Project?</h2>
+            <p className="mx-auto mt-4 max-w-2xl text-on-image-muted">Tell us what you are trying to build, improve or document. You can send requirements, drawings, existing files, photographs or a simple description of the idea.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <Link to="/start-a-project" className="rounded-md bg-destructive px-7 py-3.5 text-sm font-semibold text-destructive-foreground hover:brightness-110">Start a Project</Link>
               <WhatsAppButton />

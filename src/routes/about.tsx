@@ -9,7 +9,7 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About DIELCHA DIGILAB" },
-      { name: "description", content: "DIELCHA DIGILAB is a modern engineering and digital product studio working across electronic hardware, embedded systems, IoT, engineering design and technical documentation." },
+      { name: "description", content: "DIELCHA DIGILAB designs and develops electronic hardware, embedded systems, connected devices, engineering designs and supporting software for products, businesses and technical teams." },
     ],
   }),
   component: AboutPage,
@@ -22,8 +22,8 @@ function AboutPage() {
       <main className="flex-1">
         <PageHero
           image={bgAbout}
-          title="A modern engineering and digital product studio"
-          intro="DIELCHA DIGILAB works across electronic hardware, embedded systems, IoT, engineering design and technical documentation, taking a project from requirements to a clear, buildable design."
+          title="Engineering work that can move into the real world"
+          intro="Dielcha works across electronic hardware, embedded systems, connected devices, engineering design and technical documentation, helping product teams and businesses turn technical requirements into clear, buildable work."
           tone="green"
         />
 
@@ -31,11 +31,11 @@ function AboutPage() {
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
             <div>
               {/* Label hidden on the website: <p className="label-mono text-primary">What We Do</p> */}
-              <h2 className="mt-2 text-3xl font-bold">Engineering, built to be used</h2>
+              <h2 className="mt-2 text-3xl font-bold">From technical idea to usable product work</h2>
             </div>
             <div className="text-muted-foreground">
-              <p>DIELCHA DIGILAB brings electronic design, embedded development, engineering design and technical documentation together under one workflow, so a project moves cleanly from requirements to a finished, buildable design.</p>
-              <p className="mt-5">Every engagement follows the same structured process: requirements, review, agreement, design and delivery, so scope, deliverables and timelines stay clear from the start.</p>
+              <p>Dielcha brings electronic design, embedded development, engineering design and technical documentation together so a product does not have to be split between unrelated technical work. A PCB can be developed alongside its firmware, a device can be designed with its enclosure in mind, and the documentation can be prepared for the people who will build, test or maintain it.</p>
+              <p className="mt-5">Work starts with the actual requirement. That may be a new product, an existing board that needs improvement, a prototype that needs firmware, or a technical design that needs to be prepared for fabrication. Scope, files and expected deliverables are discussed before work begins.</p>
             </div>
           </div>
         </section>
@@ -43,7 +43,7 @@ function AboutPage() {
         <section className="border-y border-border bg-muted">
           <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
             {/* Label hidden on the website: <p className="label-mono text-secondary">Focus Areas</p> */}
-            <h2 className="mt-2 text-3xl font-bold">What the studio covers</h2>
+            <h2 className="mt-2 text-3xl font-bold">What Dielcha covers</h2>
             <div className="mt-8 grid gap-4 md:grid-cols-4">
               {focusAreas.map((x) => (
                 <div key={x.title} className="rounded-xl border border-border bg-card p-5 shadow-card">
@@ -56,8 +56,8 @@ function AboutPage() {
         </section>
 
         <section className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
-          <h2 className="text-3xl font-bold">Work with DIELCHA DIGILAB</h2>
-          <p className="mt-4 text-muted-foreground">{brand.positioning}</p>
+          <h2 className="text-3xl font-bold">Have something you need built or improved?</h2>
+          <p className="mt-4 text-muted-foreground">{brand.positioning} If the work involves electronics, embedded software, product design, documentation or a connected device, send the details and we can discuss the right scope.</p>
           <Link to="/start-a-project" className="mt-8 inline-block rounded-md bg-destructive px-6 py-3 text-sm font-semibold text-destructive-foreground hover:brightness-110">Start a Project</Link>
         </section>
       </main>

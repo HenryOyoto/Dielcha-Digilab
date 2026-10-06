@@ -421,6 +421,29 @@
   background-image: var(--gradient-brand);
 }
 
+
+/* Visible section headings used where the small source labels carry useful context. */
+.section-kicker {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.step-kicker {
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 @utility shadow-card {
   box-shadow: var(--shadow-card);
 }
@@ -470,8 +493,8 @@
   display: flex;
   width: max-content;
   align-items: flex-start;
-  gap: 1.1rem;
-  padding: 0.15rem 0.35rem 0.4rem;
+  gap: 2.1rem;
+  padding: 0.15rem 0.6rem 0.4rem;
 }
 
 /* Manual navigation control underneath the carousel: a slim, polished
@@ -507,8 +530,8 @@
 
 .tech-item {
   display: flex;
-  min-width: 58px;
-  max-width: 64px;
+  min-width: 74px;
+  max-width: 82px;
   flex: 0 0 auto;
   flex-direction: column;
   align-items: center;
@@ -519,8 +542,8 @@
 
 .tech-item__icon {
   display: flex;
-  width: 50px;
-  height: 50px;
+  width: 54px;
+  height: 54px;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
@@ -577,6 +600,16 @@
 }
 
 
+
+.tech-strip__hint {
+  margin-top: 0.65rem;
+  text-align: center;
+  color: var(--color-muted-foreground);
+  font-size: 0.72rem;
+}
+@media (max-width: 640px) {
+  .tech-strip__hint { display: none; }
+}
 
 /* Engineering workflow: single block diagram (left) + one image (right). */
 .workflow-diagram {
@@ -677,3 +710,4 @@
     transition: none !important;
   }
 }
+

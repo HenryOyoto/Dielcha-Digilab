@@ -103,7 +103,7 @@ function ServiceDetail() {
 
               {service.scope && (
                 <section className="rounded-lg border-l-4 border-accent bg-muted p-6">
-                  <h2 className="label-mono text-accent">Scope</h2>
+                  <h2 className="text-xl font-bold text-accent">Scope</h2>
                   <p className="mt-2 text-sm">{service.scope}</p>
                 </section>
               )}
@@ -111,7 +111,7 @@ function ServiceDetail() {
 
             <aside className="space-y-8">
               <div className="rounded-xl border border-border bg-card p-6 shadow-card">
-                <h2 className="label-mono text-primary">Typical deliverables</h2>
+                <h2 className="text-xl font-bold text-primary">Typical deliverables</h2>
                 <ul className="mt-4 space-y-2 text-sm">
                   {service.deliverables.map((d) => (
                     <li key={d} className="flex items-start gap-2">
@@ -122,7 +122,7 @@ function ServiceDetail() {
                 </ul>
               </div>
               <div className="rounded-xl border border-border bg-muted p-6">
-                <h2 className="label-mono text-primary">Who it is for</h2>
+                <h2 className="text-xl font-bold text-primary">Who it is for</h2>
                 <ul className="mt-4 space-y-2 text-sm">
                   {service.audience.map((a) => (
                     <li key={a} className="flex items-start gap-2">
@@ -165,7 +165,7 @@ function ServiceDetail() {
                     />
                   </div>
                   <div className="p-5">
-                    {/* Label hidden on the website: <p className="label-mono text-accent">{r.category}</p> */}
+                    <p className="section-kicker text-secondary">{r.category}</p>
                     <h3 className="mt-2 font-display text-base font-semibold leading-snug">
                       {r.title}
                     </h3>

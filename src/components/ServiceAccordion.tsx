@@ -33,7 +33,7 @@ export function ServiceAccordion({ initial = null }: { initial?: string | null }
                 className="hidden size-20 shrink-0 rounded-lg object-cover sm:block"
               />
               <span className="min-w-0 flex-1">
-                <span className="label-mono text-accent">{s.number}</span>
+                <span className="font-display text-xs font-bold text-accent">{s.number}</span>
                 <span className="mt-1 block font-display text-base font-semibold leading-snug sm:text-lg">
                   {s.title}
                 </span>
@@ -64,7 +64,7 @@ export function ServiceAccordion({ initial = null }: { initial?: string | null }
 
                 <div className="mt-6 grid gap-6 md:grid-cols-3">
                   <div>
-                    <h4 className="label-mono text-primary">What we do</h4>
+                    <h4 className="font-display text-sm font-bold uppercase tracking-[0.08em] text-primary">What we do</h4>
                     <ul className="mt-3 space-y-1.5 text-sm">
                       {s.capabilities.slice(0, 6).map((c) => (
                         <li key={c} className="flex items-start gap-2">
@@ -75,7 +75,7 @@ export function ServiceAccordion({ initial = null }: { initial?: string | null }
                     </ul>
                   </div>
                   <div>
-                    <h4 className="label-mono text-primary">Typical deliverables</h4>
+                    <h4 className="font-display text-sm font-bold uppercase tracking-[0.08em] text-primary">Typical deliverables</h4>
                     <ul className="mt-3 space-y-1.5 text-sm">
                       {s.deliverables.map((d) => (
                         <li key={d} className="flex items-start gap-2">
@@ -86,7 +86,7 @@ export function ServiceAccordion({ initial = null }: { initial?: string | null }
                     </ul>
                   </div>
                   <div>
-                    <h4 className="label-mono text-primary">Who it is for</h4>
+                    <h4 className="font-display text-sm font-bold uppercase tracking-[0.08em] text-primary">Who it is for</h4>
                     <ul className="mt-3 space-y-1.5 text-sm">
                       {s.audience.map((a) => (
                         <li key={a} className="flex items-start gap-2">

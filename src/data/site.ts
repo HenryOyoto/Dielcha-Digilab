@@ -13,6 +13,14 @@ import projRobot from "@/assets/proj-robot.jpg";
 import projParking from "@/assets/proj-smart-parking.jpg";
 import artPowerRails from "@/assets/art-power-rails.jpg";
 import artPremfg from "@/assets/art-premfg.jpg";
+import resourcePcbPrefab from "@/assets/resources/pcb-pre-fabrication-checklist.jpg";
+import resourcePcbReview from "@/assets/resources/pcb-design-review-checklist.jpg";
+import resourceBom from "@/assets/resources/bom-review-checklist.jpg";
+import resourceComponent from "@/assets/resources/component-selection-worksheet.jpg";
+import articleSchematic from "@/assets/articles/from-schematic-to-pcb.jpg";
+import articlePowerRails from "@/assets/articles/understanding-power-rails.jpg";
+import articleEsp32 from "@/assets/articles/esp32-prototype-notes.jpg";
+import articlePcbMistakes from "@/assets/articles/common-pcb-design-mistakes.jpg";
 
 export const WHATSAPP_NUMBER = "254715924448";
 export const WHATSAPP_MESSAGE = "Hello DIELCHA DIGILAB, I would like to discuss an engineering project.";
@@ -32,7 +40,7 @@ export const brand = {
   name: "DIELCHA DIGILAB",
   tagline: "Engineering & Digital Product Development",
   motto: "",
-  positioning: "A modern engineering and digital product studio working across electronic hardware, embedded systems, IoT, engineering design and technical documentation.",
+  positioning: "DIELCHA DIGILAB designs and develops electronic hardware, embedded systems, connected devices, engineering designs and supporting software when a product or connected system needs it.",
   location: "Nairobi, Kenya",
   email: "dielcha.digilab@gmail.com",
   phone: "+254715924448",
@@ -41,9 +49,9 @@ export const brand = {
 };
 
 export const heroSlides = [
-  { image: heroPcb, label: "Electronics Systems & PCB Design", caption: "Schematics, PCB layout, routing and manufacturing documentation." },
-  { image: heroEmbedded, label: "Embedded Systems & IoT", caption: "ESP32, Arduino, sensors, firmware and connected prototypes." },
-  { image: heroCad, label: "Engineering Design & Product CAD", caption: "Enclosures, mechanical integration and technical drawings." },
+  { image: heroPcb, label: "Electronics Systems & PCB Design", caption: "Circuit design, PCB layout, hardware review and manufacturing-ready documentation." },
+  { image: heroEmbedded, label: "Embedded Systems & IoT", caption: "Microcontrollers, firmware, sensors, connectivity and connected product development." },
+  { image: heroCad, label: "Engineering Design & Product CAD", caption: "Product enclosures, PCB integration, 3D models and technical drawings." },
 ];
 
 export type Service = {
@@ -61,7 +69,7 @@ export const services: Service[] = [
     overview: "Design and documentation of electronic hardware from system requirements through schematic capture, PCB layout and manufacturing files.",
     capabilities: ["Circuit and schematic design", "PCB layout and routing", "Component selection", "Power and signal design", "Multi-layer PCB design", "BOM preparation", "Gerber and manufacturing files", "DFM and design review", "Existing PCB analysis", "Schematic recreation"],
     deliverables: ["Schematic files", "PCB source files", "Gerber files", "BOM", "Assembly documentation", "Design review notes"],
-    audience: ["Product developers", "Students and researchers", "Teams replacing or improving existing boards"],
+    audience: ["Product developers and startups", "Engineering teams", "Businesses improving or replacing existing hardware"],
     requirement: "Work can usually be handled remotely using drawings, design files, measurements and technical information.",
     process: ["Requirements", "System Design", "Schematic", "PCB Layout", "Verification", "Manufacturing Files"],
     ctaLabel: "Explore Service", metaTitle: "Electronics Systems & PCB Design | DIELCHA DIGILAB",
@@ -100,7 +108,7 @@ export const services: Service[] = [
     overview: "Technical documentation and support for electronic and engineering projects, including existing hardware that needs clearer records.",
     capabilities: ["Technical specifications", "Engineering reports", "System block diagrams", "Wiring diagrams", "Circuit and PCB documentation", "BOM documentation", "Assembly documentation", "Existing hardware documentation", "Design reviews", "Troubleshooting support"],
     deliverables: ["Technical reports", "Specifications", "Diagrams", "BOMs", "Review notes", "Organized project documentation"],
-    audience: ["Engineering teams", "Researchers and students", "Existing products with incomplete documentation"],
+    audience: ["Engineering teams", "Product developers", "Businesses with incomplete technical records"],
     requirement: "Remote support uses project files, photographs, measurements, drawings and live discussion where needed.",
     process: ["Collect Information", "Review", "Document", "Verify", "Deliver"],
     ctaLabel: "Explore Service", metaTitle: "Engineering Documentation & Technical Support | DIELCHA DIGILAB",
@@ -124,7 +132,7 @@ export const projects: Project[] = [
   {
     slug: "esp32-drone-flight-controller-pcb", title: "ESP32 Drone Flight Controller PCB", category: "PCB Design", githubUrl: "https://github.com/DielchaDigilab/AeroCore-Flight-Controller",
     summary: "A compact flight-controller PCB design study built around an ESP32, with attention to programming access, power, sensors, connectors and physical placement.",
-    image: projectAsset("esp32-drone-flight-controller-pcb", "01-schematic.jpg", heroPcb),
+    image: projectAsset("esp32-drone-flight-controller-pcb", "cover.jpg", heroPcb),
     overview: "An ESP32-based drone controller PCB design study focused on translating the circuit into a practical physical board while keeping development access and component placement visible throughout the design.",
     objective: "Create a compact controller board layout while identifying the physical constraints that need to be solved before fabrication.",
     designApproach: ["Define the main controller, sensor, power and connector interfaces", "Place the ESP32 and major interfaces before detailed routing", "Reserve physical access for USB/programming and connectors", "Review clearances, routing priorities and serviceability before fabrication"],
@@ -133,16 +141,16 @@ export const projects: Project[] = [
     deliverables: ["Schematic", "PCB layout", "Design review notes", "Manufacturing-ready design files when finalized"],
     notes: ["This case study presents PCB design work and design decisions; it does not claim completed flight testing or fabricated-board performance."],
     evidence: [
-      { image: projectAsset("esp32-drone-flight-controller-pcb", "01-schematic.jpg", heroPcb), caption: "ESP32 drone controller schematic" },
-      { image: projectAsset("esp32-drone-flight-controller-pcb", "02-pcb-layout.jpg", heroPcb), caption: "PCB layout and routing" },
-      { image: projectAsset("esp32-drone-flight-controller-pcb", "03-3d-board.jpg", heroPcb), caption: "3D board view" },
-      { image: projectAsset("esp32-drone-flight-controller-pcb", "04-connector-usb-access.jpg", heroPcb), caption: "Programming and connector access" },
+      { image: projectAsset("esp32-drone-flight-controller-pcb", "01-system-architecture.jpg", heroPcb), caption: "ESP32 drone controller schematic" },
+      { image: projectAsset("esp32-drone-flight-controller-pcb", "02-schematic.jpg", heroPcb), caption: "PCB layout and routing" },
+      { image: projectAsset("esp32-drone-flight-controller-pcb", "03-pcb-layout.jpg", heroPcb), caption: "3D board view" },
+      { image: projectAsset("esp32-drone-flight-controller-pcb", "04-3d-board.jpg", heroPcb), caption: "Programming and connector access" },
     ],
   },
   {
     slug: "esp32-health-data-acquisition-monitoring-unit", title: "ESP32 Health Data Acquisition & Monitoring Unit", category: "Embedded Hardware", githubUrl: "https://github.com/DielchaDigilab/ESP32-Health-Data-Acquisition-and-Monitoring-Unit",
     summary: "A four-layer embedded electronics platform for acquiring, processing and recording physiological sensor data.",
-    image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "01-schematic.jpg", heroEmbedded),
+    image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "cover.jpg", heroEmbedded),
     overview: "A four-layer embedded electronics platform for acquiring, processing and recording physiological sensor data. The design integrates an ESP32, ECG acquisition, heart-rate and SpO2 sensing, temperature measurement, microSD storage, USB Type-C, Ethernet, wireless connectivity and regulated power management. It is presented as a realistic engineering prototype/development project, not a certified medical device or clinically validated product.",
     objective: "Build a single board that can acquire multiple physiological signals, process them locally on an ESP32, log measurements to microSD and make the data available over Wi-Fi/Bluetooth or Ethernet for viewing or transfer.",
     designApproach: [
@@ -164,16 +172,16 @@ export const projects: Project[] = [
     deliverables: ["Schematic", "4-layer PCB layout", "BOM", "Power and RF section documentation", "Test-point and bring-up notes"],
     notes: ["This is an engineering prototype/development project, not a certified medical device or clinically validated product."],
     evidence: [
-      { image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "01-schematic.jpg", heroEmbedded), caption: "Schematic" },
-      { image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "02-pcb-layout.jpg", heroPcb), caption: "4-layer PCB layout and routing" },
-      { image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "03-3d-board.jpg", heroPcb), caption: "3D board view" },
+      { image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "01-system-architecture.jpg", heroEmbedded), caption: "Schematic" },
+      { image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "02-schematic.jpg", heroPcb), caption: "4-layer PCB layout and routing" },
+      { image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "03-pcb-layout.jpg", heroPcb), caption: "3D board view" },
       { image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "04-sensor-interfaces.jpg", heroEmbedded), caption: "Sensor and connector interfaces" },
     ],
   },
   {
     slug: "tokenized-biometrics-school-feeding-program", title: "Tokenized Biometrics-Enhanced School Feeding Program", category: "IoT & Embedded Systems", githubUrl: "https://github.com/DielchaDigilab/Tokenized-Biometrics-Enhanced-School-Feeding-Program",
     summary: "A two-node ESP32 system that ties each learner's meal to a fingerprint token, verified at the serving point and settled through M-Pesa.",
-    image: projectAsset("tokenized-biometrics-school-feeding-program", "04-actual-project.jpg", heroEmbedded),
+    image: projectAsset("tokenized-biometrics-school-feeding-program", "cover.jpg", heroEmbedded),
     overview: "A tokenized school feeding system built around two ESP32 nodes: one dedicated to learner registration and fingerprint enrolment, and one dedicated to live meal verification and serving-point feedback. Every meal is tied to a fingerprint token, verified with an AS608 sensor, and settled through M-Pesa STK Push via the Daraja API, with all records synced to Firebase and surfaced on a React web dashboard.",
     objective: "Reduce meal-queue fraud and manual bookkeeping in a school feeding program by verifying each learner's identity with a fingerprint token and settling payment automatically through mobile money.",
     designApproach: [
@@ -195,18 +203,16 @@ export const projects: Project[] = [
     deliverables: ["Registration-node firmware", "Serving-node firmware", "PCB schematic and layout", "Firebase data schema", "M-Pesa Daraja payment integration", "React web dashboard", "Payment dashboard"],
     notes: ["This project combines embedded hardware, biometrics, mobile payments and a web dashboard into a single tokenized school-feeding workflow."],
     evidence: [
-      { image: projectAsset("tokenized-biometrics-school-feeding-program", "01-pcb-schematic.jpg", heroPcb), caption: "PCB schematic" },
-      { image: projectAsset("tokenized-biometrics-school-feeding-program", "02-pcb-routed-layout.jpg", heroPcb), caption: "PCB routed layout" },
-      { image: projectAsset("tokenized-biometrics-school-feeding-program", "03-pcb-3d.jpg", heroPcb), caption: "PCB 3D view" },
-      { image: projectAsset("tokenized-biometrics-school-feeding-program", "04-actual-project.jpg", heroEmbedded), caption: "Actual project hardware" },
-      { image: projectAsset("tokenized-biometrics-school-feeding-program", "05-web-dashboard.jpg", heroCad), caption: "Web dashboard" },
-      { image: projectAsset("tokenized-biometrics-school-feeding-program", "06-payment-dashboard.jpg", heroCad), caption: "Payment dashboard" },
+      { image: projectAsset("tokenized-biometrics-school-feeding-program", "01-system-architecture.jpg", heroPcb), caption: "System architecture and node roles" },
+      { image: projectAsset("tokenized-biometrics-school-feeding-program", "02-pcb-design.jpg", heroPcb), caption: "PCB design and routing" },
+      { image: projectAsset("tokenized-biometrics-school-feeding-program", "03-hardware-unit.jpg", heroEmbedded), caption: "Biometric serving hardware" },
+      { image: projectAsset("tokenized-biometrics-school-feeding-program", "04-dashboard-payment.jpg", heroCad), caption: "Dashboard and payment workflow" },
     ],
   },
   {
     slug: "excel-automation-system", title: "Excel Automation System", category: "Python Projects", githubUrl: "https://github.com/DielchaDigilab/Excel-Automation-System-GUI-Based",
     summary: "A Python tool that automates routine Excel work: cleaning sheets, applying formulas and consolidating results without manual copy-paste.",
-    image: projExcel,
+    image: projectAsset("excel-automation-system", "cover.jpg", projExcel),
     overview: "A Python tool for automating routine work in Excel, including cleaning sheets, filling in formulas, running calculations across many files and producing a consolidated output without manual copy-paste. It was written to solve a specific problem: spreadsheets that needed automating and repetitive tasks that slowed down day-to-day work.",
     objective: "Remove repetitive manual spreadsheet work by reading, cleaning, calculating and writing Excel data automatically.",
     designApproach: [
@@ -225,12 +231,17 @@ export const projects: Project[] = [
     ],
     deliverables: ["Python source (main.py)", "requirements.txt", "Sample data", "Project README"],
     notes: ["Status: working, and used on real spreadsheets."],
-    evidence: [],
+    evidence: [
+      { image: projectAsset("excel-automation-system", "01-input-data.jpg", projExcel), caption: "Input workbook and data flow" },
+      { image: projectAsset("excel-automation-system", "02-automation-flow.jpg", projExcel), caption: "Automation and processing flow" },
+      { image: projectAsset("excel-automation-system", "03-application-interface.jpg", projExcel), caption: "Application interface" },
+      { image: projectAsset("excel-automation-system", "04-generated-output.jpg", projExcel), caption: "Generated workbook and output" },
+    ],
   },
   {
     slug: "work-tracker-desktop-app", title: "Work Tracker Desktop App", category: "Python Projects", githubUrl: "https://github.com/DielchaDigilab/Work-Tracker-Desktop-App",
     summary: "A desktop application for tracking office and freelance work, clients, projects, hours and invoices, built with PySide6 and SQLite.",
-    image: projTracker,
+    image: projectAsset("work-tracker-desktop-app", "cover.jpg", projTracker),
     overview: "A desktop application for tracking work, including office work, freelance work, clients, projects, hours and invoices. It is built with PySide6 for the interface and SQLite underneath, and stores everything locally so no internet connection is required.",
     objective: "Give one local application for managing schedules, clients, projects, hours and amounts, with summaries by client or date range.",
     designApproach: [
@@ -250,12 +261,17 @@ export const projects: Project[] = [
     ],
     deliverables: ["Desktop application (main.py)", "PySide6 interface files", "Database and models", "requirements.txt", "Project README"],
     notes: ["Status: working desktop application."],
-    evidence: [],
+    evidence: [
+      { image: projectAsset("work-tracker-desktop-app", "01-dashboard.jpg", projTracker), caption: "Main work-tracking dashboard" },
+      { image: projectAsset("work-tracker-desktop-app", "02-work-entry.jpg", projTracker), caption: "Work and schedule entry" },
+      { image: projectAsset("work-tracker-desktop-app", "03-client-projects.jpg", projTracker), caption: "Client and project records" },
+      { image: projectAsset("work-tracker-desktop-app", "04-reports-invoices.jpg", projTracker), caption: "Reports and invoice tracking" },
+    ],
   },
   {
     slug: "pcb-design-review-dfm", title: "PCB Design Review & DFM", category: "Design Review", githubUrl: "https://github.com/DielchaDigilab/PCB-Design-Review-and-DFM",
     summary: "A structured review workflow for checking a schematic, layout, BOM and manufacturing handoff before fabrication.",
-    image: projectAsset("pcb-design-review-dfm", "01-original-layout.png", artPremfg),
+    image: projectAsset("pcb-design-review-dfm", "cover.jpg", artPremfg),
     overview: "PCB reviews look at electrical, physical and manufacturing considerations before files are released for fabrication or assembly.",
     objective: "Identify design issues that should be addressed before manufacturing files are released.",
     designApproach: ["Review schematic intent", "Check footprints and component information", "Inspect layout clearances and routing", "Review manufacturing outputs and documentation"],
@@ -264,16 +280,16 @@ export const projects: Project[] = [
     deliverables: ["Review checklist", "Documented findings", "BOM observations", "Manufacturing-readiness notes"],
     notes: ["Findings from this kind of review are typically resolved before manufacturing files are released, rather than after fabrication."],
     evidence: [
-      { image: projectAsset("pcb-design-review-dfm", "01-original-layout.png", artPremfg), caption: "Original PCB layout" },
-      { image: projectAsset("pcb-design-review-dfm", "02-review-markups.png", artPremfg), caption: "Design review findings" },
-      { image: projectAsset("pcb-design-review-dfm", "03-corrected-layout.png", heroPcb), caption: "Corrected PCB layout" },
-      { image: projectAsset("pcb-design-review-dfm", "04-manufacturing-check.png", artPremfg), caption: "Manufacturing-readiness check" },
+      { image: projectAsset("pcb-design-review-dfm", "01-original-layout.jpg", artPremfg), caption: "Original PCB layout" },
+      { image: projectAsset("pcb-design-review-dfm", "02-review-findings.jpg", artPremfg), caption: "Design review findings" },
+      { image: projectAsset("pcb-design-review-dfm", "03-corrected-layout.jpg", heroPcb), caption: "Corrected PCB layout" },
+      { image: projectAsset("pcb-design-review-dfm", "04-manufacturing-check.jpg", artPremfg), caption: "Manufacturing-readiness check" },
     ],
   },
   {
     slug: "autonomous-4-wheel-robot", title: "Autonomous 4-Wheel Robot", category: "Robotics", githubUrl: "https://github.com/DielchaDigilab/Autonomous-4-Wheel-Robot",
     summary: "A 4-wheel robot platform that senses obstacles and navigates around them automatically, with manual override for direct control.",
-    image: projectAsset("autonomous-4-wheel-robot", "01-robot.jpg", projRobot),
+    image: projectAsset("autonomous-4-wheel-robot", "cover.jpg", projRobot),
     overview: "A 4-wheel robot chassis built around a microcontroller, driven by motor drivers and guided by ultrasonic and IR sensors. The robot detects obstacles in its path and reroutes automatically, while still supporting manual Bluetooth/Wi-Fi control for direct driving when needed.",
     objective: "Build a mobile robot platform that can navigate a space autonomously, avoid obstacles reliably, and also accept manual control.",
     designApproach: [
@@ -291,12 +307,17 @@ export const projects: Project[] = [
     ],
     deliverables: ["Firmware (obstacle avoidance + manual control)", "Wiring/connection notes", "Bill of materials"],
     notes: ["Status: working robot platform."],
-    evidence: [],
+    evidence: [
+      { image: projectAsset("autonomous-4-wheel-robot", "01-robot-platform.jpg", projRobot), caption: "Robot platform and chassis" },
+      { image: projectAsset("autonomous-4-wheel-robot", "02-sensor-motor-wiring.jpg", projRobot), caption: "Sensor and motor wiring" },
+      { image: projectAsset("autonomous-4-wheel-robot", "03-control-logic.jpg", projRobot), caption: "Autonomous and manual control flow" },
+      { image: projectAsset("autonomous-4-wheel-robot", "04-navigation-test.jpg", projRobot), caption: "Navigation and obstacle-avoidance test" },
+    ],
   },
   {
     slug: "smart-parking-management-system-mpesa", title: "Smart Parking & Management System with M-Pesa Integration", category: "IoT & Embedded Systems", githubUrl: "https://github.com/DielchaDigilab/Smart-Parking-and-Management-System-with-Mpesa-Integration",
     summary: "An IoT parking system that senses slot occupancy in real time and lets drivers pay for parking directly through M-Pesa.",
-    image: projectAsset("smart-parking-management-system-mpesa", "01-system.jpg", projParking),
+    image: projectAsset("smart-parking-management-system-mpesa", "cover.jpg", projParking),
     overview: "A smart parking system that uses per-slot sensors to detect vehicle occupancy, displays live availability, and settles parking fees through M-Pesa STK Push via the Daraja API. Slot and payment status are synced to a backend so the parking area can be managed and monitored remotely.",
     objective: "Remove manual parking-slot tracking and cash handling by sensing occupancy automatically and collecting payment through mobile money.",
     designApproach: [
@@ -314,7 +335,12 @@ export const projects: Project[] = [
     ],
     deliverables: ["Firmware (slot sensing + status reporting)", "M-Pesa Daraja payment integration", "Web dashboard", "Wiring/connection notes"],
     notes: ["This project combines embedded sensing and mobile payments into a single parking management workflow."],
-    evidence: [],
+    evidence: [
+      { image: projectAsset("smart-parking-management-system-mpesa", "01-system-overview.jpg", projParking), caption: "Parking system overview" },
+      { image: projectAsset("smart-parking-management-system-mpesa", "02-slot-sensors.jpg", projParking), caption: "Per-slot sensing arrangement" },
+      { image: projectAsset("smart-parking-management-system-mpesa", "03-management-dashboard.jpg", projParking), caption: "Live parking dashboard" },
+      { image: projectAsset("smart-parking-management-system-mpesa", "04-payment-flow.jpg", projParking), caption: "M-Pesa payment workflow" },
+    ],
   },
 ];
 
@@ -331,13 +357,14 @@ export const workflowSteps = [
 ];
 
 export type Resource = {
-  slug: string; title: string; description: string; format: string; fileLabel: string;
+  slug: string; title: string; description: string; format: string; fileLabel: string; image: string;
   detail: string; points: string[]; downloadLabel: string; downloadUrl: string;
 };
 
 export const resources: Resource[] = [
   {
     slug: "pcb-pre-fabrication-checklist", title: "PCB Pre-Fabrication Checklist",
+    image: resourcePcbPrefab,
     description: "A final review reference for checking a PCB before fabrication files are released.", format: "PDF",
     fileLabel: "PDF checklist", detail: "Use this checklist as the final engineering gate before a PCB design is released to a manufacturer. It brings the schematic, PCB layout, footprints, clearances, board outline, silkscreen, documentation and fabrication outputs into one review sequence. The purpose is to catch issues while the source files are still easy to correct, rather than discovering them after fabrication or assembly.",
     points: ["Schematic and net consistency", "Footprints, references and component values", "Clearances, routing and board-edge checks", "Manufacturing outputs and documentation"],
@@ -345,6 +372,7 @@ export const resources: Resource[] = [
   },
   {
     slug: "pcb-design-review-checklist", title: "PCB Design Review Checklist",
+    image: resourcePcbReview,
     description: "Structured checks for reviewing schematic intent, layout quality and manufacturing readiness.", format: "PDF",
     fileLabel: "PDF checklist", detail: "This review reference provides a repeatable way to inspect a PCB design from electrical intent through physical layout and manufacturing readiness. It is especially useful when a second engineer, client or production partner needs to understand what was checked, what was found and what still needs attention before release.",
     points: ["Schematic review", "Component and footprint review", "Placement and routing review", "Manufacturing and documentation review"],
@@ -352,6 +380,7 @@ export const resources: Resource[] = [
   },
   {
     slug: "bom-review-checklist", title: "BOM Review Checklist",
+    image: resourceBom,
     description: "Checks for part numbers, packages, availability, lifecycle and alternatives before procurement or assembly.", format: "Excel",
     fileLabel: "Excel worksheet", detail: "A BOM review verifies more than whether every row contains a part number. Each component should be identifiable, compatible with its footprint and electrical role, realistically procurable, and documented well enough for purchasing and assembly. Checking lifecycle, availability and approved alternatives early also reduces the chance of a technically correct design becoming difficult or expensive to build.",
     points: ["Manufacturer and part-number checks", "Package and footprint consistency", "Availability and lifecycle considerations", "Approved alternatives and notes"],
@@ -359,6 +388,7 @@ export const resources: Resource[] = [
   },
   {
     slug: "component-selection-worksheet", title: "Component Selection Worksheet",
+    image: resourceComponent,
     description: "A structured worksheet for comparing component requirements and documenting engineering choices.", format: "Excel",
     fileLabel: "Excel worksheet", detail: "Use the worksheet before committing a component to the design. Compare electrical ratings, package and mechanical constraints, operating environment, availability, lifecycle and cost, then record why the selected part meets the actual requirement. Keeping the comparison documented makes later substitutions and design reviews much easier.",
     points: ["Electrical requirements", "Package and mechanical constraints", "Environmental requirements", "Cost, availability and alternatives"],
@@ -373,7 +403,7 @@ export type Article = {
 
 export const articles: Article[] = [
   {
-    slug: "from-schematic-to-pcb", title: "From Schematic to PCB", category: "PCB Design", summary: "A practical look at the transition from circuit intent to physical PCB layout.", image: heroPcb,
+    slug: "from-schematic-to-pcb", title: "From Schematic to PCB", category: "PCB Design", summary: "A practical look at the transition from circuit intent to physical PCB layout.", image: articleSchematic,
     introduction: "Moving from a schematic to a PCB is more than transferring symbols into a board editor. The physical layout must preserve the electrical intent while introducing placement, routing, mechanical and manufacturing constraints.",
     sections: [
       { heading: "Start with the circuit intent", text: "Confirm the functional blocks, interfaces, power requirements and important signal relationships before placing components on the board." },
@@ -383,7 +413,7 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: "understanding-power-rails", title: "Understanding Power Rails", category: "Hardware", summary: "How to think about power rails when reviewing or analysing electronic hardware.", image: artPowerRails,
+    slug: "understanding-power-rails", title: "Understanding Power Rails", category: "Hardware", summary: "How to think about power rails when reviewing or analysing electronic hardware.", image: articlePowerRails,
     introduction: "Power rails provide a useful way to understand an electronic system. Tracing where each rail originates, where it is converted and what loads it supplies can reveal how the system is organized.",
     sections: [
       { heading: "Identify the source", text: "Start at the incoming supply or battery and identify the protection, switching and conversion stages that follow." },
@@ -393,7 +423,7 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: "esp32-prototype-notes", title: "ESP32 Prototype Notes", category: "Embedded", summary: "Design notes and practical considerations when building ESP32-based prototypes.", image: heroEmbedded,
+    slug: "esp32-prototype-notes", title: "ESP32 Prototype Notes", category: "Embedded", summary: "Design notes and practical considerations when building ESP32-based prototypes.", image: articleEsp32,
     introduction: "ESP32 prototypes combine microcontroller firmware, power, sensors, communications and physical connections. Good prototype design therefore requires both software and hardware planning.",
     sections: [
       { heading: "Plan development access", text: "Keep USB, programming and debugging access physically reachable after the board is assembled or installed." },
@@ -403,7 +433,7 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: "common-pcb-design-mistakes", title: "Common PCB Design Mistakes (And How to Avoid Them)", category: "PCB Design", summary: "Recurring layout, placement and documentation mistakes seen across student and hobbyist PCB projects, with practical fixes.", image: heroPcb,
+    slug: "common-pcb-design-mistakes", title: "Common PCB Design Mistakes (And How to Avoid Them)", category: "PCB Design", summary: "Recurring layout, placement and documentation mistakes in PCB work, with practical fixes that help designs reach fabrication with fewer avoidable problems.", image: articlePcbMistakes,
     introduction: "Most PCB failures are not caused by exotic problems. They come from a short list of recurring mistakes in placement, routing, power and documentation that repeat across almost every project that goes wrong. This note collects the ones seen most often during design review, starting with the single most common layout mistake in ESP32 and other microcontroller-based boards.",
     sections: [
       { heading: "1. Placing the microcontroller in the middle of the board", text: "Putting the ESP32 (or any MCU) in the geometric centre of the PCB looks tidy but usually creates the worst layout. It forces power, USB, antenna and peripheral traces to cross the board from every direction, lengthens routing, and pushes the antenna keep-out zone into space needed by other parts. Place the MCU close to the edge nearest its most critical interface (USB, antenna, or main connector) and let everything else be arranged around it, not the other way round." },

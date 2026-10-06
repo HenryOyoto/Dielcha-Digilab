@@ -78,11 +78,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "DIELCHA DIGILAB | Engineering & Digital Product Development" },
+      { title: "DIELCHA DIGILAB | Electronics, Embedded Systems & Engineering Design" },
       {
         name: "description",
         content:
-          "DIELCHA DIGILAB is a modern engineering and digital product studio working across electronic hardware, embedded systems, IoT, engineering design and technical documentation.",
+          "DIELCHA DIGILAB designs and develops electronic hardware, embedded systems, connected devices, engineering designs and supporting software for products, businesses and technical teams.",
       },
       { name: "theme-color", content: "#ffffff" },
       { property: "og:site_name", content: "DIELCHA DIGILAB" },

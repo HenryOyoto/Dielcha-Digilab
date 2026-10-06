@@ -133,7 +133,7 @@ export function SiteHeader() {
                 >
                   <div className="nav-dropdown__header">
                     <div>
-                      <span className="label-mono text-secondary">Engineering services</span>
+                      <span className="font-display text-xs font-bold uppercase tracking-[0.08em] text-secondary">Engineering services</span>
                       <p className="mt-1 text-xs text-primary/70">Design, develop and document with a clear engineering workflow.</p>
                     </div>
                     <Link to="/services" onClick={() => setOpenMenu(null)} className="nav-dropdown__all" aria-label="View all services">

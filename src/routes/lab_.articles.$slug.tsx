@@ -25,7 +25,7 @@ function ArticlePage() {
             <Link to="/lab" className="text-sm font-semibold text-primary hover:text-destructive">← Back to Lab</Link>
             <div className="mt-7 grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-center">
               <div>
-                <p className="label-mono text-secondary">{article.category} · Technical Note</p>
+                <p className="section-kicker text-secondary">{article.category} · Technical Note</p>
                 <h1 className="mt-3 text-4xl font-bold text-primary md:text-5xl">{article.title}</h1>
                 <p className="mt-5 max-w-3xl text-lg leading-8 text-foreground">{article.summary}</p>
               </div>
@@ -38,7 +38,6 @@ function ArticlePage() {
           <div className="lab-detail-grid">
             <article className="lab-reading min-w-0">
               <section className="engineering-card p-6 sm:p-8">
-                <p className="label-mono text-secondary">Technical context</p>
                 <h2 className="mt-2 text-2xl font-bold text-primary">What this note is explaining</h2>
                 <p className="mt-4">{article.introduction}</p>
                 <p className="mt-4">The aim is to turn a broad engineering topic into practical decisions: what to inspect first, what can go wrong, and what should be documented before a design moves to the next stage.</p>
@@ -65,7 +64,7 @@ function ArticlePage() {
               </section>
               <section className="rounded-xl border border-border bg-primary p-6 text-primary-foreground shadow-card md:col-span-2 xl:col-span-1">
                 <h2 className="text-xl font-bold text-white">More technical material</h2>
-                <p className="mt-3 text-sm leading-6">Additional examples, diagrams and project documentation can be followed through the DIELCHA DIGILAB GitHub repository.</p>
+                <p className="mt-3 text-sm leading-6">Additional examples, diagrams and project documentation can be followed through the Dielcha GitHub repository.</p>
                 <a href={githubLink} target="_blank" rel="noreferrer" className="mt-4 inline-block rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-primary hover:text-destructive">View on GitHub</a>
               </section>
             </section>
