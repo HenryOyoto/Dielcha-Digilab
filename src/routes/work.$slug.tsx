@@ -1,6 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import type { CSSProperties } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { PageHero } from "@/components/PageHero";
+import { ProjectGallery } from "@/components/ProjectShowcase";
+import { ReadingProgress } from "@/components/ReadingProgress";
+import { WhatsAppButton } from "@/components/WhatsAppFab";
 import { projects } from "@/data/site";
 
 export const Route = createFileRoute("/work/$slug")({
@@ -9,125 +14,100 @@ export const Route = createFileRoute("/work/$slug")({
     if (!project) throw notFound();
     return project;
   },
-  head: ({ loaderData }) => ({ meta: [{ title: `${loaderData?.title ?? "Project"} | DIELCHA DIGILAB` }] }),
+  head: ({ loaderData }) => ({ meta: [{ title: `${loaderData?.title ?? "Project"} | Dielcha Digilab` }, { name: "description", content: loaderData?.summary ?? "" }] }),
   component: ProjectPage,
 });
 
+function Check() {
+  return (<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" className="mt-0.5 shrink-0 text-[var(--brand-green)]" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12.500 4.500 4.500L19 7.500" /></svg>);
+}
+
 function ProjectPage() {
   const p = Route.useLoaderData();
+  const at = projects.findIndex((x) => x.slug === p.slug);
+  const prev = projects[(at - 1 + projects.length) % projects.length];
+  const next = projects[(at + 1) % projects.length];
 
   return (
     <div className="flex min-h-screen flex-col">
+      <ReadingProgress />
       <SiteHeader />
       <main className="flex-1">
-        <header className="border-b border-border bg-muted">
-          <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
-            <Link to="/work" className="text-sm font-semibold text-primary hover:text-destructive">← Back to Projects</Link>
-            <div className="mt-7 grid gap-9 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-              <div>
-                <p className="section-kicker text-secondary">{p.category} · Engineering case study</p>
-                <h1 className="mt-3 text-4xl font-bold text-primary md:text-5xl">{p.title}</h1>
-                <p className="mt-5 max-w-3xl text-lg leading-8 text-foreground">{p.summary}</p>
-              </div>
-              <img src={p.image} alt={p.title} className="aspect-[4/3] w-full rounded-2xl object-cover shadow-card" />
-            </div>
+        <PageHero tone="blue" crumbs={[{ label: "Projects", to: "/work" }, { label: p.category }]} title={p.title} intro={p.summary}>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <span className="tag-yellow">{p.category}</span>
+            {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noreferrer" className="hero__btn hero__btn--ghost !py-1 !text-xs">View source →</a>}
           </div>
-        </header>
+        </PageHero>
 
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
-          <div className="lab-detail-grid">
-            <div className="min-w-0">
-              <section className="engineering-card p-6 sm:p-8">
-                <h2 className="mt-2 text-2xl font-bold text-primary">What this project is about</h2>
-                <p className="mt-4 text-base leading-8 text-foreground">{p.overview}</p>
-                <p className="mt-4 text-base leading-8 text-foreground">The engineering focus is to turn the stated objective into a practical system with clear interfaces, deliberate component choices, accessible testing points and documentation that another engineer can understand and continue from.</p>
-              </section>
+        <section className="mx-auto max-w-7xl px-4 section sm:px-6">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-5">
+            <div className="min-w-0 space-y-4">
+              <ProjectGallery project={p} />
 
-              <section className="mt-7 rounded-xl border-l-4 border-l-destructive bg-white p-6 shadow-card sm:p-8">
-                <h2 className="mt-2 text-2xl font-bold text-destructive">The problem being solved</h2>
-                <p className="mt-4 text-base leading-8 text-foreground">{p.objective}</p>
-              </section>
-
-              <section className="mt-10">
-                <h2 className="mt-2 text-2xl font-bold text-primary">Design approach</h2>
-                <div className="mt-6 grid gap-5 md:grid-cols-2">
-                  {p.designApproach.map((item, i) => (
-                    <article key={item} className={`engineering-card p-5 ${i % 3 === 1 ? "border-t-4 border-t-secondary" : i % 3 === 2 ? "border-t-4 border-t-destructive" : "border-t-4 border-t-primary"}`}>
-                      <span className={`step-kicker ${i % 3 === 1 ? "text-secondary" : i % 3 === 2 ? "text-destructive" : "text-primary"}`}>Step {String(i + 1).padStart(2, "0")}</span>
-                      <p className="mt-3 text-sm leading-7 text-foreground">{item}</p>
-                    </article>
-                  ))}
+              <div className="card-s grid gap-4 p-4 sm:grid-cols-2 sm:p-5">
+                <div>
+                  <h2 className="font-display text-base font-extrabold text-[#12344f]">Overview</h2>
+                  <p className="mt-1.5 text-sm leading-6 text-[#3a4654]">{p.overview}</p>
                 </div>
-              </section>
-
-              <section className="mt-10">
-                <h2 className="mt-2 text-2xl font-bold text-primary">Why the design is structured this way</h2>
-                <div className="mt-6 grid gap-5 md:grid-cols-2">
-                  {p.decisions.map((item, i) => (
-                    <div key={item} className="lab-section-card">
-                      <h3 className="text-lg font-bold">Decision {i + 1}</h3>
-                      <p className="mt-3 lab-reading text-sm">{item}</p>
-                    </div>
-                  ))}
+                <div>
+                  <h2 className="font-display text-base font-extrabold text-[#12344f]">Objective</h2>
+                  <p className="mt-1.5 text-sm leading-6 text-[#3a4654]">{p.objective}</p>
                 </div>
-              </section>
+              </div>
 
-              {p.evidence.length > 0 && (
-                <section className="mt-12">
-                  <h2 className="mt-2 text-2xl font-bold text-primary">Design views and technical evidence</h2>
-                  <p className="mt-3 text-foreground">These views show the engineering work represented by this case study. Use the captions to understand what each view is intended to demonstrate.</p>
-                  <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                    {p.evidence.map((g, i) => (
-                      <figure key={g.caption} className="engineering-card overflow-hidden">
-                        <img src={g.image} alt={g.caption} className="aspect-[4/3] w-full object-cover" loading="lazy" />
-                        <figcaption className="p-4 text-sm leading-6 text-foreground"><span className={`font-semibold ${i % 3 === 1 ? "text-secondary" : i % 3 === 2 ? "text-destructive" : "text-primary"}`}>{g.caption}</span></figcaption>
-                      </figure>
-                    ))}
-                  </div>
-                </section>
+              <div className="card-s p-4 sm:p-5">
+                <h2 className="font-display text-base font-extrabold text-[#12344f]">Design approach</h2>
+                <ol className="flow mt-3 !gap-2.5" style={{ "--tone": "var(--brand-blue)" } as CSSProperties}>
+                  {p.designApproach.map((s) => <li key={s} className="!items-start !text-[0.85rem] !font-medium leading-5 !text-[#3a4654]">{s}</li>)}
+                </ol>
+              </div>
+
+              <div className="card-s p-4 sm:p-5">
+                <h2 className="font-display text-base font-extrabold text-[#12344f]">Key decisions</h2>
+                <ul className="mt-2.5 grid gap-2 text-sm leading-5 text-[#3a4654] sm:grid-cols-2">
+                  {p.decisions.map((d) => <li key={d} className="flex gap-2"><Check />{d}</li>)}
+                </ul>
+              </div>
+
+              {p.notes.length > 0 && (
+                <div className="rounded-xl border border-[color-mix(in_srgb,var(--brand-yellow)_55%,#fff)] bg-[color-mix(in_srgb,var(--brand-yellow)_14%,#fff)] px-4 py-3 text-[0.83rem] leading-5 text-[#4b4310]">
+                  {p.notes.map((n) => <p key={n}>{n}</p>)}
+                </div>
               )}
             </div>
 
-            <section className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              <section className="engineering-card p-6">
-                <h2 className="text-xl font-bold text-primary">Tools and platforms</h2>
-                <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                  {p.technologies.map((x, i) => <span key={x} className={`rounded-md border px-3 py-2 text-sm ${i % 3 === 1 ? "border-secondary/30 text-secondary" : i % 3 === 2 ? "border-destructive/30 text-destructive" : "border-primary/20 text-primary"}`}>{x}</span>)}
+            <aside className="min-w-0 space-y-4 lg:sticky lg:top-20 lg:self-start">
+              <div className="card-s p-4">
+                <h2 className="font-display text-base font-extrabold text-[#12344f]">Technologies</h2>
+                <div className="mt-2.5 flex flex-wrap gap-1.5">{p.technologies.map((t) => <span key={t} className="chip chip--blue">{t}</span>)}</div>
+              </div>
+              <div className="card-s p-4">
+                <h2 className="font-display text-base font-extrabold text-[#12344f]">Deliverables</h2>
+                <ul className="mt-2.5 space-y-1.5 text-sm text-[#3a4654]">{p.deliverables.map((d) => <li key={d} className="flex gap-2"><Check />{d}</li>)}</ul>
+              </div>
+              <div className="rounded-2xl bg-[var(--navy)] p-4 text-white shadow-lift">
+                <p className="font-display text-lg font-extrabold leading-tight">Need something similar?</p>
+                <p className="mt-1 text-[0.82rem] text-white/75">Send your requirements and we will scope it with you.</p>
+                <div className="mt-3 flex flex-col gap-2">
+                  <Link to="/start-a-project" search={{ service: p.category }} className="rounded-full bg-[var(--brand-yellow)] px-4 py-2.5 text-center text-sm font-bold text-[#151515] hover:bg-white">Start a project</Link>
+                  <WhatsAppButton className="justify-center rounded-full" />
                 </div>
-              </section>
-
-              <section className="engineering-card p-6">
-                <h2 className="text-xl font-bold text-secondary">What the work produces</h2>
-                <ul className="mt-5 space-y-3 text-sm leading-6 text-foreground">
-                  {p.deliverables.map((x) => <li key={x} className="flex gap-3"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-secondary" />{x}</li>)}
-                </ul>
-              </section>
-
-              <section className="rounded-xl border border-border bg-primary p-6 text-primary-foreground shadow-card md:col-span-2 xl:col-span-1">
-                <h2 className="text-xl font-bold text-white">Project status and notes</h2>
-                <p className="mt-3 text-sm leading-7">{p.notes.join(" ")}</p>
-                <a href={p.githubUrl} target="_blank" rel="noreferrer" className="mt-5 inline-block rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-primary hover:text-destructive">View Repository →</a>
-              </section>
-            </section>
+              </div>
+            </aside>
           </div>
 
-          <section className="mt-12 grid gap-5 md:grid-cols-3">
-            <div className="engineering-card p-6"><h2 className="text-lg font-bold text-primary">01 · Requirements first</h2><p className="mt-3 text-sm leading-7 text-foreground">The project begins by making the intended function, interfaces and constraints explicit before implementation decisions are locked in.</p></div>
-            <div className="engineering-card p-6"><h2 className="text-lg font-bold text-secondary">02 · Design for the real system</h2><p className="mt-3 text-sm leading-7 text-foreground">Hardware, firmware, software, mechanical access and manufacturing considerations are treated as connected parts of the same engineering problem.</p></div>
-            <div className="engineering-card p-6"><h2 className="text-lg font-bold text-destructive">03 · Make the result usable</h2><p className="mt-3 text-sm leading-7 text-foreground">Clear files, decisions, notes and evidence make the design easier to review, build, debug and improve in a future revision.</p></div>
-          </section>
-          <section className="mt-12 overflow-hidden rounded-xl bg-primary px-4 py-8 text-primary-foreground sm:px-6 sm:py-9 lg:px-8 lg:py-10">
-            <div className="w-full">
-              <p className="section-kicker text-accent">Next step</p>
-              <h2 className="mt-3 text-2xl font-bold text-white sm:text-3xl lg:text-4xl">Bring the idea, existing files, or even the rough concept.</h2>
-              <p className="mt-4 w-full text-sm leading-7 text-on-image-muted sm:text-base sm:leading-7 lg:text-lg">You do not need a finished specification. If you want a project like this with different components or a different function, need hardware designed from an existing idea, have documentation or a proposal that needs proper engineering formatting, or have an idea that is still difficult to explain, Dielcha can help turn it into a clear, workable project brief and define the next engineering step.</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link to="/start-a-project" search={{ service: p.category }} className="inline-flex items-center rounded-md bg-white px-5 py-3 text-sm font-semibold text-primary hover:text-destructive">Discuss a Project →</Link>
-                <a href="https://wa.me/254715924448" target="_blank" rel="noreferrer" className="inline-flex items-center rounded-md border border-white/30 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10">Ask About a Similar Project</a>
-              </div>
-            </div>
-          </section>
-        </div>
+          <nav className="mt-6 grid gap-3 sm:grid-cols-2" aria-label="More projects">
+            <Link to="/work/$slug" params={{ slug: prev.slug }} className="card-s group px-4 py-3 hover:border-[var(--brand-blue)]">
+              <span className="text-xs font-bold text-muted-foreground">← Previous</span>
+              <span className="mt-0.5 block truncate font-display font-extrabold text-[#12344f] group-hover:text-[var(--brand-blue)]">{prev.title}</span>
+            </Link>
+            <Link to="/work/$slug" params={{ slug: next.slug }} className="card-s group px-4 py-3 text-right hover:border-[var(--brand-blue)]">
+              <span className="text-xs font-bold text-muted-foreground">Next →</span>
+              <span className="mt-0.5 block truncate font-display font-extrabold text-[#12344f] group-hover:text-[var(--brand-blue)]">{next.title}</span>
+            </Link>
+          </nav>
+        </section>
       </main>
       <SiteFooter />
     </div>

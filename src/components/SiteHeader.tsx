@@ -6,6 +6,14 @@ import { WhatsAppGlyph } from "@/components/SocialIcons";
 import { BrandWordmark } from "@/components/BrandWordmark";
 import logo from "@/assets/logo-icon.png";
 
+function SearchGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+      <circle cx="11" cy="11" r="6.5" /><path d="m16 16 4.500 4.500" />
+    </svg>
+  );
+}
+
 const accentCycle = ["primary", "secondary", "destructive"] as const;
 
 const serviceLinks = services.map((s, i) => ({
@@ -31,6 +39,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -64,11 +73,20 @@ export function SiteHeader() {
 
   useEffect(() => () => cancelClose(), []);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const openSearch = () => window.dispatchEvent(new Event("open-search"));
+
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-4 sm:px-6">
+    <header className={`site-header-bar sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-xl ${scrolled ? "is-scrolled" : ""}`}>
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link to="/" className="flex min-w-0 items-center gap-2.5" onClick={() => setOpen(false)}>
-          <img src={logo} alt="Dielcha Digilab logo" width={512} height={512} className="h-10 w-auto object-contain sm:h-11" />
+          <img src={logo} alt="Dielcha Digilab logo" width={512} height={512} className="h-9 w-auto object-contain sm:h-10" />
           <BrandWordmark className="text-[1.05rem] sm:text-xl" />
         </Link>
 
@@ -133,8 +151,8 @@ export function SiteHeader() {
                 >
                   <div className="nav-dropdown__header">
                     <div>
-                      <span className="font-display text-xs font-bold uppercase tracking-[0.08em] text-secondary">Engineering services</span>
-                      <p className="mt-1 text-xs text-primary/70">Design, develop and document with a clear engineering workflow.</p>
+                      <span className="font-display text-xs font-bold uppercase tracking-[0.08em] text-secondary">Services</span>
+                      <p className="mt-1 text-xs text-primary/70">Design, develop and document with a clear workflow.</p>
                     </div>
                     <Link to="/services" onClick={() => setOpenMenu(null)} className="nav-dropdown__all" aria-label="View all services">
                       <ArrowUpRight className="size-4" />
@@ -161,13 +179,16 @@ export function SiteHeader() {
                   </div>
 
                   <Link to="/services" onClick={() => setOpenMenu(null)} className="nav-dropdown__footer">
-                    Explore all engineering services <ArrowUpRight className="size-3.5" />
+                    Explore all services <ArrowUpRight className="size-3.5" />
                   </Link>
                 </div>
               </div>
             );
           })}
 
+          <button type="button" onClick={openSearch} className="flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 text-xs font-semibold text-primary/70 transition-colors hover:border-primary/40 hover:text-primary" aria-label="Search the site">
+            <SearchGlyph /> Search <kbd>Ctrl K</kbd>
+          </button>
           <a href={whatsappLink} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="brand-whatsapp-link">
             <WhatsAppGlyph className="size-5" />
           </a>
@@ -176,6 +197,10 @@ export function SiteHeader() {
           </Link>
         </nav>
 
+        <div className="flex items-center gap-2 lg:hidden">
+        <button type="button" onClick={openSearch} aria-label="Search the site" className="rounded-lg border border-primary/20 bg-white p-2.5 text-primary shadow-sm transition-colors hover:bg-primary/5">
+          <SearchGlyph />
+        </button>
         <button
           type="button"
           aria-label="Toggle menu"
@@ -184,10 +209,11 @@ export function SiteHeader() {
             setOpen((v) => !v);
             setMobileSubmenu(null);
           }}
-          className="rounded-lg border border-primary/20 bg-white p-2.5 text-primary shadow-sm transition-colors hover:bg-primary/5 lg:hidden"
+          className="rounded-lg border border-primary/20 bg-white p-2.5 text-primary shadow-sm transition-colors hover:bg-primary/5"
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
+        </div>
       </div>
 
       {open && (

@@ -2,27 +2,32 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { HeroSlider } from "@/components/HeroSlider";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { ServiceAccordion } from "@/components/ServiceAccordion";
-import { EngineeringWorkflow } from "@/components/EngineeringWorkflow";
-import { WhatsAppButton } from "@/components/WhatsAppFab";
-import { TechBadges } from "@/components/TechBadges";
-import { projects } from "@/data/site";
-import bgStart from "@/assets/bg-start.jpg";
+import { TechMarquee, items as toolItems } from "@/components/TechMarquee";
+import { ServiceBento } from "@/components/ServiceBento";
+import { ProcessSteps } from "@/components/ProcessSteps";
+import { ProjectShowcase } from "@/components/ProjectShowcase";
+import { ProductAnatomy } from "@/components/ProductAnatomy";
+import { Counter } from "@/components/Counter";
+import { Avatar } from "@/components/Avatars";
+import { Faq } from "@/components/Faq";
+import { QuickEnquiry } from "@/components/QuickEnquiry";
+import { TraceArt } from "@/components/Art";
+import { personas } from "@/data/content";
+import { projects, services } from "@/data/site";
 
-const title = "DIELCHA DIGILAB | Electronics, Embedded Systems & Engineering Design";
-const description = "DIELCHA DIGILAB designs and develops electronic hardware, embedded systems, connected devices, engineering designs and supporting software for products, businesses and technical teams.";
-
-const whyDielcha = [
-  { title: "Direct Engineering Communication", text: "You work directly on the engineering problem, with clear questions and clear answers at every stage.", color: "bg-primary text-primary-foreground" },
-  { title: "Organized Deliverables", text: "Schematics, layouts, firmware, models and documentation are handed over in a clean, usable form.", color: "bg-secondary text-secondary-foreground" },
-  { title: "Practical, Buildable Designs", text: "Designs are evaluated against real manufacturing, sourcing and assembly constraints, not just simulation.", color: "bg-destructive text-destructive-foreground" },
-  { title: "Structured Process", text: "A consistent path from requirements to delivery keeps scope, cost and timeline clear from the start.", color: "bg-primary text-primary-foreground" },
-];
+const title = "Dielcha Digilab | Engineering Design, Embedded Systems & IoT";
+const description = "Dielcha Digilab takes ideas to finished products: electronics and PCB design, embedded systems and IoT, product CAD and technical documentation, based in Juja, Kenya.";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [{ title }, { name: "description", content: description }, { property: "og:title", content: title }, { property: "og:description", content: description }] }),
   component: Home,
 });
+
+const stats = [
+  { n: projects.length, label: "Projects" },
+  { n: toolItems.length, label: "Tools" },
+  { n: services.length, label: "Services" },
+];
 
 function Home() {
   return (
@@ -30,80 +35,78 @@ function Home() {
       <SiteHeader />
       <main className="flex-1">
         <HeroSlider />
+        <TechMarquee />
 
-        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="text-3xl font-bold md:text-4xl">Four focused engineering services</h2>
-              <p className="mt-3 max-w-2xl text-muted-foreground">Four practical areas covering electronic hardware, embedded systems, product design and the technical records needed to build, test and maintain them. Supporting software and automation can be added when the project requires it.</p>
-            </div>
-            <Link to="/services" className="text-sm font-semibold text-primary hover:text-destructive">All Services →</Link>
+        <section className="mx-auto max-w-7xl px-4 section sm:px-6">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <h2 className="display-title">What we <span className="grad-text">build.</span></h2>
+            <Link to="/services" className="text-sm font-bold text-[#12344f] hover:text-[var(--brand-red)]">All services →</Link>
           </div>
-          <div className="mt-8"><ServiceAccordion initial={null} /></div>
+          <div className="mt-5"><ServiceBento /></div>
         </section>
 
-        <section className="border-y border-border bg-muted">
-          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-            <EngineeringWorkflow />
+        <section className="blueprint border-y border-border">
+          <div className="mx-auto max-w-7xl px-4 section sm:px-6">
+            <div className="grid gap-6 lg:grid-cols-[17rem_minmax(0,1fr)] lg:items-start">
+              <div>
+                <h2 className="display-title">One product, <span className="grad-text">four disciplines.</span></h2>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">A connected device is more than a circuit board. Explore which part of the build each service covers.</p>
+                <dl className="mt-4 grid max-w-xs grid-cols-3 gap-2 text-center">
+                  {stats.map((s) => (
+                    <div key={s.label} className="card-s px-2 py-2.5">
+                      <dt className="sr-only">{s.label}</dt>
+                      <dd className="font-display text-2xl font-extrabold text-[var(--brand-blue)]"><Counter value={s.n} /></dd>
+                      <p className="text-[0.7rem] font-semibold text-muted-foreground">{s.label}</p>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <ProductAnatomy />
+            </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="text-3xl font-bold md:text-4xl">Selected Work</h2>
-              <p className="mt-3 max-w-2xl text-muted-foreground">Examples of hardware, embedded, engineering design and Python automation work. Each project shows the kind of technical problem Dielcha can help develop, improve or document.</p>
+        <section className="mx-auto max-w-7xl px-4 section sm:px-6"><ProcessSteps /></section>
+
+        <section className="bg-[var(--paper)] border-y border-border">
+          <div className="mx-auto max-w-7xl px-4 section sm:px-6">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <h2 className="display-title">Selected <span className="grad-text">projects.</span></h2>
+              <Link to="/work" className="text-sm font-bold text-[#12344f] hover:text-[var(--brand-red)]">All projects →</Link>
             </div>
-            <Link to="/work" className="text-sm font-semibold text-primary hover:text-destructive">View All Projects →</Link>
+            <div className="mt-5"><ProjectShowcase items={projects.slice(0, 6)} /></div>
           </div>
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {projects.slice(0, 3).map((p) => (
-              <article key={p.slug} className="group overflow-hidden rounded-lg border border-border bg-card shadow-card hover:shadow-lift">
-                <div className="aspect-[4/3] overflow-hidden"><img src={p.image} alt={p.title} className="size-full object-cover transition-transform duration-500 group-hover:scale-105" /></div>
-                <div className="p-5">
-                  <h3 className="font-display font-semibold leading-snug">{p.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{p.summary}</p>
-                  <Link to="/work/$slug" params={{ slug: p.slug }} className="mt-4 inline-block text-sm font-semibold text-primary hover:text-destructive">View Project →</Link>
-                </div>
-              </article>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-4 section sm:px-6">
+          <h2 className="display-title">Who we <span className="grad-text">help.</span></h2>
+          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {personas.map((p) => (
+              <Link key={p.title} to="/services/$slug" params={{ slug: p.service }} className="persona">
+                <Avatar kind={p.avatar} size={52} label={p.title} />
+                <span className="min-w-0">
+                  <span className="block font-display text-[0.98rem] font-extrabold leading-tight text-[#12344f]">{p.title}</span>
+                  <span className="mt-1 block text-[0.82rem] leading-5 text-muted-foreground">{p.need}</span>
+                </span>
+              </Link>
             ))}
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-          <h2 className="text-center text-2xl font-bold md:text-3xl">Tools &amp; Technologies</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">A working set of electronics, embedded, CAD, programming and development tools used across different project requirements.</p>
-          <TechBadges />
-        </section>
-
-        <section className="border-y border-border bg-muted">
-          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-3xl font-bold md:text-4xl">Why work with Dielcha</h2>
-              <p className="mt-3 text-muted-foreground">A direct engineering approach focused on clear requirements, usable files and designs that can move beyond the screen.</p>
-            </div>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {whyDielcha.map((item) => (
-                <div key={item.title} className="rounded-xl border border-border bg-card p-5 shadow-card">
-                  <span className={`inline-flex size-9 items-center justify-center rounded-full text-sm font-bold ${item.color}`}>•</span>
-                  <h3 className="mt-4 font-display font-semibold">{item.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{item.text}</p>
-                </div>
-              ))}
-            </div>
+        <section className="bg-[var(--paper)] border-y border-border">
+          <div className="mx-auto max-w-7xl px-4 section sm:px-6">
+            <h2 className="display-title">Quick <span className="grad-text">answers.</span></h2>
+            <div className="mt-5"><Faq /></div>
           </div>
         </section>
 
-        <section className="relative isolate overflow-hidden">
-          <img src={bgStart} alt="" aria-hidden className="absolute inset-0 size-full object-cover" />
-          <div className="overlay-soft absolute inset-0" />
-          <div className="relative mx-auto max-w-7xl px-4 py-20 text-center sm:px-6">
-            <h2 className="text-3xl font-bold text-on-image md:text-4xl">Have a Product or Engineering Project?</h2>
-            <p className="mx-auto mt-4 max-w-2xl text-on-image-muted">Tell us what you are trying to build, improve or document. You can send requirements, drawings, existing files, photographs or a simple description of the idea.</p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link to="/start-a-project" className="rounded-md bg-destructive px-7 py-3.5 text-sm font-semibold text-destructive-foreground hover:brightness-110">Start a Project</Link>
-              <WhatsAppButton />
-            </div>
+        <section className="relative isolate overflow-hidden bg-[var(--navy)] text-white">
+          <TraceArt className="pagehead__art" />
+          <div className="mx-auto max-w-3xl px-4 py-12 text-center sm:px-6">
+            <h2 className="font-display text-3xl font-extrabold tracking-tight md:text-4xl">Have a Product or Project?</h2>
+            <p className="mx-auto mt-3 max-w-xl text-sm text-white/75 md:text-base">An early idea, a sketch or existing files are enough. Tell us in one line and we will take it from there.</p>
+            <div className="mt-6"><QuickEnquiry /></div>
+            <Link to="/start-a-project" className="mt-4 inline-block text-sm font-bold text-[var(--brand-yellow)] hover:text-white">Prefer a detailed brief? Start a project →</Link>
           </div>
         </section>
       </main>

@@ -17,7 +17,7 @@ function TermsPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
-      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-20 sm:px-6">
+      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-9 sm:px-6">
         <h1 className="text-3xl font-bold">Terms of Service</h1>
         <p className="mt-4 text-muted-foreground">
           This website presents the services of DIELCHA DIGILAB. Submitting an enquiry does not

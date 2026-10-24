@@ -3,7 +3,12 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PageHero } from "@/components/PageHero";
 import { WhatsAppButton } from "@/components/WhatsAppFab";
+import { ServiceArt } from "@/components/Art";
+import { Avatar } from "@/components/Avatars";
+import { glow } from "@/components/ServiceBento";
+import { serviceProjectCategories } from "@/data/content";
 import { projects, services } from "@/data/site";
+import type { CSSProperties } from "react";
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
@@ -30,182 +35,102 @@ export const Route = createFileRoute("/services/$slug")({
   component: ServiceDetail,
 });
 
+const tones = ["blue", "green", "yellow", "red"] as const;
+const audienceAvatars = ["founder", "engineer", "institution"] as const;
+
+function Check() {
+  return (<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" className="mt-0.5 shrink-0 text-[var(--brand-green)]" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12.500 4.500 4.500L19 7.500" /></svg>);
+}
+
 function ServiceDetail() {
   const { service } = Route.useLoaderData();
-  const related = projects.slice(0, 3);
+  const i = Math.max(0, services.findIndex((s) => s.slug === service.slug));
+  const related = projects.filter((p) => (serviceProjectCategories[service.slug] ?? []).includes(p.category)).slice(0, 4);
+  const others = services.filter((s) => s.slug !== service.slug);
 
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="flex-1">
         <PageHero
-          image={service.image}
-          label={`Service ${service.number}`}
+          tone={tones[i]}
+          crumbs={[{ label: "Services", to: "/services" }, { label: service.title }]}
           title={service.title}
           intro={service.short}
-          tone={service.number === "01" ? "blue" : service.number === "02" ? "green" : service.number === "03" ? "red" : "blue"}
-        >
-          {/* Tag labels hidden on the website:
-<div className="flex flex-wrap gap-2">
-            {service.tags.map((t) => (
-              <span
-                key={t}
-                className="label-mono rounded-md border border-on-image/40 px-2 py-1 text-[0.65rem] text-on-image"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-*/}
-        </PageHero>
+          aside={<div className="hidden w-64 rounded-2xl bg-white p-3 shadow-lift md:block"><ServiceArt index={i} className="h-auto w-full" /></div>}
+        />
 
+        <section className="mx-auto max-w-7xl px-4 section sm:px-6">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-5">
+            <div className="min-w-0 space-y-4">
+              <div className="card-s p-4 sm:p-5">
+                <h2 className="font-display text-lg font-extrabold text-[#12344f]">Overview</h2>
+                <p className="mt-1.5 text-sm leading-6 text-[#3a4654]">{service.overview}</p>
+                <p className="mt-2 rounded-lg bg-[var(--paper)] px-3 py-2 text-[0.82rem] leading-5 text-[#4a5866]">{service.requirement}</p>
+              </div>
 
-
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <div className="grid gap-12 lg:grid-cols-3">
-            <div className="space-y-12 lg:col-span-2">
-              <section>
-                <h2 className="text-2xl font-bold">Overview</h2>
-                <p className="mt-3 text-muted-foreground">{service.overview}</p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold">Capabilities</h2>
-                <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-                  {service.capabilities.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-lg border border-border bg-card p-3.5 text-sm shadow-card"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold">Process</h2>
-                <ol className="mt-6 flex flex-wrap items-center gap-3">
-                  {service.process.map((step, i) => (
-                    <li key={step} className="flex items-center gap-3">
-                      <span className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
-                        {step}
-                      </span>
-                      {i < service.process.length - 1 && (
-                        <span className="text-accent" aria-hidden>
-                          →
-                        </span>
-                      )}
-                    </li>
-                  ))}
+              <div className="card-s p-4 sm:p-5">
+                <h2 className="font-display text-lg font-extrabold text-[#12344f]">How it works</h2>
+                <ol className="flow flow--row mt-3" style={{ "--tone": glow[i] } as CSSProperties}>
+                  {service.process.map((step) => <li key={step}>{step}</li>)}
                 </ol>
-              </section>
+              </div>
 
-              {service.scope && (
-                <section className="rounded-lg border-l-4 border-accent bg-muted p-6">
-                  <h2 className="text-xl font-bold text-accent">Scope</h2>
-                  <p className="mt-2 text-sm">{service.scope}</p>
-                </section>
+              <div className="card-s p-4 sm:p-5">
+                <h2 className="font-display text-lg font-extrabold text-[#12344f]">Capabilities</h2>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {service.capabilities.map((c) => <span key={c} className="chip chip--blue">{c}</span>)}
+                </div>
+              </div>
+
+              {related.length > 0 && (
+                <div className="card-s p-4 sm:p-5">
+                  <h2 className="font-display text-lg font-extrabold text-[#12344f]">Related projects</h2>
+                  <ul className="mt-2 divide-y divide-[var(--color-border)]">
+                    {related.map((p) => (
+                      <li key={p.slug}>
+                        <Link to="/work/$slug" params={{ slug: p.slug }} className="flex items-center justify-between gap-3 py-2.5 text-sm font-semibold text-[#12344f] hover:text-[var(--brand-red)]">
+                          <span className="min-w-0 truncate">{p.title}</span>
+                          <span className="chip shrink-0">{p.category}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </div>
 
-            <aside className="space-y-8">
-              <div className="rounded-xl border border-border bg-card p-6 shadow-card">
-                <h2 className="text-xl font-bold text-primary">Typical deliverables</h2>
-                <ul className="mt-4 space-y-2 text-sm">
-                  {service.deliverables.map((d) => (
-                    <li key={d} className="flex items-start gap-2">
-                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" />
-                      {d}
-                    </li>
+            <aside className="min-w-0 space-y-4 lg:sticky lg:top-20 lg:self-start">
+              <div className="card-s p-4">
+                <h2 className="font-display text-base font-extrabold text-[#12344f]">You receive</h2>
+                <ul className="mt-2.5 space-y-1.5 text-sm text-[#3a4654]">
+                  {service.deliverables.map((d) => <li key={d} className="flex gap-2"><Check />{d}</li>)}
+                </ul>
+              </div>
+              <div className="card-s p-4">
+                <h2 className="font-display text-base font-extrabold text-[#12344f]">Built for</h2>
+                <ul className="mt-2.5 space-y-2.5">
+                  {service.audience.map((a, k) => (
+                    <li key={a} className="flex items-center gap-2.5 text-sm text-[#3a4654]"><Avatar kind={audienceAvatars[k % audienceAvatars.length]} size={34} label="" />{a}</li>
                   ))}
                 </ul>
               </div>
-              <div className="rounded-xl border border-border bg-muted p-6">
-                <h2 className="text-xl font-bold text-primary">Who it is for</h2>
-                <ul className="mt-4 space-y-2 text-sm">
-                  {service.audience.map((a) => (
-                    <li key={a} className="flex items-start gap-2">
-                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-secondary" />
-                      {a}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 text-xs text-muted-foreground">{service.requirement}</p>
-              </div>
-              <div className="overflow-hidden rounded-xl border border-border shadow-card">
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  loading="lazy"
-                  width={1600}
-                  height={1000}
-                  className="size-full object-cover"
-                />
+              <div className="rounded-2xl bg-[var(--navy)] p-4 text-white shadow-lift">
+                <p className="font-display text-lg font-extrabold leading-tight">Start this service</p>
+                <p className="mt-1 text-[0.82rem] text-white/75">Tell us what you have. Scope is agreed before work begins.</p>
+                <div className="mt-3 flex flex-col gap-2">
+                  <Link to="/start-a-project" search={{ service: service.slug }} className="rounded-full bg-[var(--brand-yellow)] px-4 py-2.5 text-center text-sm font-bold text-[#151515] hover:bg-white">Start a project</Link>
+                  <WhatsAppButton className="justify-center rounded-full" />
+                </div>
               </div>
             </aside>
           </div>
 
-          <section className="mt-20">
-            <h2 className="text-2xl font-bold">Related Projects</h2>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((r) => (
-                <article
-                  key={r.slug}
-                  className="group overflow-hidden rounded-lg border border-border bg-card shadow-card transition-shadow hover:shadow-lift"
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={r.image}
-                      alt={r.title}
-                      loading="lazy"
-                      width={1024}
-                      height={768}
-                      className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-5">
-                    <p className="section-kicker text-secondary">{r.category}</p>
-                    <h3 className="mt-2 font-display text-base font-semibold leading-snug">
-                      {r.title}
-                    </h3>
-                    <Link
-                      to="/work/$slug"
-                      params={{ slug: r.slug }}
-                      className="mt-3 inline-block text-sm font-semibold text-primary hover:text-destructive"
-                    >
-                      View Project →
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-        </div>
-
-        <section className="relative isolate overflow-hidden">
-          <img
-            src={service.image}
-            alt=""
-            aria-hidden
-            loading="lazy"
-            width={1600}
-            height={1000}
-            className="absolute inset-0 size-full object-cover"
-          />
-          <div className="overlay-soft absolute inset-0" aria-hidden />
-          <div className="relative mx-auto max-w-7xl px-4 py-20 text-center sm:px-6">
-            <h2 className="text-3xl font-bold text-on-image">{service.ctaLabel}</h2>
-            <div className="mt-7 flex flex-wrap justify-center gap-3">
-              <Link
-                to="/start-a-project"
-                search={{ service: service.slug }}
-                className="rounded-md bg-destructive px-7 py-3.5 text-sm font-semibold text-destructive-foreground transition-colors hover:brightness-110"
-              >
-                Start a Project
-              </Link>
-              <WhatsAppButton />
-            </div>
+          <div className="mt-6 flex flex-wrap items-center gap-2">
+            <span className="text-sm font-bold text-[#12344f]">Other services</span>
+            {others.map((o) => (
+              <Link key={o.slug} to="/services/$slug" params={{ slug: o.slug }} className="pfilter">{o.title}</Link>
+            ))}
           </div>
         </section>
       </main>

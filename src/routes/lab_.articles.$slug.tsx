@@ -2,6 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { articles, githubLink } from "@/data/site";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { PageHero } from "@/components/PageHero";
+import { ReadingProgress } from "@/components/ReadingProgress";
 
 export const Route = createFileRoute("/lab_/articles/$slug")({
   loader: ({ params }) => {
@@ -9,67 +11,58 @@ export const Route = createFileRoute("/lab_/articles/$slug")({
     if (!article) throw notFound();
     return article;
   },
-  head: ({ loaderData }) => ({ meta: [{ title: `${loaderData?.title ?? "Technical Note"} | DIELCHA LAB` }] }),
+  head: ({ loaderData }) => ({ meta: [{ title: `${loaderData?.title ?? "Technical Note"} | Dielcha Digilab` }, { name: "description", content: loaderData?.summary ?? "" }] }),
   component: ArticlePage,
 });
 
+const slugify = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
 function ArticlePage() {
   const article = Route.useLoaderData();
-
+  const more = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
   return (
     <div className="flex min-h-screen flex-col">
+      <ReadingProgress />
       <SiteHeader />
       <main className="flex-1">
-        <header className="border-b border-border bg-muted">
-          <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
-            <Link to="/lab" className="text-sm font-semibold text-primary hover:text-destructive">← Back to Lab</Link>
-            <div className="mt-7 grid gap-8 lg:grid-cols-[1.15fr_.85fr] lg:items-center">
-              <div>
-                <p className="section-kicker text-secondary">{article.category} · Technical Note</p>
-                <h1 className="mt-3 text-4xl font-bold text-primary md:text-5xl">{article.title}</h1>
-                <p className="mt-5 max-w-3xl text-lg leading-8 text-foreground">{article.summary}</p>
-              </div>
-              <img src={article.image} alt="" aria-hidden className="aspect-[16/9] w-full rounded-2xl object-cover shadow-card" />
-            </div>
-          </div>
-        </header>
-
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:py-16">
-          <div className="lab-detail-grid">
-            <article className="lab-reading min-w-0">
-              <section className="engineering-card p-6 sm:p-8">
-                <h2 className="mt-2 text-2xl font-bold text-primary">What this note is explaining</h2>
-                <p className="mt-4">{article.introduction}</p>
-                <p className="mt-4">The aim is to turn a broad engineering topic into practical decisions: what to inspect first, what can go wrong, and what should be documented before a design moves to the next stage.</p>
-              </section>
-
-              <div className="mt-7 grid gap-5 md:grid-cols-2">
-                {article.sections.map((section) => (
-                  <section key={section.heading} className="lab-section-card">
-                    <h2 className="text-xl font-bold">{section.heading}</h2>
-                    <p className="mt-3">{section.text}</p>
-                  </section>
-                ))}
+        <PageHero
+          tone="green" crumbs={[{ label: "Lab", to: "/lab" }, { label: article.category }]}
+          title={article.title} intro={article.summary}
+          aside={<img src={article.image} alt="" aria-hidden="true" decoding="async" className="hidden h-28 w-44 rounded-xl border border-white/20 object-cover shadow-lift md:block" />}
+        />
+        <section className="mx-auto max-w-5xl px-4 section sm:px-6">
+          <div className="grid gap-6 lg:grid-cols-[13rem_minmax(0,1fr)]">
+            <nav className="toc hidden lg:sticky lg:top-20 lg:block lg:self-start" aria-label="On this page">
+              <p className="mb-1.5 text-xs font-extrabold uppercase tracking-wider text-muted-foreground">On this page</p>
+              {article.sections.map((s) => <a key={s.heading} href={`#${slugify(s.heading)}`}>{s.heading}</a>)}
+            </nav>
+            <article className="prose-s min-w-0">
+              <p className="rounded-xl bg-[var(--paper)] px-4 py-3 text-[0.95rem] leading-7 text-[#2b3948]">{article.introduction}</p>
+              {article.sections.map((s) => (
+                <div key={s.heading}>
+                  <h2 id={slugify(s.heading)}>{s.heading}</h2>
+                  <p>{s.text}</p>
+                </div>
+              ))}
+              <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[var(--color-border)] bg-white px-4 py-3">
+                <p className="m-0 text-sm font-semibold text-[#12344f]">More engineering work on GitHub</p>
+                <a href={githubLink} target="_blank" rel="noreferrer" className="rounded-full bg-[var(--brand-blue)] px-4 py-1.5 text-sm font-bold text-white hover:bg-[var(--brand-red)]">Open GitHub</a>
               </div>
             </article>
-
-            <section className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-              <section className="engineering-card p-6">
-                <h2 className="text-xl font-bold text-primary">Apply the note during review</h2>
-                <p className="mt-3 text-sm leading-7 text-foreground">Use the sections as a working review sequence. Compare the guidance with the actual schematic, layout, measurements or prototype, then record decisions rather than relying on memory.</p>
-              </section>
-              <section className="engineering-card p-6">
-                <h2 className="text-xl font-bold text-secondary">Document what you find</h2>
-                <p className="mt-3 text-sm leading-7 text-foreground">A good engineering note is most useful when it leads to an observable action: a changed component, a checked dimension, a measured value, a revised routing decision or a documented manufacturing constraint.</p>
-              </section>
-              <section className="rounded-xl border border-border bg-primary p-6 text-primary-foreground shadow-card md:col-span-2 xl:col-span-1">
-                <h2 className="text-xl font-bold text-white">More technical material</h2>
-                <p className="mt-3 text-sm leading-6">Additional examples, diagrams and project documentation can be followed through the Dielcha GitHub repository.</p>
-                <a href={githubLink} target="_blank" rel="noreferrer" className="mt-4 inline-block rounded-md bg-white px-5 py-2.5 text-sm font-semibold text-primary hover:text-destructive">View on GitHub</a>
-              </section>
-            </section>
           </div>
-        </div>
+
+          <div className="mt-8 border-t border-border pt-5">
+            <h2 className="font-display text-base font-extrabold text-[#12344f]">More notes</h2>
+            <div className="mt-3 grid gap-3 sm:grid-cols-3">
+              {more.map((a) => (
+                <Link key={a.slug} to="/lab/articles/$slug" params={{ slug: a.slug }} className="card-s p-3 transition hover:-translate-y-0.5 hover:shadow-lift">
+                  <span className="chip chip--blue">{a.category}</span>
+                  <p className="mt-1.5 font-display text-[0.95rem] font-extrabold leading-tight text-[#12344f]">{a.title}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
       <SiteFooter />
     </div>

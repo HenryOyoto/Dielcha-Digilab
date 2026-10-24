@@ -1,31 +1,35 @@
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { TraceArt } from "@/components/Art";
 
-type Props = {
-  image: string;
-  title: string;
-  intro?: string;
-  label?: string;
-  tone?: "blue" | "green" | "red";
-  children?: ReactNode;
-};
+type Tone = "blue" | "green" | "red" | "yellow";
 
-export function PageHero({ image, title, intro, label, tone = "blue", children }: Props) {
+/** Compact page banner: breadcrumb, title, one-line intro, optional right-hand aside. */
+export function PageHero({
+  title, intro, tone = "yellow", crumbs, aside, children,
+}: {
+  title: string; intro?: string; tone?: Tone;
+  crumbs?: { label: string; to?: "/" | "/services" | "/work" | "/lab" | "/about" }[];
+  aside?: ReactNode; children?: ReactNode;
+}) {
   return (
-    <section className="relative isolate overflow-hidden">
-      <img
-        src={image}
-        alt=""
-        aria-hidden
-        width={1600}
-        height={700}
-        className="absolute inset-0 size-full object-cover"
-      />
-      <div className="page-hero-overlay page-hero-overlay--black absolute inset-0" aria-hidden />
-      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-28">
-        {label && <p className="section-kicker text-on-image hero-copy">{label}</p>}
-        <h1 className="hero-copy mt-4 max-w-4xl text-4xl font-bold text-on-image md:text-5xl">{title}</h1>
-        {intro && <p className="hero-copy hero-copy--muted mt-5 max-w-2xl text-lg text-on-image-muted">{intro}</p>}
-        {children && <div className="mt-8">{children}</div>}
+    <section className={`pagehead pagehead--${tone}`}>
+      <TraceArt className="pagehead__art" />
+      <div className={`pagehead__inner ${aside ? "has-aside" : ""}`}>
+        <div className="min-w-0">
+          {crumbs && (
+            <nav className="pagehead__crumbs" aria-label="Breadcrumb">
+              <Link to="/">Home</Link>
+              {crumbs.map((c) => (
+                <span key={c.label} className="flex gap-1.5"><span aria-hidden="true">/</span>{c.to ? <Link to={c.to}>{c.label}</Link> : <span className="text-white">{c.label}</span>}</span>
+              ))}
+            </nav>
+          )}
+          <h1 className="pagehead__title">{title}</h1>
+          {intro && <p className="pagehead__intro">{intro}</p>}
+          {children}
+        </div>
+        {aside}
       </div>
     </section>
   );
