@@ -847,7 +847,10 @@
   padding: 1.05rem 0;
   animation: marquee-rtl 70s linear infinite;
 }
-.marquee:hover .marquee__track, .marquee:focus-within .marquee__track { animation-play-state: paused; }
+/* Pause only for real pointer hover. Touch focus must never freeze the strip. */
+@media (hover: hover) and (pointer: fine) {
+  .marquee:hover .marquee__track { animation-play-state: paused; }
+}
 @keyframes marquee-rtl { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .marquee__item { display: flex; flex: 0 0 auto; align-items: center; gap: 0.6rem; padding-right: clamp(1.6rem, 4vw, 3rem); }
 .marquee__logo { display: block; height: 2.2rem; width: 2.2rem; object-fit: contain; mix-blend-mode: multiply; }
@@ -955,10 +958,10 @@
   .pcard:hover .pcard__view, .pcard:focus-visible .pcard__view { opacity: 1; transform: none; }
 }
 
-.pmodal { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: clamp(0.5rem, 3vw, 2rem); background: rgba(5,8,14,0.72); backdrop-filter: blur(6px); animation: fade-in 200ms ease; }
+.pmodal { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: clamp(0.5rem, 3vw, 2rem); background: rgba(5,8,14,0.72); backdrop-filter: blur(6px); animation: fade-in 200ms ease; overflow-y: auto; overscroll-behavior: contain; }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 .pmodal__panel {
-  position: relative; width: min(56rem, 100%); max-height: 100%; overflow-y: auto; overscroll-behavior: contain;
+  position: relative; width: min(56rem, 100%); max-height: calc(100vh - 2rem); max-height: calc(100dvh - 2rem); overflow-y: auto; overscroll-behavior: contain;
   border-radius: 1.25rem; background: var(--navy); color: #fff; box-shadow: 0 40px 80px -30px rgba(0,0,0,0.8);
   animation: pop-in 320ms cubic-bezier(.2,.7,.2,1);
 }
@@ -1015,11 +1018,44 @@
 
 /* ---------- Small-screen fit: nothing may overflow its container ---------- */
 @media (max-width: 640px) {
-  .hero { min-height: 24rem; }
-  .hero__title { max-width: 14ch; }
+  html, body, #root { max-width: 100%; }
+  body { overflow-x: clip; }
+  img, video, canvas, svg { max-width: 100%; }
+  .hero { height: auto; height: calc(100svh - 4rem); min-height: 34rem; max-height: none; }
+  .hero__slide { object-position: 60% center; }
+  .hero__title { max-width: 15ch; font-size: clamp(1.9rem, 8vw, 2.65rem); }
+  .hero__inner { padding: 0 1rem 1.25rem; }
+  .hero__bar { gap: 0.65rem; }
+  .hero__btn { min-height: 2.75rem; padding-inline: 1rem; }
+  .hero__dots { flex-basis: 100%; margin-top: 0.25rem; }
   .bento-card, .bento__a.bento-card { min-height: 16rem; }
-  .pmodal__stage { aspect-ratio: 4 / 3; }
-  .pmodal__thumb { width: 3.6rem; height: 2.6rem; }
+  .pmodal { align-items: start; padding: max(0.5rem, env(safe-area-inset-top)) 0.5rem max(0.5rem, env(safe-area-inset-bottom)); }
+  .pmodal__panel { width: 100%; max-height: calc(100dvh - 1rem); border-radius: 0.85rem; }
+  .pmodal__stage { aspect-ratio: 4 / 3; max-height: 42dvh; min-height: 10rem; }
+  .pmodal__main { object-fit: contain; }
+  .pmodal__caption { left: 0.5rem; bottom: 0.5rem; max-width: calc(100% - 1rem); font-size: 0.68rem; }
+  .pmodal__nav, .pmodal__close { width: 2.25rem; height: 2.25rem; }
+  .pmodal__nav--prev { left: 0.4rem; }
+  .pmodal__nav--next { right: 0.4rem; }
+  .pmodal__close { right: 0.4rem; top: 0.4rem; }
+  .pmodal__thumbs { gap: 0.45rem; padding: 0.65rem 0.75rem 0.15rem; }
+  .pmodal__thumb { width: 3.2rem; height: 2.35rem; }
+  .pmodal__info { align-items: stretch; gap: 0.75rem; padding: 0.85rem; }
+  .pmodal__info h3 { font-size: 1.35rem; overflow-wrap: anywhere; }
+  .pmodal__cta { justify-content: center; width: 100%; padding: 0.7rem 1rem; }
+  .anat-wrap { padding: 0.25rem; }
+  .anat { width: 100%; height: auto; }
+  .pfilters { max-width: 100%; }
+  .pgrid, .bento, .steps { min-width: 0; }
+  .pcard, .pcard__body { min-width: 0; }
+  .pmodal__info > * { min-width: 0; }
+}
+
+@media (max-width: 380px) {
+  .hero__title { font-size: 1.8rem; }
+  .hero__sub { max-width: 28ch; }
+  .pmodal__stage { min-height: 8.5rem; }
+  .pmodal__thumb { width: 2.8rem; height: 2.1rem; }
 }
 
 .tag-yellow { display: inline-block; border-radius: 9999px; background: var(--brand-yellow); color: #151515; padding: 0.25rem 0.8rem; font-size: 0.75rem; font-weight: 800; }
@@ -1153,7 +1189,8 @@ kbd { border: 1px solid var(--color-border); border-bottom-width: 2px; border-ra
 .prose-s p { margin-top: 0.4rem; font-size: 0.95rem; line-height: 1.7; color: #3a4654; }
 .toc a { display: block; border-left: 2px solid var(--color-border); padding: 0.25rem 0.75rem; font-size: 0.82rem; font-weight: 600; color: #4a5866; }
 .toc a:hover, .toc a[aria-current="true"] { border-left-color: var(--brand-red); color: var(--brand-red); }
-.anat-wrap { overflow-x: auto; border-radius: 1rem; background: #fff; border: 1px solid var(--color-border); padding: 0.5rem; scrollbar-width: thin; }
+.anat-wrap { overflow: hidden; border-radius: 1rem; background: #fff; border: 1px solid var(--color-border); padding: 0.5rem; scrollbar-width: thin; }
+.anat { display: block; width: 100%; height: auto; min-width: 0 !important; }
 
 .brand-whatsapp-link { color: #128c4a; }
 

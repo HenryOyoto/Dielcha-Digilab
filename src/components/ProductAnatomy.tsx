@@ -38,7 +38,7 @@ export function ProductAnatomy() {
   return (
     <div>
       <div className="anat-wrap">
-        <svg className="anat" viewBox="0 0 760 322" role="group" aria-label="Diagram of a connected product and the Dielcha service that covers each part" style={{ minWidth: 620 }}>
+        <svg className="anat" viewBox="0 0 760 322" role="group" aria-label="Diagram of a connected product and the Dielcha service that covers each part" >
           {/* enclosure outline */}
           <g
             className={`anat-node ${lit([2]) ? "" : "anat-dim"}`} tabIndex={0} role="button" aria-label="Enclosure and mounting"
