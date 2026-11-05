@@ -4,7 +4,6 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PageHero } from "@/components/PageHero";
 import { ProjectGallery } from "@/components/ProjectShowcase";
-import { ReadingProgress } from "@/components/ReadingProgress";
 import { WhatsAppButton } from "@/components/WhatsAppFab";
 import { projects } from "@/data/site";
 
@@ -14,7 +13,7 @@ export const Route = createFileRoute("/work/$slug")({
     if (!project) throw notFound();
     return project;
   },
-  head: ({ loaderData }) => ({ meta: [{ title: `${loaderData?.title ?? "Project"} | Dielcha Digilab` }, { name: "description", content: loaderData?.summary ?? "" }] }),
+  head: ({ loaderData }) => ({ meta: [{ title: `${loaderData?.title ?? "Project"} - Dielcha Digilab` }, { name: "description", content: loaderData?.summary ?? "" }] }),
   component: ProjectPage,
 });
 
@@ -30,13 +29,12 @@ function ProjectPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <ReadingProgress />
       <SiteHeader />
       <main className="flex-1">
-        <PageHero tone="blue" crumbs={[{ label: "Projects", to: "/work" }, { label: p.category }]} title={p.title} intro={p.summary}>
+        <PageHero tone="blue" image={p.hero} crumbs={[{ label: "Projects", to: "/work" }, { label: p.category }]} title={p.title} intro={p.summary}>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <span className="tag-yellow">{p.category}</span>
-            {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noreferrer" className="hero__btn hero__btn--ghost !py-1 !text-xs">View source →</a>}
+            {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noreferrer" className="btn btn--light btn--sm">View on GitHub</a>}
           </div>
         </PageHero>
 
@@ -99,11 +97,11 @@ function ProjectPage() {
 
           <nav className="mt-6 grid gap-3 sm:grid-cols-2" aria-label="More projects">
             <Link to="/work/$slug" params={{ slug: prev.slug }} className="card-s group px-4 py-3 hover:border-[var(--brand-blue)]">
-              <span className="text-xs font-bold text-muted-foreground">← Previous</span>
+              <span className="text-xs font-bold text-muted-foreground">Previous</span>
               <span className="mt-0.5 block truncate font-display font-extrabold text-[#12344f] group-hover:text-[var(--brand-blue)]">{prev.title}</span>
             </Link>
             <Link to="/work/$slug" params={{ slug: next.slug }} className="card-s group px-4 py-3 text-right hover:border-[var(--brand-blue)]">
-              <span className="text-xs font-bold text-muted-foreground">Next →</span>
+              <span className="text-xs font-bold text-muted-foreground">Next</span>
               <span className="mt-0.5 block truncate font-display font-extrabold text-[#12344f] group-hover:text-[var(--brand-blue)]">{next.title}</span>
             </Link>
           </nav>

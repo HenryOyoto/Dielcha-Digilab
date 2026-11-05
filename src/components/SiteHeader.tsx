@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Menu, X, ChevronDown, ArrowUpRight } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { whatsappLink, services } from "@/data/site";
 import { WhatsAppGlyph } from "@/components/SocialIcons";
 import { BrandWordmark } from "@/components/BrandWordmark";
-import logo from "@/assets/logo-icon.png";
+import logo from "@/assets/logo-icon.svg";
 
 function SearchGlyph() {
   return (
@@ -14,25 +14,18 @@ function SearchGlyph() {
   );
 }
 
-const accentCycle = ["primary", "secondary", "destructive"] as const;
-
-const serviceLinks = services.map((s, i) => ({
+const serviceLinks = services.map((s) => ({
   to: "/services/$slug" as const,
   params: { slug: s.slug },
   label: s.title,
-  description: s.short,
-  number: s.number,
-  color: accentCycle[i % accentCycle.length],
 }));
 
 const nav = [
-  { to: "/", label: "Home", exact: true, color: "primary" as const, children: null },
-  { to: "/services", label: "Services", exact: false, color: "secondary" as const, children: serviceLinks },
-  // Projects intentionally remains a simple navigation link; its portfolio
-  // is no longer duplicated in a hover dropdown.
-  { to: "/work", label: "Projects", exact: false, color: "destructive" as const, children: null },
-  { to: "/about", label: "About", exact: false, color: "primary" as const, children: null },
-  { to: "/lab", label: "Lab", exact: false, color: "secondary" as const, children: null },
+  { to: "/", label: "Home", exact: true, children: null },
+  { to: "/services", label: "Services", exact: false, children: serviceLinks },
+  { to: "/work", label: "Projects", exact: false, children: null },
+  { to: "/about", label: "About", exact: false, children: null },
+  { to: "/lab", label: "Lab", exact: false, children: null },
 ] as const;
 
 export function SiteHeader() {
@@ -86,11 +79,11 @@ export function SiteHeader() {
     <header className={`site-header-bar sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-xl ${scrolled ? "is-scrolled" : ""}`}>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link to="/" className="flex min-w-0 items-center gap-2.5" onClick={() => setOpen(false)}>
-          <img src={logo} alt="Dielcha Digilab logo" width={512} height={512} className="h-9 w-auto object-contain sm:h-10" />
+          <img src={logo} alt="Dielcha Digilab logo" width={1111} height={752} className="h-8 w-auto object-contain sm:h-9" />
           <BrandWordmark className="text-[1.05rem] sm:text-xl" />
         </Link>
 
-        <nav ref={navRef} className="hidden items-center gap-5 lg:flex" aria-label="Primary navigation">
+        <nav ref={navRef} className="hidden items-center gap-6 lg:flex" aria-label="Primary navigation">
           {nav.map((item) => {
             if (!item.children) {
               return (
@@ -98,8 +91,8 @@ export function SiteHeader() {
                   key={item.to}
                   to={item.to}
                   activeOptions={{ exact: item.exact }}
-                  className={`nav-link nav-link--${item.color}`}
-                  activeProps={{ className: `nav-link nav-link--${item.color} nav-link--active` }}
+                  className="nav-link"
+                  activeProps={{ className: "nav-link nav-link--active" }}
                 >
                   {item.label}
                 </Link>
@@ -121,8 +114,8 @@ export function SiteHeader() {
                   <Link
                     to={item.to}
                     activeOptions={{ exact: item.exact }}
-                    className={`nav-link nav-link--${item.color}`}
-                    activeProps={{ className: `nav-link nav-link--${item.color} nav-link--active` }}
+                    className="nav-link"
+                    activeProps={{ className: "nav-link nav-link--active" }}
                     onClick={() => setOpenMenu(null)}
                   >
                     {item.label}
@@ -137,9 +130,9 @@ export function SiteHeader() {
                       cancelClose();
                       setOpenMenu(isOpen ? null : item.to);
                     }}
-                    className="nav-chevron rounded-md p-1 text-primary transition-colors hover:bg-primary/10"
+                    className="nav-chevron rounded-md p-1 text-primary hover:bg-primary/10"
                   >
-                    <ChevronDown className={`size-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+                    <ChevronDown className={`size-3.5 ${isOpen ? "rotate-180" : ""}`} />
                   </button>
                 </div>
 
@@ -149,45 +142,25 @@ export function SiteHeader() {
                   onMouseEnter={cancelClose}
                   onMouseLeave={scheduleClose}
                 >
-                  <div className="nav-dropdown__header">
-                    <div>
-                      <span className="font-display text-xs font-bold uppercase tracking-[0.08em] text-secondary">Services</span>
-                      <p className="mt-1 text-xs text-primary/70">Design, develop and document with a clear workflow.</p>
-                    </div>
-                    <Link to="/services" onClick={() => setOpenMenu(null)} className="nav-dropdown__all" aria-label="View all services">
-                      <ArrowUpRight className="size-4" />
+                  {item.children.map((child) => (
+                    <Link
+                      key={child.params.slug}
+                      to={child.to}
+                      params={child.params}
+                      role="menuitem"
+                      onClick={() => setOpenMenu(null)}
+                      className="nav-dropdown__item"
+                    >
+                      {child.label}
                     </Link>
-                  </div>
-
-                  <div className="nav-dropdown__grid">
-                    {item.children.map((child) => (
-                      <Link
-                        key={`${child.to}-${child.params.slug}`}
-                        to={child.to}
-                        params={child.params}
-                        role="menuitem"
-                        onClick={() => setOpenMenu(null)}
-                        className={`nav-dropdown__item nav-dropdown__item--${child.color}`}
-                      >
-                        <span className={`nav-dropdown__number nav-dropdown__number--${child.color}`} aria-hidden="true">{child.number}</span>
-                        <span className="min-w-0">
-                          <span className="block leading-snug">{child.label}</span>
-                          <span className="mt-1 block line-clamp-2 text-[0.7rem] font-normal leading-relaxed text-primary/60">{child.description}</span>
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-
-                  <Link to="/services" onClick={() => setOpenMenu(null)} className="nav-dropdown__footer">
-                    Explore all services <ArrowUpRight className="size-3.5" />
-                  </Link>
+                  ))}
                 </div>
               </div>
             );
           })}
 
-          <button type="button" onClick={openSearch} className="flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 text-xs font-semibold text-primary/70 transition-colors hover:border-primary/40 hover:text-primary" aria-label="Search the site">
-            <SearchGlyph /> Search <kbd>Ctrl K</kbd>
+          <button type="button" onClick={openSearch} className="icon-btn" aria-label="Search the site">
+            <SearchGlyph />
           </button>
           <a href={whatsappLink} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="brand-whatsapp-link">
             <WhatsAppGlyph className="size-5" />
@@ -198,21 +171,21 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2 lg:hidden">
-        <button type="button" onClick={openSearch} aria-label="Search the site" className="rounded-lg border border-primary/20 bg-white p-2.5 text-primary shadow-sm transition-colors hover:bg-primary/5">
-          <SearchGlyph />
-        </button>
-        <button
-          type="button"
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          onClick={() => {
-            setOpen((v) => !v);
-            setMobileSubmenu(null);
-          }}
-          className="rounded-lg border border-primary/20 bg-white p-2.5 text-primary shadow-sm transition-colors hover:bg-primary/5"
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
+          <button type="button" onClick={openSearch} aria-label="Search the site" className="icon-btn">
+            <SearchGlyph />
+          </button>
+          <button
+            type="button"
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            onClick={() => {
+              setOpen((v) => !v);
+              setMobileSubmenu(null);
+            }}
+            className="icon-btn"
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </div>
       </div>
 
@@ -221,7 +194,7 @@ export function SiteHeader() {
           {nav.map((item) => {
             if (!item.children) {
               return (
-                <Link key={item.to} to={item.to} onClick={() => setOpen(false)} className={`mobile-nav-link mobile-nav-link--${item.color}`}>
+                <Link key={item.to} to={item.to} onClick={() => setOpen(false)} className="mobile-nav-link">
                   {item.label}
                 </Link>
               );
@@ -239,29 +212,25 @@ export function SiteHeader() {
                     aria-label={`${item.label} submenu`}
                     aria-expanded={isOpen}
                     onClick={() => setMobileSubmenu(isOpen ? null : item.to)}
-                    className="rounded-md bg-secondary/10 p-1.5 text-secondary"
+                    className="rounded-md bg-primary/10 p-1.5 text-primary"
                   >
-                    <ChevronDown className={`size-4 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+                    <ChevronDown className={`size-4 ${isOpen ? "rotate-180" : ""}`} />
                   </button>
                 </div>
                 {isOpen && (
-                  <div className="flex flex-col gap-1 pb-3 pl-2">
+                  <div className="flex flex-col pb-3 pl-2">
                     {item.children.map((child) => (
                       <Link
-                        key={`${child.to}-${child.params.slug}`}
+                        key={child.params.slug}
                         to={child.to}
                         params={child.params}
                         onClick={() => {
                           setOpen(false);
                           setMobileSubmenu(null);
                         }}
-                        className={`nav-dropdown__item nav-dropdown__item--${child.color}`}
+                        className="nav-dropdown__item"
                       >
-                        <span className={`nav-dropdown__number nav-dropdown__number--${child.color}`} aria-hidden="true">{child.number}</span>
-                        <span className="min-w-0">
-                          <span className="block leading-snug">{child.label}</span>
-                          <span className="mt-1 block text-[0.7rem] font-normal leading-relaxed text-primary/60">{child.description}</span>
-                        </span>
+                        {child.label}
                       </Link>
                     ))}
                   </div>
@@ -270,7 +239,7 @@ export function SiteHeader() {
             );
           })}
 
-          <a href={whatsappLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 py-3 text-sm font-semibold text-secondary">
+          <a href={whatsappLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 py-3 text-sm font-semibold brand-whatsapp-link">
             <WhatsAppGlyph className="size-5" />
             WhatsApp
           </a>

@@ -5,11 +5,10 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PageHero } from "@/components/PageHero";
 import { WhatsAppGlyph } from "@/components/SocialIcons";
-import { Avatar } from "@/components/Avatars";
 import { services, brand, WHATSAPP_NUMBER } from "@/data/site";
 
 export const Route = createFileRoute("/start-a-project")({
-  head: () => ({ meta: [{ title: "Start a Project | Dielcha Digilab" }, { name: "description", content: "Send your product or project requirements to Dielcha Digilab and continue on WhatsApp or by phone." }] }),
+  head: () => ({ meta: [{ title: "Start a Project - Dielcha Digilab" }, { name: "description", content: "Send your product or project requirements to Dielcha Digilab and continue on WhatsApp or by phone." }] }),
   component: StartProjectPage,
 });
 
@@ -46,10 +45,7 @@ function StartProjectPage() {
           <div className="grid gap-4 md:grid-cols-[17rem_minmax(0,1fr)] md:gap-5">
             <aside className="min-w-0 space-y-4 md:sticky md:top-20 md:self-start">
               <div className="card-s p-4">
-                <div className="flex items-center gap-2.5">
-                  <Avatar kind="engineer" size={40} label="" />
-                  <p className="font-display text-base font-extrabold leading-tight text-[#12344f]">What happens next</p>
-                </div>
+                <p className="font-display text-base font-extrabold leading-tight text-[#12344f]">What happens next</p>
                 <ol className="flow mt-3" style={{ "--tone": "var(--brand-green)" } as CSSProperties}>
                   {steps.map((t) => <li key={t} className="!text-[0.82rem]">{t}</li>)}
                 </ol>

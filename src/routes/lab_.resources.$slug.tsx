@@ -13,7 +13,7 @@ export const Route = createFileRoute("/lab_/resources/$slug")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.title ?? "Resource"} | Dielcha Digilab` },
+      { title: `${loaderData?.title ?? "Resource"} - Dielcha Digilab` },
       { name: "description", content: loaderData?.description ?? "A reference from Dielcha Digilab." },
     ],
   }),

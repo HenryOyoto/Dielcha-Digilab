@@ -6,7 +6,7 @@ import { PageHero } from "@/components/PageHero";
 import { articles, resources } from "@/data/site";
 
 export const Route = createFileRoute("/lab")({
-  head: () => ({ meta: [{ title: "Lab | Dielcha Digilab" }, { name: "description", content: "Checklists, worksheets and technical notes from Dielcha Digilab." }] }),
+  head: () => ({ meta: [{ title: "Lab - Dielcha Digilab" }, { name: "description", content: "Checklists, worksheets and technical notes from Dielcha Digilab." }] }),
   component: LabPage,
 });
 
@@ -25,7 +25,7 @@ function LabPage() {
           <h2 className="font-display text-xl font-extrabold text-[#12344f]">Checklists & worksheets</h2>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {resources.map((r) => (
-              <Link key={r.slug} to="/lab/resources/$slug" params={{ slug: r.slug }} className="card-s group flex items-stretch gap-3 overflow-hidden transition hover:-translate-y-0.5 hover:shadow-lift">
+              <Link key={r.slug} to="/lab/resources/$slug" params={{ slug: r.slug }} className="card-s group flex items-stretch gap-3 overflow-hidden hover:border-[var(--brand-blue)]">
                 <img src={r.image} alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-28 shrink-0 object-cover sm:w-32" />
                 <div className="min-w-0 py-3 pr-3">
                   <span className={`chip ${r.format === "PDF" ? "chip--red" : "chip--green"}`}>{r.format}</span>
@@ -47,7 +47,7 @@ function LabPage() {
             </div>
             <div className="mt-3 grid gap-3 md:grid-cols-2">
               {shown.map((a) => (
-                <Link key={a.slug} to="/lab/articles/$slug" params={{ slug: a.slug }} className="card-s group flex items-stretch gap-3 overflow-hidden transition hover:-translate-y-0.5 hover:shadow-lift">
+                <Link key={a.slug} to="/lab/articles/$slug" params={{ slug: a.slug }} className="card-s group flex items-stretch gap-3 overflow-hidden hover:border-[var(--brand-blue)]">
                   <img src={a.image} alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-28 shrink-0 object-cover sm:w-32" />
                   <div className="min-w-0 py-3 pr-3">
                     <span className="chip chip--blue">{a.category}</span>

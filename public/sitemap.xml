@@ -15,7 +15,6 @@
   <url><loc>https://dielchadigilab.netlify.app/work/esp32-drone-flight-controller-pcb</loc><priority>0.6</priority></url>
   <url><loc>https://dielchadigilab.netlify.app/work/esp32-health-data-acquisition-monitoring-unit</loc><priority>0.6</priority></url>
   <url><loc>https://dielchadigilab.netlify.app/work/tokenized-biometrics-school-feeding-program</loc><priority>0.6</priority></url>
-  <url><loc>https://dielchadigilab.netlify.app/work/pcb-design-review-dfm</loc><priority>0.6</priority></url>
   <url><loc>https://dielchadigilab.netlify.app/lab/resources/pcb-pre-fabrication-checklist</loc><priority>0.6</priority></url>
   <url><loc>https://dielchadigilab.netlify.app/lab/resources/pcb-design-review-checklist</loc><priority>0.6</priority></url>
   <url><loc>https://dielchadigilab.netlify.app/lab/resources/bom-review-checklist</loc><priority>0.6</priority></url>
@@ -24,6 +23,4 @@
   <url><loc>https://dielchadigilab.netlify.app/lab/articles/understanding-power-rails</loc><priority>0.6</priority></url>
   <url><loc>https://dielchadigilab.netlify.app/lab/articles/esp32-prototype-notes</loc><priority>0.6</priority></url>
   <url><loc>https://dielchadigilab.netlify.app/lab/articles/common-pcb-design-mistakes</loc><priority>0.6</priority></url>
-  <url><loc>https://dielchadigilab.netlify.app/work/excel-automation-system</loc><priority>0.6</priority></url>
-  <url><loc>https://dielchadigilab.netlify.app/work/work-tracker-desktop-app</loc><priority>0.6</priority></url>
 </urlset>

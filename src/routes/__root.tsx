@@ -12,8 +12,6 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
-import { ScrollToTop } from "@/components/ScrollToTop";
-import { ContactNudge } from "@/components/ContactNudge";
 import { SearchPalette } from "@/components/SearchPalette";
 
 function NotFoundComponent() {
@@ -81,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "DIELCHA DIGILAB | Electronics, Embedded Systems & Engineering Design" },
+      { title: "DIELCHA DIGILAB - Electronics, Embedded Systems & Engineering Design" },
       {
         name: "description",
         content:
@@ -109,8 +107,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600&display=swap",
       },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       // TODO: once the production domain is final, add a per-route
       // canonical <link> (and update the og:image origin above to match).
@@ -143,8 +142,6 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      <ScrollToTop />
-      <ContactNudge />
       <SearchPalette />
       <WhatsAppFab />
     </QueryClientProvider>

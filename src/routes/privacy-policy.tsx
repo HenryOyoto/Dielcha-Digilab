@@ -6,7 +6,7 @@ import { brand } from "@/data/site";
 export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
     meta: [
-      { title: `Privacy Policy | ${brand.name}` },
+      { title: `Privacy Policy - ${brand.name}` },
       { name: "description", content: `Privacy policy for ${brand.name}.` },
     ],
   }),

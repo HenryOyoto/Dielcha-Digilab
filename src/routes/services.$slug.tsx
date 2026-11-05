@@ -3,9 +3,6 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PageHero } from "@/components/PageHero";
 import { WhatsAppButton } from "@/components/WhatsAppFab";
-import { ServiceArt } from "@/components/Art";
-import { Avatar } from "@/components/Avatars";
-import { glow } from "@/components/ServiceBento";
 import { serviceProjectCategories } from "@/data/content";
 import { projects, services } from "@/data/site";
 import type { CSSProperties } from "react";
@@ -36,7 +33,7 @@ export const Route = createFileRoute("/services/$slug")({
 });
 
 const tones = ["blue", "green", "yellow", "red"] as const;
-const audienceAvatars = ["founder", "engineer", "institution"] as const;
+const glow = ["var(--brand-blue)", "var(--brand-green)", "var(--brand-yellow)", "var(--brand-red)"];
 
 function Check() {
   return (<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" className="mt-0.5 shrink-0 text-[var(--brand-green)]" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12.500 4.500 4.500L19 7.500" /></svg>);
@@ -57,7 +54,7 @@ function ServiceDetail() {
           crumbs={[{ label: "Services", to: "/services" }, { label: service.title }]}
           title={service.title}
           intro={service.short}
-          aside={<div className="hidden w-64 rounded-2xl bg-white p-3 shadow-lift md:block"><ServiceArt index={i} className="h-auto w-full" /></div>}
+          aside={<img src={service.image} alt="" decoding="async" className="hidden aspect-[16/10] w-64 rounded-2xl object-cover shadow-lift md:block" />}
         />
 
         <section className="mx-auto max-w-7xl px-4 section sm:px-6">
@@ -109,10 +106,8 @@ function ServiceDetail() {
               </div>
               <div className="card-s p-4">
                 <h2 className="font-display text-base font-extrabold text-[#12344f]">Built for</h2>
-                <ul className="mt-2.5 space-y-2.5">
-                  {service.audience.map((a, k) => (
-                    <li key={a} className="flex items-center gap-2.5 text-sm text-[#3a4654]"><Avatar kind={audienceAvatars[k % audienceAvatars.length]} size={34} label="" />{a}</li>
-                  ))}
+                <ul className="mt-2.5 space-y-1.5 text-sm text-[#3a4654]">
+                  {service.audience.map((a) => <li key={a} className="flex gap-2"><Check />{a}</li>)}
                 </ul>
               </div>
               <div className="rounded-2xl bg-[var(--navy)] p-4 text-white shadow-lift">

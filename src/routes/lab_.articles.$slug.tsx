@@ -3,7 +3,6 @@ import { articles, githubLink } from "@/data/site";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { PageHero } from "@/components/PageHero";
-import { ReadingProgress } from "@/components/ReadingProgress";
 
 export const Route = createFileRoute("/lab_/articles/$slug")({
   loader: ({ params }) => {
@@ -11,7 +10,7 @@ export const Route = createFileRoute("/lab_/articles/$slug")({
     if (!article) throw notFound();
     return article;
   },
-  head: ({ loaderData }) => ({ meta: [{ title: `${loaderData?.title ?? "Technical Note"} | Dielcha Digilab` }, { name: "description", content: loaderData?.summary ?? "" }] }),
+  head: ({ loaderData }) => ({ meta: [{ title: `${loaderData?.title ?? "Technical Note"} - Dielcha Digilab` }, { name: "description", content: loaderData?.summary ?? "" }] }),
   component: ArticlePage,
 });
 
@@ -22,7 +21,6 @@ function ArticlePage() {
   const more = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
   return (
     <div className="flex min-h-screen flex-col">
-      <ReadingProgress />
       <SiteHeader />
       <main className="flex-1">
         <PageHero
@@ -33,7 +31,7 @@ function ArticlePage() {
         <section className="mx-auto max-w-5xl px-4 section sm:px-6">
           <div className="grid gap-6 lg:grid-cols-[13rem_minmax(0,1fr)]">
             <nav className="toc hidden lg:sticky lg:top-20 lg:block lg:self-start" aria-label="On this page">
-              <p className="mb-1.5 text-xs font-extrabold uppercase tracking-wider text-muted-foreground">On this page</p>
+              <p className="mb-1.5 text-sm font-extrabold text-[#12344f]">On this page</p>
               {article.sections.map((s) => <a key={s.heading} href={`#${slugify(s.heading)}`}>{s.heading}</a>)}
             </nav>
             <article className="prose-s min-w-0">
@@ -55,7 +53,7 @@ function ArticlePage() {
             <h2 className="font-display text-base font-extrabold text-[#12344f]">More notes</h2>
             <div className="mt-3 grid gap-3 sm:grid-cols-3">
               {more.map((a) => (
-                <Link key={a.slug} to="/lab/articles/$slug" params={{ slug: a.slug }} className="card-s p-3 transition hover:-translate-y-0.5 hover:shadow-lift">
+                <Link key={a.slug} to="/lab/articles/$slug" params={{ slug: a.slug }} className="card-s p-3 hover:border-[var(--brand-blue)]">
                   <span className="chip chip--blue">{a.category}</span>
                   <p className="mt-1.5 font-display text-[0.95rem] font-extrabold leading-tight text-[#12344f]">{a.title}</p>
                 </Link>
