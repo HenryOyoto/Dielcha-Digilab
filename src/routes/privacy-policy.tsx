@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { PageHero } from "@/components/PageHero";
+import { PageShell } from "@/components/PageShell";
 import { brand } from "@/data/site";
 
 export const Route = createFileRoute("/privacy-policy")({
@@ -15,26 +15,21 @@ export const Route = createFileRoute("/privacy-policy")({
 
 function PrivacyPage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-9 sm:px-6">
-        <h1 className="text-3xl font-bold">Privacy Policy</h1>
-        <p className="mt-4 text-muted-foreground">
-          DIELCHA DIGILAB collects the information you provide through the enquiry form: name,
-          email, phone number, project description and any uploaded files, solely to respond to
-          and evaluate your enquiry.
-        </p>
-        <p className="mt-4 text-muted-foreground">
-          We do not sell, share or publish your information. Project files are treated as
-          confidential. You can request deletion of your information at any time by contacting{" "}
-          {brand.email}.
-        </p>
-        <p className="mt-4 text-muted-foreground">
-          This policy is kept intentionally short. If you have questions about how your data is
-          handled, contact us directly.
-        </p>
-      </main>
-      <SiteFooter />
-    </div>
+    <PageShell>
+      <PageHero tone="blue" title="Privacy Policy" intro="Short, plain and honest." />
+      <section className="section">
+        <div className="container-x legal">
+          <p>
+            {brand.name} receives the information you choose to send us, for example through the form on the Start a project page, by email or on WhatsApp. That can include your name, your message,
+            project details and any files you share. We use it only to reply to you and to understand what you need.
+          </p>
+          <p>
+            We do not sell, share or publish your information, and project files are treated as confidential. You can ask us to delete your information at any time by getting in touch through any of
+            the contact options on the Start a project page.
+          </p>
+          <p>This policy is kept short on purpose. If you have questions about how your information is handled, just ask.</p>
+        </div>
+      </section>
+    </PageShell>
   );
 }

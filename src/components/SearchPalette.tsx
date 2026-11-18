@@ -7,7 +7,8 @@ function Entry({ e, active, go }: { e: SearchEntry; active: boolean; go: () => v
   const inner = (<><span className="spal__kind">{e.kind}</span><span className="truncate font-semibold">{e.label}</span><span className="spal__hint">{e.hint}</span></>);
   switch (e.kind) {
     case "Page": return <Link to={e.to} {...common}>{inner}</Link>;
-    case "Service": return <Link to="/services/$slug" params={{ slug: e.slug }} {...common}>{inner}</Link>;
+    case "Service":
+    case "Tool": return <Link to="/services/$slug" params={{ slug: e.slug }} {...common}>{inner}</Link>;
     case "Project": return <Link to="/work/$slug" params={{ slug: e.slug }} {...common}>{inner}</Link>;
     case "Note": return <Link to="/lab/articles/$slug" params={{ slug: e.slug }} {...common}>{inner}</Link>;
     case "Resource": return <Link to="/lab/resources/$slug" params={{ slug: e.slug }} {...common}>{inner}</Link>;

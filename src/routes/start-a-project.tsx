@@ -1,88 +1,146 @@
 import { createFileRoute, useSearch } from "@tanstack/react-router";
-import { useState, type CSSProperties, type FormEvent } from "react";
-import { Phone } from "lucide-react";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { Mail } from "lucide-react";
+import { useState, type FormEvent } from "react";
+import { ContactCards } from "@/components/ContactCards";
 import { PageHero } from "@/components/PageHero";
+import { PageShell } from "@/components/PageShell";
+import { SectionHead } from "@/components/SectionHead";
 import { WhatsAppGlyph } from "@/components/SocialIcons";
-import { services, brand, WHATSAPP_NUMBER } from "@/data/site";
+import { mailtoUrl, readContact, whatsappUrl } from "@/lib/contact";
+import { services } from "@/data/site";
 
 export const Route = createFileRoute("/start-a-project")({
-  head: () => ({ meta: [{ title: "Start a Project - Dielcha Digilab" }, { name: "description", content: "Send your product or project requirements to Dielcha Digilab and continue on WhatsApp or by phone." }] }),
+  head: () => ({
+    meta: [
+      { title: "Start a Project - Dielcha Digilab" },
+      { name: "description", content: "Tell Dielcha Digilab about your idea. Send your product or project details by email or WhatsApp." },
+    ],
+  }),
   component: StartProjectPage,
 });
 
-const inputClass = "w-full rounded-lg border border-input bg-white px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring";
-const labelClass = "mb-1 block text-[0.8rem] font-bold text-[#12344f]";
-const serviceOptions = [...services.map((s) => ({ value: s.slug, label: s.title })), { value: "other-work", label: "Something else (other discipline or software)" }];
-const steps = ["Share requirements, files or photographs", "We review and agree the scope", "Continue on WhatsApp or by phone"];
+const serviceOptions = [...services.map((s) => ({ value: s.slug, label: s.title })), { value: "other-work", label: "Something else (another discipline or software)" }];
+const steps = ["Send us your idea, files or photos", "We read it and agree the scope with you", "We carry on by WhatsApp or email"];
+
+type Method = "whatsapp" | "email";
 
 function StartProjectPage() {
   const search = useSearch({ strict: false }) as { service?: string };
   const [selected, setSelected] = useState(search.service ?? "");
-  const [contactMethod, setContactMethod] = useState<"whatsapp" | "call">("whatsapp");
+  const [method, setMethod] = useState<Method>("whatsapp");
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const get = (k: string) => ((form.get(k) as string) ?? "").trim();
-    if (contactMethod === "call") { window.location.href = `tel:${brand.phone}`; return; }
-    const serviceLabel = serviceOptions.find((o) => o.value === selected)?.label || "Not specified";
+    const serviceLabel = serviceOptions.find((o) => o.value === selected)?.label || "Not sure yet";
     const lines = [
-      "Hello Dielcha, I'd like to start a project.", "",
-      `Name: ${get("name")}`, `Phone: ${get("phone")}`, `Service: ${serviceLabel}`,
-      `Project Description: ${get("description")}`, `Objective: ${get("objective")}`, `Timeline: ${get("timeline")}`, `Budget: ${get("budget")}`,
+      "Hello Dielcha Digilab, I would like to start a project.",
+      "",
+      `Name: ${get("name")}`,
+      `Service: ${serviceLabel}`,
+      `About the project: ${get("description")}`,
+      `What I want to achieve: ${get("objective")}`,
+      `Timeline: ${get("timeline")}`,
+      `Budget: ${get("budget")}`,
     ];
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank");
+    // The contact details are only put together here, in the browser, at the moment of sending.
+    const contact = readContact();
+    if (method === "email") {
+      window.location.href = mailtoUrl(contact, `Project enquiry from ${get("name") || "a new client"}`, lines.join("\n"));
+    } else {
+      window.open(whatsappUrl(contact, lines.join("\n")), "_blank", "noopener,noreferrer");
+    }
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="flex-1">
-        <PageHero tone="green" crumbs={[{ label: "Start a project" }]} title="Start a project" intro="Tell us what you are building, improving or documenting. An early idea is enough to start." />
-        <section className="mx-auto max-w-5xl px-4 section sm:px-6">
-          <div className="grid gap-4 md:grid-cols-[17rem_minmax(0,1fr)] md:gap-5">
-            <aside className="min-w-0 space-y-4 md:sticky md:top-20 md:self-start">
-              <div className="card-s p-4">
-                <p className="font-display text-base font-extrabold leading-tight text-[#12344f]">What happens next</p>
-                <ol className="flow mt-3" style={{ "--tone": "var(--brand-green)" } as CSSProperties}>
-                  {steps.map((t) => <li key={t} className="!text-[0.82rem]">{t}</li>)}
-                </ol>
-              </div>
-              <p className="rounded-xl bg-[var(--paper)] px-3.5 py-3 text-[0.8rem] leading-5 text-[#4a5866]">Need a website, dashboard, app or API alongside hardware? Ask for it here too. Projects from other disciplines are welcome.</p>
-            </aside>
+    <PageShell>
+      <PageHero
+        tone="yellow"
+        crumbs={[{ label: "Start a project" }]}
+        title="Tell us your idea."
+        intro="An early idea is plenty. Say hello whichever way you like, or fill in the short form below."
+      />
 
-            <form onSubmit={onSubmit} className="card-s min-w-0 space-y-3.5 p-4 sm:p-5">
-              <div className="grid grid-cols-2 gap-2">
-                <button type="button" onClick={() => setContactMethod("whatsapp")} className={`rounded-lg border px-3 py-2 text-sm font-bold ${contactMethod === "whatsapp" ? "border-secondary bg-secondary/10 text-secondary" : "border-input text-muted-foreground"}`}><WhatsAppGlyph className="mr-1.5 inline size-4" />WhatsApp</button>
-                <button type="button" onClick={() => setContactMethod("call")} className={`rounded-lg border px-3 py-2 text-sm font-bold ${contactMethod === "call" ? "border-primary bg-primary/10 text-primary" : "border-input text-muted-foreground"}`}><Phone className="mr-1.5 inline size-4" />Phone</button>
-              </div>
-              <div>
-                <label htmlFor="service" className={labelClass}>Service</label>
-                <select id="service" value={selected} onChange={(e) => setSelected(e.target.value)} className={inputClass}>
-                  <option value="">Select a service</option>
-                  {serviceOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-                </select>
-              </div>
-              <div className="grid gap-3.5 sm:grid-cols-2">
-                <div><label htmlFor="name" className={labelClass}>Name</label><input id="name" name="name" required className={inputClass} /></div>
-                <div><label htmlFor="phone" className={labelClass}>Phone</label><input id="phone" name="phone" required className={inputClass} /></div>
-              </div>
-              <div><label htmlFor="description" className={labelClass}>Project description</label><textarea id="description" name="description" required rows={3} className={inputClass} /></div>
-              <div><label htmlFor="objective" className={labelClass}>Objective <span className="font-normal text-muted-foreground">(optional)</span></label><textarea id="objective" name="objective" rows={2} className={inputClass} /></div>
-              <div className="grid gap-3.5 sm:grid-cols-2">
-                <div><label htmlFor="timeline" className={labelClass}>Timeline</label><input id="timeline" name="timeline" className={inputClass} /></div>
-                <div><label htmlFor="budget" className={labelClass}>Budget</label><input id="budget" name="budget" className={inputClass} /></div>
-              </div>
-              <button type="submit" className={`flex w-full items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold ${contactMethod === "whatsapp" ? "bg-secondary text-white" : "bg-primary text-primary-foreground"}`}>
-                {contactMethod === "whatsapp" ? <><WhatsAppGlyph className="size-4" />Continue on WhatsApp</> : <><Phone className="size-4" />Call us now</>}
-              </button>
-            </form>
+      <section className="section start-contact">
+        <div className="container-x">
+          <SectionHead title={<>Reach us <span className="mark mark--blue">your way.</span></>} text="We read every message and reply personally." />
+          <div className="section__body">
+            <ContactCards />
           </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
+        </div>
+      </section>
+
+      <section className="section section--tint" id="form">
+        <div className="container-x start-grid">
+          <aside className="start-aside">
+            <div className="card">
+              <h2 className="card__title card__title--sm">What happens next</h2>
+              <ol className="flow flow--list">
+                {steps.map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ol>
+            </div>
+            <p className="note">Need a website, dashboard, app or API alongside the hardware? Ask for it here too. Projects from other disciplines are welcome as well.</p>
+          </aside>
+
+          <form onSubmit={onSubmit} className="card form">
+            <h2 className="card__title">Or send the details here</h2>
+            <div className="form__methods" role="group" aria-label="How should we receive it?">
+              <button type="button" aria-pressed={method === "whatsapp"} className="form__method" onClick={() => setMethod("whatsapp")}>
+                <WhatsAppGlyph className="size-5" /> WhatsApp
+              </button>
+              <button type="button" aria-pressed={method === "email"} className="form__method" onClick={() => setMethod("email")}>
+                <Mail className="size-5" /> Email
+              </button>
+            </div>
+
+            <div className="field">
+              <label htmlFor="service">What do you need?</label>
+              <select id="service" value={selected} onChange={(e) => setSelected(e.target.value)}>
+                <option value="">Not sure yet</option>
+                {serviceOptions.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </select>
+            </div>
+            <div className="field">
+              <label htmlFor="name">Your name</label>
+              <input id="name" name="name" required autoComplete="name" />
+            </div>
+            <div className="field">
+              <label htmlFor="description">Tell us about it</label>
+              <textarea id="description" name="description" required rows={4} placeholder="What are you building, improving or documenting?" />
+            </div>
+            <div className="field">
+              <label htmlFor="objective">What would a good result look like? <span>(optional)</span></label>
+              <textarea id="objective" name="objective" rows={2} />
+            </div>
+            <div className="field-row">
+              <div className="field">
+                <label htmlFor="timeline">Timeline <span>(optional)</span></label>
+                <input id="timeline" name="timeline" />
+              </div>
+              <div className="field">
+                <label htmlFor="budget">Budget <span>(optional)</span></label>
+                <input id="budget" name="budget" />
+              </div>
+            </div>
+            <button type="submit" className={`btn btn--lg ${method === "whatsapp" ? "btn--wa" : "btn--primary"}`}>
+              {method === "whatsapp" ? (
+                <>
+                  <WhatsAppGlyph className="size-5" /> Continue on WhatsApp
+                </>
+              ) : (
+                <>
+                  <Mail className="size-5" /> Continue by email
+                </>
+              )}
+            </button>
+          </form>
+        </div>
+      </section>
+    </PageShell>
   );
 }

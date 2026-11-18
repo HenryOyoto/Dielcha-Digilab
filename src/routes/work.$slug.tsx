@@ -1,10 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import type { CSSProperties } from "react";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { ArrowRight, Check } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
+import { PageShell } from "@/components/PageShell";
 import { ProjectGallery } from "@/components/ProjectShowcase";
-import { WhatsAppButton } from "@/components/WhatsAppFab";
+import { WhatsAppLink } from "@/components/ContactLinks";
+import { GitHubGlyph, WhatsAppGlyph } from "@/components/SocialIcons";
+import { findTool } from "@/data/tools";
 import { projects } from "@/data/site";
 
 export const Route = createFileRoute("/work/$slug")({
@@ -13,13 +14,11 @@ export const Route = createFileRoute("/work/$slug")({
     if (!project) throw notFound();
     return project;
   },
-  head: ({ loaderData }) => ({ meta: [{ title: `${loaderData?.title ?? "Project"} - Dielcha Digilab` }, { name: "description", content: loaderData?.summary ?? "" }] }),
+  head: ({ loaderData }) => ({
+    meta: [{ title: `${loaderData?.title ?? "Project"} - Dielcha Digilab` }, { name: "description", content: loaderData?.summary ?? "" }],
+  }),
   component: ProjectPage,
 });
-
-function Check() {
-  return (<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" className="mt-0.5 shrink-0 text-[var(--brand-green)]" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12.500 4.500 4.500L19 7.500" /></svg>);
-}
 
 function ProjectPage() {
   const p = Route.useLoaderData();
@@ -28,86 +27,108 @@ function ProjectPage() {
   const next = projects[(at + 1) % projects.length];
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="flex-1">
-        <PageHero tone="blue" image={p.hero} crumbs={[{ label: "Projects", to: "/work" }, { label: p.category }]} title={p.title} intro={p.summary}>
-          <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className="tag-yellow">{p.category}</span>
-            {p.githubUrl && <a href={p.githubUrl} target="_blank" rel="noreferrer" className="btn btn--light btn--sm">View on GitHub</a>}
-          </div>
-        </PageHero>
+    <PageShell>
+      <PageHero tone="blue" image={p.hero} crumbs={[{ label: "Projects", to: "/work" }, { label: p.category }]} title={p.title} intro={p.summary}>
+        <div className="pagehead__row">
+          <span className="tag-gold">{p.category}</span>
+          {p.githubUrl && (
+            <a href={p.githubUrl} target="_blank" rel="noreferrer" className="btn btn--white btn--sm">
+              <GitHubGlyph className="size-4" /> View on GitHub
+            </a>
+          )}
+        </div>
+      </PageHero>
 
-        <section className="mx-auto max-w-7xl px-4 section sm:px-6">
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-5">
-            <div className="min-w-0 space-y-4">
-              <ProjectGallery project={p} />
+      <section className="section">
+        <div className="container-x detail tone-blue">
+          <div className="detail__main">
+            <ProjectGallery project={p} />
 
-              <div className="card-s grid gap-4 p-4 sm:grid-cols-2 sm:p-5">
-                <div>
-                  <h2 className="font-display text-base font-extrabold text-[#12344f]">Overview</h2>
-                  <p className="mt-1.5 text-sm leading-6 text-[#3a4654]">{p.overview}</p>
-                </div>
-                <div>
-                  <h2 className="font-display text-base font-extrabold text-[#12344f]">Objective</h2>
-                  <p className="mt-1.5 text-sm leading-6 text-[#3a4654]">{p.objective}</p>
-                </div>
+            <div className="card card--two">
+              <div>
+                <h2 className="card__title card__title--sm">Overview</h2>
+                <p className="card__text">{p.overview}</p>
               </div>
-
-              <div className="card-s p-4 sm:p-5">
-                <h2 className="font-display text-base font-extrabold text-[#12344f]">Design approach</h2>
-                <ol className="flow mt-3 !gap-2.5" style={{ "--tone": "var(--brand-blue)" } as CSSProperties}>
-                  {p.designApproach.map((s) => <li key={s} className="!items-start !text-[0.85rem] !font-medium leading-5 !text-[#3a4654]">{s}</li>)}
-                </ol>
+              <div>
+                <h2 className="card__title card__title--sm">Objective</h2>
+                <p className="card__text">{p.objective}</p>
               </div>
-
-              <div className="card-s p-4 sm:p-5">
-                <h2 className="font-display text-base font-extrabold text-[#12344f]">Key decisions</h2>
-                <ul className="mt-2.5 grid gap-2 text-sm leading-5 text-[#3a4654] sm:grid-cols-2">
-                  {p.decisions.map((d) => <li key={d} className="flex gap-2"><Check />{d}</li>)}
-                </ul>
-              </div>
-
-              {p.notes.length > 0 && (
-                <div className="rounded-xl border border-[color-mix(in_srgb,var(--brand-yellow)_55%,#fff)] bg-[color-mix(in_srgb,var(--brand-yellow)_14%,#fff)] px-4 py-3 text-[0.83rem] leading-5 text-[#4b4310]">
-                  {p.notes.map((n) => <p key={n}>{n}</p>)}
-                </div>
-              )}
             </div>
 
-            <aside className="min-w-0 space-y-4 lg:sticky lg:top-20 lg:self-start">
-              <div className="card-s p-4">
-                <h2 className="font-display text-base font-extrabold text-[#12344f]">Technologies</h2>
-                <div className="mt-2.5 flex flex-wrap gap-1.5">{p.technologies.map((t) => <span key={t} className="chip chip--blue">{t}</span>)}</div>
+            <div className="card">
+              <h2 className="card__title">Design approach</h2>
+              <ol className="flow flow--list">
+                {p.designApproach.map((s) => (
+                  <li key={s}>{s}</li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="card">
+              <h2 className="card__title">Key decisions</h2>
+              <ul className="checks checks--two">
+                {p.decisions.map((d) => (
+                  <li key={d}><Check className="size-4" aria-hidden="true" />{d}</li>
+                ))}
+              </ul>
+            </div>
+
+            {p.notes.length > 0 && (
+              <div className="note note--gold">
+                {p.notes.map((n) => (
+                  <p key={n}>{n}</p>
+                ))}
               </div>
-              <div className="card-s p-4">
-                <h2 className="font-display text-base font-extrabold text-[#12344f]">Deliverables</h2>
-                <ul className="mt-2.5 space-y-1.5 text-sm text-[#3a4654]">{p.deliverables.map((d) => <li key={d} className="flex gap-2"><Check />{d}</li>)}</ul>
-              </div>
-              <div className="rounded-2xl bg-[var(--navy)] p-4 text-white shadow-lift">
-                <p className="font-display text-lg font-extrabold leading-tight">Need something similar?</p>
-                <p className="mt-1 text-[0.82rem] text-white/75">Send your requirements and we will scope it with you.</p>
-                <div className="mt-3 flex flex-col gap-2">
-                  <Link to="/start-a-project" search={{ service: p.category }} className="rounded-full bg-[var(--brand-yellow)] px-4 py-2.5 text-center text-sm font-bold text-[#151515] hover:bg-white">Start a project</Link>
-                  <WhatsAppButton className="justify-center rounded-full" />
-                </div>
-              </div>
-            </aside>
+            )}
           </div>
 
-          <nav className="mt-6 grid gap-3 sm:grid-cols-2" aria-label="More projects">
-            <Link to="/work/$slug" params={{ slug: prev.slug }} className="card-s group px-4 py-3 hover:border-[var(--brand-blue)]">
-              <span className="text-xs font-bold text-muted-foreground">Previous</span>
-              <span className="mt-0.5 block truncate font-display font-extrabold text-[#12344f] group-hover:text-[var(--brand-blue)]">{prev.title}</span>
-            </Link>
-            <Link to="/work/$slug" params={{ slug: next.slug }} className="card-s group px-4 py-3 text-right hover:border-[var(--brand-blue)]">
-              <span className="text-xs font-bold text-muted-foreground">Next</span>
-              <span className="mt-0.5 block truncate font-display font-extrabold text-[#12344f] group-hover:text-[var(--brand-blue)]">{next.title}</span>
-            </Link>
-          </nav>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
+          <aside className="detail__aside">
+            <div className="card">
+              <h2 className="card__title card__title--sm">Technologies</h2>
+              <ul className="tlist">
+                {p.technologies.map((t) => {
+                  const known = findTool(t);
+                  return (
+                    <li key={t} className={known ? "tchip" : "chip"}>
+                      {known && <img src={known.logo} alt="" width={28} height={28} loading="lazy" />}
+                      <span>{t}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div className="card">
+              <h2 className="card__title card__title--sm">Deliverables</h2>
+              <ul className="checks">
+                {p.deliverables.map((d) => (
+                  <li key={d}><Check className="size-4" aria-hidden="true" />{d}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="cta-card">
+              <p className="cta-card__title">Need something similar?</p>
+              <p className="cta-card__text">Send your requirements and we will scope it with you.</p>
+              <Link to="/start-a-project" search={{ service: p.category }} className="btn btn--gold">
+                Start a project <ArrowRight className="size-4" />
+              </Link>
+              <WhatsAppLink className="btn btn--wa">
+                <WhatsAppGlyph className="size-5" /> Chat on WhatsApp
+              </WhatsAppLink>
+            </div>
+          </aside>
+        </div>
+
+        <nav className="container-x pager" aria-label="More projects">
+          <Link to="/work/$slug" params={{ slug: prev.slug }} className="pager__item">
+            <span>Previous</span>
+            <strong>{prev.title}</strong>
+          </Link>
+          <Link to="/work/$slug" params={{ slug: next.slug }} className="pager__item pager__item--next">
+            <span>Next</span>
+            <strong>{next.title}</strong>
+          </Link>
+        </nav>
+      </section>
+    </PageShell>
   );
 }

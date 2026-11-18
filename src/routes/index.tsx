@@ -1,73 +1,137 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
+import { ContactCards } from "@/components/ContactCards";
 import { HeroSlider } from "@/components/HeroSlider";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
-import { ToolsStrip } from "@/components/ToolsStrip";
-import { ServiceCards } from "@/components/ServiceCards";
+import { OrbitArt } from "@/components/OrbitArt";
+import { PageShell } from "@/components/PageShell";
 import { ProjectShowcase } from "@/components/ProjectShowcase";
-import { WhatsAppButton } from "@/components/WhatsAppFab";
+import { SectionHead } from "@/components/SectionHead";
+import { ServiceCards } from "@/components/ServiceCards";
+import { Toolbox } from "@/components/Toolbox";
+import { YouTubeBand } from "@/components/YouTubeBand";
 import { githubLink, projects, workflowSteps } from "@/data/site";
 
 const title = "Dielcha Digilab - Product Design, Embedded Systems & IoT";
-const description = "PCB design and layout, embedded systems and IoT, product CAD and technical documentation, delivered online from Juja, Kenya.";
+const description =
+  "Got an idea? Dielcha Digilab helps you turn it into something real: PCB design, embedded systems and IoT, product CAD and clear technical documentation, delivered online.";
 
 export const Route = createFileRoute("/")({
-  head: () => ({ meta: [{ title }, { name: "description", content: description }, { property: "og:title", content: title }, { property: "og:description", content: description }] }),
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+    ],
+  }),
   component: Home,
 });
 
 function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="flex-1">
-        <HeroSlider />
-        <ToolsStrip />
+    <PageShell>
+      <HeroSlider />
 
-        <section className="mx-auto max-w-7xl px-4 section sm:px-6">
-          <div className="flex flex-wrap items-end justify-between gap-3">
-            <h2 className="section-title">Services</h2>
-            <Link to="/services" className="text-link">All services</Link>
+      <section className="section">
+        <div className="container-x">
+          <SectionHead
+            title={
+              <>
+                How we can <span className="mark mark--blue">help you build.</span>
+              </>
+            }
+            text="Four ways we work with people who have an idea and want it done properly."
+            action={
+              <Link to="/services" className="btn btn--ghost">
+                All services <ArrowRight className="size-4" />
+              </Link>
+            }
+          />
+          <div className="section__body">
+            <ServiceCards />
           </div>
-          <div className="mt-6"><ServiceCards /></div>
-        </section>
+        </div>
+      </section>
 
-        <section className="border-y border-border bg-[var(--paper)]">
-          <div className="mx-auto max-w-7xl px-4 section sm:px-6">
-            <div className="flex flex-wrap items-end justify-between gap-3">
-              <h2 className="section-title">Projects</h2>
-              <a href={githubLink} target="_blank" rel="noreferrer" className="text-link">More on GitHub</a>
-            </div>
-            <div className="mt-6"><ProjectShowcase items={projects} /></div>
+      <section className="section section--tint">
+        <div className="container-x">
+          <SectionHead
+            title={
+              <>
+                Work we are <span className="mark mark--gold">proud of.</span>
+              </>
+            }
+            text="A few projects, from the first circuit to the finished board."
+            action={
+              <a href={githubLink} target="_blank" rel="noreferrer" className="btn btn--ghost">
+                More on GitHub <ArrowRight className="size-4" />
+              </a>
+            }
+          />
+          <div className="section__body">
+            <ProjectShowcase items={projects} />
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="mx-auto max-w-7xl px-4 section sm:px-6">
-          <h2 className="section-title">How it works</h2>
-          <ol className="steps mt-6">
-            {workflowSteps.map((s) => (
+      <section className="section">
+        <div className="container-x">
+          <SectionHead
+            center
+            title={
+              <>
+                The tools in <span className="mark mark--green">our toolbox.</span>
+              </>
+            }
+            text="Familiar, well-supported tools, so your files open on your side too."
+          />
+          <div className="section__body">
+            <Toolbox />
+          </div>
+        </div>
+      </section>
+
+      <section className="section section--tint how">
+        <div className="container-x">
+          <SectionHead
+            title={
+              <>
+                Here is how it <span className="mark mark--gold">goes.</span>
+              </>
+            }
+            text="Simple, clear and friendly, from the first message to the final files."
+          />
+          <ol className="steps">
+            {workflowSteps.map((s, i) => (
               <li key={s.title} className="step">
-                <div>
-                  <h3 className="step__title">{s.title}</h3>
-                  <p className="step__text">{s.text}</p>
-                </div>
+                <span className="step__num">{i + 1}</span>
+                <h3 className="step__title">{s.title}</h3>
+                <p className="step__text">{s.text}</p>
               </li>
             ))}
           </ol>
-        </section>
+        </div>
+      </section>
 
-        <section className="bg-[var(--navy)] text-white">
-          <div className="mx-auto max-w-3xl px-4 py-12 text-center sm:px-6">
-            <h2 className="font-display text-3xl font-extrabold tracking-tight md:text-4xl">Have a product or project?</h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm text-white/75 md:text-base">An idea, a sketch or existing files are enough to start.</p>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Link to="/start-a-project" className="btn btn--yellow">Start a project</Link>
-              <WhatsAppButton className="rounded-full" />
+      <YouTubeBand id="learn" />
+
+      <section className="section" id="contact">
+        <div className="container-x">
+          <div className="cpanel">
+            <OrbitArt className="cpanel__orbit" dot={false} light />
+            <div className="cpanel__copy">
+              <h2 className="h2 cpanel__title">Let&rsquo;s talk about your idea.</h2>
+              <p className="cpanel__text">
+                Pick whichever way suits you. A message, a sketch or a few rough notes is plenty to begin with. We read everything and reply personally.
+              </p>
+              <Link to="/start-a-project" className="btn btn--gold btn--lg">
+                Start a project <ArrowRight className="size-5" />
+              </Link>
             </div>
+            <ContactCards onDark />
           </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
+        </div>
+      </section>
+    </PageShell>
   );
 }

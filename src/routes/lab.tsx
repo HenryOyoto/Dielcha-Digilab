@@ -1,12 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
 import { PageHero } from "@/components/PageHero";
+import { PageShell } from "@/components/PageShell";
+import { SectionHead } from "@/components/SectionHead";
+import { YouTubeBand } from "@/components/YouTubeBand";
 import { articles, resources } from "@/data/site";
 
 export const Route = createFileRoute("/lab")({
-  head: () => ({ meta: [{ title: "Lab - Dielcha Digilab" }, { name: "description", content: "Checklists, worksheets and technical notes from Dielcha Digilab." }] }),
+  head: () => ({
+    meta: [
+      { title: "Lab - Dielcha Digilab" },
+      { name: "description", content: "Checklists, worksheets, technical notes and YouTube tutorials from Dielcha Digilab." },
+    ],
+  }),
   component: LabPage,
 });
 
@@ -15,52 +21,75 @@ const noteCategories = ["All", ...Array.from(new Set(articles.map((a) => a.categ
 function LabPage() {
   const [cat, setCat] = useState("All");
   const shown = cat === "All" ? articles : articles.filter((a) => a.category === cat);
-  return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="flex-1">
-        <PageHero tone="green" crumbs={[{ label: "Lab" }]} title="Lab" intro="Practical checklists, worksheets and notes on PCB design, hardware and embedded development." />
 
-        <section className="mx-auto max-w-7xl px-4 section sm:px-6">
-          <h2 className="font-display text-xl font-extrabold text-[#12344f]">Checklists & worksheets</h2>
-          <div className="mt-3 grid gap-3 md:grid-cols-2">
+  return (
+    <PageShell>
+      <PageHero
+        tone="green"
+        crumbs={[{ label: "Lab" }]}
+        title="Learn with the Lab."
+        intro="Practical checklists, worksheets, notes and video tutorials on PCB design, hardware and embedded development. Take what is useful."
+      />
+
+      <YouTubeBand />
+
+      <section className="section">
+        <div className="container-x">
+          <SectionHead
+            title={
+              <>
+                Checklists &amp; <span className="mark mark--blue">worksheets.</span>
+              </>
+            }
+            text="Short, practical references you can use on your next board."
+          />
+          <div className="section__body lab-grid">
             {resources.map((r) => (
-              <Link key={r.slug} to="/lab/resources/$slug" params={{ slug: r.slug }} className="card-s group flex items-stretch gap-3 overflow-hidden hover:border-[var(--brand-blue)]">
-                <img src={r.image} alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-28 shrink-0 object-cover sm:w-32" />
-                <div className="min-w-0 py-3 pr-3">
-                  <span className={`chip ${r.format === "PDF" ? "chip--red" : "chip--green"}`}>{r.format}</span>
-                  <h3 className="mt-1.5 font-display text-[0.98rem] font-extrabold leading-tight text-[#12344f]">{r.title}</h3>
-                  <p className="mt-1 line-clamp-2 text-[0.8rem] leading-5 text-muted-foreground">{r.description}</p>
-                </div>
+              <Link key={r.slug} to="/lab/resources/$slug" params={{ slug: r.slug }} className={`lab-card ${r.format === "PDF" ? "tone-red" : "tone-green"}`}>
+                <img src={r.image} alt="" loading="lazy" decoding="async" className="lab-card__img" />
+                <span className="lab-card__body">
+                  <span className="chip chip--tone">{r.format}</span>
+                  <span className="lab-card__title">{r.title}</span>
+                  <span className="lab-card__text">{r.description}</span>
+                </span>
               </Link>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="border-t border-border bg-[var(--paper)]">
-          <div className="mx-auto max-w-7xl px-4 section sm:px-6">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="font-display text-xl font-extrabold text-[#12344f]">Technical notes</h2>
+      <section className="section section--tint">
+        <div className="container-x">
+          <SectionHead
+            title={
+              <>
+                Technical <span className="mark mark--gold">notes.</span>
+              </>
+            }
+            action={
               <div className="pfilters" role="group" aria-label="Filter notes">
-                {noteCategories.map((c) => <button key={c} type="button" className="pfilter" aria-pressed={cat === c} onClick={() => setCat(c)}>{c}</button>)}
+                {noteCategories.map((c) => (
+                  <button key={c} type="button" className="pfilter" aria-pressed={cat === c} onClick={() => setCat(c)}>
+                    {c}
+                  </button>
+                ))}
               </div>
-            </div>
-            <div className="mt-3 grid gap-3 md:grid-cols-2">
-              {shown.map((a) => (
-                <Link key={a.slug} to="/lab/articles/$slug" params={{ slug: a.slug }} className="card-s group flex items-stretch gap-3 overflow-hidden hover:border-[var(--brand-blue)]">
-                  <img src={a.image} alt="" aria-hidden="true" loading="lazy" decoding="async" className="w-28 shrink-0 object-cover sm:w-32" />
-                  <div className="min-w-0 py-3 pr-3">
-                    <span className="chip chip--blue">{a.category}</span>
-                    <h3 className="mt-1.5 font-display text-[0.98rem] font-extrabold leading-tight text-[#12344f]">{a.title}</h3>
-                    <p className="mt-1 line-clamp-2 text-[0.8rem] leading-5 text-muted-foreground">{a.summary}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            }
+          />
+          <div className="section__body lab-grid">
+            {shown.map((a) => (
+              <Link key={a.slug} to="/lab/articles/$slug" params={{ slug: a.slug }} className="lab-card tone-blue">
+                <img src={a.image} alt="" loading="lazy" decoding="async" className="lab-card__img" />
+                <span className="lab-card__body">
+                  <span className="chip chip--tone">{a.category}</span>
+                  <span className="lab-card__title">{a.title}</span>
+                  <span className="lab-card__text">{a.summary}</span>
+                </span>
+              </Link>
+            ))}
           </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
+        </div>
+      </section>
+    </PageShell>
   );
 }

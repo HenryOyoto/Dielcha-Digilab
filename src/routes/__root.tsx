@@ -16,21 +16,14 @@ import { SearchPalette } from "@/components/SearchPalette";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:brightness-110"
-          >
-            Go home
-          </Link>
-        </div>
+    <div className="state">
+      <div className="state__box">
+        <p className="state__code">404</p>
+        <h1 className="h2">We could not find that page.</h1>
+        <p className="lead">It may have moved, or the link might be a little off. Let us get you back on track.</p>
+        <Link to="/" className="btn btn--primary btn--lg">
+          Go to the home page
+        </Link>
       </div>
     </div>
   );
@@ -44,28 +37,22 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+    <div className="state">
+      <div className="state__box">
+        <h1 className="h2">This page did not load.</h1>
+        <p className="lead">Something went wrong on our side. You can try again, or head back to the home page.</p>
+        <div className="state__actions">
           <button
+            type="button"
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:brightness-110"
+            className="btn btn--primary btn--lg"
           >
             Try again
           </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-          >
+          <a href="/" className="btn btn--ghost btn--lg">
             Go home
           </a>
         </div>
@@ -79,11 +66,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { title: "DIELCHA DIGILAB - Electronics, Embedded Systems & Engineering Design" },
+      { title: "Dielcha Digilab - Electronics, Embedded Systems & Engineering Design" },
       {
         name: "description",
         content:
-          "DIELCHA DIGILAB designs and develops electronic hardware, embedded systems, connected devices, engineering designs and supporting software for products, businesses and technical teams.",
+          "Dielcha Digilab designs and builds electronic hardware, embedded systems, connected devices, engineering designs and the software around them for products, businesses and technical teams.",
       },
       { name: "theme-color", content: "#ffffff" },
       { property: "og:site_name", content: "DIELCHA DIGILAB" },
@@ -107,7 +94,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Inter:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;500;600;700;800&display=swap",
       },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "icon", type: "image/png", href: "/favicon.png" },

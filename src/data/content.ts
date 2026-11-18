@@ -1,4 +1,5 @@
 import { articles, projects, resources, services } from "@/data/site";
+import { tool } from "@/data/tools";
 
 /** Which projects illustrate each service (matched on project category). */
 export const serviceProjectCategories: Record<string, string[]> = {
@@ -13,7 +14,22 @@ export type SearchEntry =
   | { kind: "Service"; label: string; hint: string; slug: string }
   | { kind: "Project"; label: string; hint: string; slug: string }
   | { kind: "Note"; label: string; hint: string; slug: string }
-  | { kind: "Resource"; label: string; hint: string; slug: string };
+  | { kind: "Resource"; label: string; hint: string; slug: string }
+  | { kind: "Tool"; label: string; hint: string; slug: string };
+
+/** One search entry per tool, pointing at the first service that uses it. */
+const toolEntries: SearchEntry[] = (() => {
+  const seen = new Set<string>();
+  const out: SearchEntry[] = [];
+  for (const s of services) {
+    for (const key of s.tools) {
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push({ kind: "Tool", label: tool[key].name, hint: `Used in ${s.title}`, slug: s.slug });
+    }
+  }
+  return out;
+})();
 
 export const searchEntries: SearchEntry[] = [
   { kind: "Page", label: "Home", hint: "Start here", to: "/" },
@@ -26,4 +42,5 @@ export const searchEntries: SearchEntry[] = [
   ...projects.map((p) => ({ kind: "Project" as const, label: p.title, hint: p.category, slug: p.slug })),
   ...articles.map((a) => ({ kind: "Note" as const, label: a.title, hint: a.category, slug: a.slug })),
   ...resources.map((r) => ({ kind: "Resource" as const, label: r.title, hint: r.format, slug: r.slug })),
+  ...toolEntries,
 ];

@@ -1,66 +1,61 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, Phone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { brandLogo } from "@/data/images";
 import { brand, services } from "@/data/site";
-import { SocialIcons } from "@/components/SocialIcons";
 import { BrandWordmark } from "@/components/BrandWordmark";
-import logo from "@/assets/logo-icon.svg";
+import { SocialIcons } from "@/components/SocialIcons";
 
-const explore = [
-  { to: "/", label: "Home" },
-  { to: "/services", label: "Services" },
-  { to: "/work", label: "Projects" },
-  { to: "/lab", label: "Lab" },
-  { to: "/about", label: "About" },
-] as const;
-
+/** Site footer. It deliberately shows no email address or phone number: contact happens through the cards on the Start a project page. */
 export function SiteFooter() {
   return (
-    <footer className="site-footer">
-      <div className="mx-auto grid max-w-7xl gap-7 px-4 pb-7 pt-9 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
-        <div className="min-w-0">
-          <Link to="/" className="inline-flex items-center gap-3">
-            <img src={logo} alt="Dielcha Digilab logo" width={1111} height={752} className="h-9 w-auto object-contain" />
-            <BrandWordmark className="text-xl" />
+    <footer className="footer">
+      <div className="container-x footer__grid">
+        <div className="footer__brand">
+          <Link to="/" className="footer__logo" aria-label="Dielcha Digilab home">
+            <img src={brandLogo} alt="" width={52} height={35} />
+            <BrandWordmark />
           </Link>
-          <p className="mt-3 max-w-xs text-sm text-[#3a4654]">{brand.tagline}</p>
-          <SocialIcons className="mt-4" />
+          <p>{brand.positioning}</p>
+          <SocialIcons />
         </div>
 
-        <nav aria-label="Explore" className="min-w-0">
-          <h3 className="footer-head">Explore</h3>
-          <ul className="mt-3 space-y-2 text-sm">
-            {explore.map((l) => (
-              <li key={l.to}><Link to={l.to} className="footer-link">{l.label}</Link></li>
-            ))}
+        <nav className="footer__col" aria-label="Explore">
+          <h2>Explore</h2>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/services">Services</Link></li>
+            <li><Link to="/work">Projects</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/lab">Lab</Link></li>
           </ul>
         </nav>
 
-        <nav aria-label="Services" className="min-w-0">
-          <h3 className="footer-head">Services</h3>
-          <ul className="mt-3 space-y-2 text-sm">
+        <nav className="footer__col" aria-label="Services">
+          <h2>Services</h2>
+          <ul>
             {services.map((s) => (
-              <li key={s.slug}><Link to="/services/$slug" params={{ slug: s.slug }} className="footer-link">{s.title}</Link></li>
+              <li key={s.slug}>
+                <Link to="/services/$slug" params={{ slug: s.slug }}>{s.title}</Link>
+              </li>
             ))}
           </ul>
         </nav>
 
-        <div className="min-w-0">
-          <h3 className="footer-head">Contact</h3>
-          <ul className="mt-3 space-y-2 text-sm text-[#3a4654]">
-            <li className="flex items-center gap-2.5"><Mail className="size-4 shrink-0 text-[var(--brand-blue)]" aria-hidden="true" /><a href={`mailto:${brand.email}`} className="footer-link break-all">{brand.email}</a></li>
-            <li className="flex items-center gap-2.5"><Phone className="size-4 shrink-0 text-[var(--brand-blue)]" aria-hidden="true" /><a href={`tel:${brand.phone}`} className="footer-link">{brand.phone}</a></li>
-          </ul>
+        <div className="footer__col footer__cta">
+          <h2>Have an idea?</h2>
+          <p>Tell us about it. We would love to hear it.</p>
+          <Link to="/start-a-project" className="btn btn--gold">
+            Start a project <ArrowRight className="size-4" />
+          </Link>
         </div>
       </div>
 
-      <div className="border-t border-[var(--paper-edge)]">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3.5 text-xs text-[#5b6673] sm:px-6">
-          <span>© {brand.name}. All rights reserved.</span>
-          <span className="flex gap-5">
-            <Link to="/privacy-policy" className="footer-link">Privacy Policy</Link>
-            <Link to="/terms-of-service" className="footer-link">Terms of Service</Link>
-          </span>
-        </div>
+      <div className="container-x footer__bar">
+        <p>&copy; {new Date().getFullYear()} {brand.name}. All rights reserved.</p>
+        <p className="footer__legal">
+          <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/terms-of-service">Terms of Service</Link>
+        </p>
       </div>
     </footer>
   );

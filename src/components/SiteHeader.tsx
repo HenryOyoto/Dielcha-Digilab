@@ -1,252 +1,138 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { whatsappLink, services } from "@/data/site";
-import { WhatsAppGlyph } from "@/components/SocialIcons";
+import { useEffect, useState } from "react";
+import { ArrowRight, ChevronDown, Menu, Search, X } from "lucide-react";
+import { brandLogo } from "@/data/images";
+import { services } from "@/data/site";
 import { BrandWordmark } from "@/components/BrandWordmark";
-import logo from "@/assets/logo-icon.svg";
+import { EmailLink, WhatsAppLink } from "@/components/ContactLinks";
+import { WhatsAppGlyph } from "@/components/SocialIcons";
 
-function SearchGlyph() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-      <circle cx="11" cy="11" r="6.5" /><path d="m16 16 4.500 4.500" />
-    </svg>
-  );
-}
-
-const serviceLinks = services.map((s) => ({
-  to: "/services/$slug" as const,
-  params: { slug: s.slug },
-  label: s.title,
-}));
-
-const nav = [
-  { to: "/", label: "Home", exact: true, children: null },
-  { to: "/services", label: "Services", exact: false, children: serviceLinks },
-  { to: "/work", label: "Projects", exact: false, children: null },
-  { to: "/about", label: "About", exact: false, children: null },
-  { to: "/lab", label: "Lab", exact: false, children: null },
+const links = [
+  { to: "/work", label: "Projects" },
+  { to: "/about", label: "About" },
+  { to: "/lab", label: "Lab" },
 ] as const;
 
 export function SiteHeader() {
-  const [open, setOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const navRef = useRef<HTMLDivElement>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const cancelClose = () => {
-    if (closeTimer.current) {
-      clearTimeout(closeTimer.current);
-      closeTimer.current = null;
-    }
-  };
-
-  const scheduleClose = () => {
-    cancelClose();
-    closeTimer.current = setTimeout(() => setOpenMenu(null), 260);
-  };
-
-  useEffect(() => {
-    if (!openMenu) return;
-    const onClick = (e: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenMenu(null);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpenMenu(null);
-    };
-    document.addEventListener("click", onClick);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("click", onClick);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [openMenu]);
-
-  useEffect(() => () => cancelClose(), []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        setServicesOpen(false);
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("keydown", onKey);
+    };
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  const close = () => {
+    setMenuOpen(false);
+    setServicesOpen(false);
+  };
   const openSearch = () => window.dispatchEvent(new Event("open-search"));
 
   return (
-    <header className={`site-header-bar sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-xl ${scrolled ? "is-scrolled" : ""}`}>
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
-        <Link to="/" className="flex min-w-0 items-center gap-2.5" onClick={() => setOpen(false)}>
-          <img src={logo} alt="Dielcha Digilab logo" width={1111} height={752} className="h-8 w-auto object-contain sm:h-9" />
-          <BrandWordmark className="text-[1.05rem] sm:text-xl" />
+    <header className={`hdr ${scrolled ? "hdr--scrolled" : ""}`}>
+      <div className="hdr__bar">
+        <Link to="/" className="hdr__brand" aria-label="Dielcha Digilab home" onClick={close}>
+          <img src={brandLogo} alt="" width={44} height={30} className="hdr__logo" />
+          <BrandWordmark />
         </Link>
 
-        <nav ref={navRef} className="hidden items-center gap-6 lg:flex" aria-label="Primary navigation">
-          {nav.map((item) => {
-            if (!item.children) {
-              return (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  activeOptions={{ exact: item.exact }}
-                  className="nav-link"
-                  activeProps={{ className: "nav-link nav-link--active" }}
-                >
-                  {item.label}
-                </Link>
-              );
-            }
-
-            const isOpen = openMenu === item.to;
-            return (
-              <div
-                key={item.to}
-                className="nav-menu relative"
-                onMouseEnter={() => {
-                  cancelClose();
-                  setOpenMenu(item.to);
-                }}
-                onMouseLeave={scheduleClose}
-              >
-                <div className="flex items-center gap-1">
-                  <Link
-                    to={item.to}
-                    activeOptions={{ exact: item.exact }}
-                    className="nav-link"
-                    activeProps={{ className: "nav-link nav-link--active" }}
-                    onClick={() => setOpenMenu(null)}
-                  >
-                    {item.label}
-                  </Link>
-                  <button
-                    type="button"
-                    aria-label={`${item.label} submenu`}
-                    aria-expanded={isOpen}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      cancelClose();
-                      setOpenMenu(isOpen ? null : item.to);
-                    }}
-                    className="nav-chevron rounded-md p-1 text-primary hover:bg-primary/10"
-                  >
-                    <ChevronDown className={`size-3.5 ${isOpen ? "rotate-180" : ""}`} />
-                  </button>
-                </div>
-
-                <div
-                  className={`nav-dropdown ${isOpen ? "nav-dropdown--open" : ""}`}
-                  role="menu"
-                  onMouseEnter={cancelClose}
-                  onMouseLeave={scheduleClose}
-                >
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.params.slug}
-                      to={child.to}
-                      params={child.params}
-                      role="menuitem"
-                      onClick={() => setOpenMenu(null)}
-                      className="nav-dropdown__item"
-                    >
-                      {child.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-
-          <button type="button" onClick={openSearch} className="icon-btn" aria-label="Search the site">
-            <SearchGlyph />
-          </button>
-          <a href={whatsappLink} target="_blank" rel="noreferrer" aria-label="WhatsApp" className="brand-whatsapp-link">
-            <WhatsAppGlyph className="size-5" />
-          </a>
-          <Link to="/start-a-project" className="btn-brand-primary rounded-lg px-4 py-2.5 text-sm font-semibold text-white">
-            Start a Project
+        <nav className="hdr__nav" aria-label="Main">
+          <Link to="/" activeOptions={{ exact: true }} className="navlink" activeProps={{ className: "navlink is-active" }}>
+            Home
           </Link>
+          <div
+            className="menu"
+            onMouseEnter={() => setServicesOpen(true)}
+            onMouseLeave={() => setServicesOpen(false)}
+            onFocus={() => setServicesOpen(true)}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setServicesOpen(false);
+            }}
+          >
+            <Link to="/services" className="navlink" activeProps={{ className: "navlink is-active" }} aria-haspopup="true" aria-expanded={servicesOpen} onClick={close}>
+              Services <ChevronDown className="size-3.5" aria-hidden="true" />
+            </Link>
+            {servicesOpen && (
+              <div className="menu__panel">
+                {services.map((s) => (
+                  <Link key={s.slug} to="/services/$slug" params={{ slug: s.slug }} className="menu__item" onClick={close}>
+                    <span className="menu__num">{s.number}</span>
+                    <span>
+                      <strong>{s.title}</strong>
+                      <small>{s.short}</small>
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+          {links.map((l) => (
+            <Link key={l.to} to={l.to} className="navlink" activeProps={{ className: "navlink is-active" }}>
+              {l.label}
+            </Link>
+          ))}
         </nav>
 
-        <div className="flex items-center gap-2 lg:hidden">
-          <button type="button" onClick={openSearch} aria-label="Search the site" className="icon-btn">
-            <SearchGlyph />
+        <div className="hdr__actions">
+          <button type="button" className="icon-btn" onClick={openSearch} aria-label="Search the site">
+            <Search className="size-[18px]" />
           </button>
-          <button
-            type="button"
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            onClick={() => {
-              setOpen((v) => !v);
-              setMobileSubmenu(null);
-            }}
-            className="icon-btn"
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          <WhatsAppLink className="icon-btn icon-btn--wa" label="Chat on WhatsApp">
+            <WhatsAppGlyph className="size-5" />
+          </WhatsAppLink>
+          <Link to="/start-a-project" className="btn btn--primary btn--sm hdr__cta">
+            Start a project <ArrowRight className="size-4" />
+          </Link>
+          <button type="button" className="icon-btn hdr__burger" aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen} onClick={() => setMenuOpen((o) => !o)}>
+            {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
         </div>
       </div>
 
-      {open && (
-        <nav className="border-t border-border bg-background px-4 pb-5 shadow-lift lg:hidden" aria-label="Mobile navigation">
-          {nav.map((item) => {
-            if (!item.children) {
-              return (
-                <Link key={item.to} to={item.to} onClick={() => setOpen(false)} className="mobile-nav-link">
-                  {item.label}
-                </Link>
-              );
-            }
-
-            const isOpen = mobileSubmenu === item.to;
-            return (
-              <div key={item.to} className="border-b border-border">
-                <div className="flex items-center justify-between py-3">
-                  <Link to={item.to} onClick={() => setOpen(false)} className="text-sm font-semibold text-primary">
-                    {item.label}
-                  </Link>
-                  <button
-                    type="button"
-                    aria-label={`${item.label} submenu`}
-                    aria-expanded={isOpen}
-                    onClick={() => setMobileSubmenu(isOpen ? null : item.to)}
-                    className="rounded-md bg-primary/10 p-1.5 text-primary"
-                  >
-                    <ChevronDown className={`size-4 ${isOpen ? "rotate-180" : ""}`} />
-                  </button>
-                </div>
-                {isOpen && (
-                  <div className="flex flex-col pb-3 pl-2">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.params.slug}
-                        to={child.to}
-                        params={child.params}
-                        onClick={() => {
-                          setOpen(false);
-                          setMobileSubmenu(null);
-                        }}
-                        className="nav-dropdown__item"
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-
-          <a href={whatsappLink} target="_blank" rel="noreferrer" className="flex items-center gap-2 py-3 text-sm font-semibold brand-whatsapp-link">
-            <WhatsAppGlyph className="size-5" />
-            WhatsApp
-          </a>
-          <Link to="/start-a-project" onClick={() => setOpen(false)} className="btn-brand-primary mt-2 block rounded-lg px-4 py-3 text-center text-sm font-semibold text-white">
-            Start a Project
-          </Link>
-        </nav>
+      {menuOpen && (
+        <div className="mnav">
+          <nav aria-label="Mobile">
+            <Link to="/" activeOptions={{ exact: true }} className="mnav__link" onClick={close}>Home</Link>
+            <Link to="/services" className="mnav__link" onClick={close}>Services</Link>
+            <ul className="mnav__sub">
+              {services.map((s) => (
+                <li key={s.slug}>
+                  <Link to="/services/$slug" params={{ slug: s.slug }} onClick={close}>{s.title}</Link>
+                </li>
+              ))}
+            </ul>
+            {links.map((l) => (
+              <Link key={l.to} to={l.to} className="mnav__link" onClick={close}>{l.label}</Link>
+            ))}
+          </nav>
+          <div className="mnav__actions">
+            <Link to="/start-a-project" className="btn btn--primary" onClick={close}>Start a project <ArrowRight className="size-4" /></Link>
+            <WhatsAppLink className="btn btn--wa">
+              <WhatsAppGlyph className="size-5" /> WhatsApp
+            </WhatsAppLink>
+            <EmailLink className="btn btn--ghost">Email us</EmailLink>
+          </div>
+        </div>
       )}
     </header>
   );

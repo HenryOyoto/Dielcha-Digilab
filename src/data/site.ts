@@ -1,43 +1,35 @@
-import heroPcb3d from "@/assets/hero-pcb-3d.webp";
-import heroEmbedded from "@/assets/hero-embedded-scene.webp";
-import heroEnclosure from "@/assets/hero-enclosure-cad.webp";
-import heroDashboard from "@/assets/hero-iot-dashboard.webp";
-import cardPcb from "@/assets/art-premfg.jpg";
-import cardEmbedded from "@/assets/bg-lab.jpg";
-import cardCad from "@/assets/hero-cad.jpg";
-import cardDocs from "@/assets/hero-reverse.jpg";
-import resourcePcbPrefab from "@/assets/resources/pcb-pre-fabrication-checklist.jpg";
-import resourcePcbReview from "@/assets/resources/pcb-design-review-checklist.jpg";
-import resourceBom from "@/assets/resources/bom-review-checklist.jpg";
-import resourceComponent from "@/assets/resources/component-selection-worksheet.jpg";
-import articleSchematic from "@/assets/articles/from-schematic-to-pcb.jpg";
-import articlePowerRails from "@/assets/articles/understanding-power-rails.jpg";
-import articleEsp32 from "@/assets/articles/esp32-prototype-notes.jpg";
-import articlePcbMistakes from "@/assets/articles/common-pcb-design-mistakes.jpg";
-
-export const WHATSAPP_NUMBER = "254715924448";
-export const WHATSAPP_MESSAGE = "Hello DIELCHA DIGILAB, I would like to discuss a project.";
-export const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+import {
+  heroPcbBoard, heroDroneRobotArm, heroEnclosureCad, heroIotDashboard,
+  servicePcbWorkstation, serviceEmbeddedBench, serviceCadWorkstation, serviceDocumentationDesk,
+  noteSchematicToPcb, notePowerRails, noteEsp32Prototype, notePcbMistakes,
+  resourcePreFabChecklist, resourceDesignReviewChecklist, resourceBomChecklist, resourceComponentWorksheet,
+  droneCover, droneBanner, droneArchitecture, droneSchematic, droneLayout, drone3dBoard,
+  healthCover, healthBanner, healthArchitecture, healthWiring, health3dBoard, healthBlockDiagram,
+  feedingCover, feedingBanner, feedingModels, feedingPcb, feedingFingerprint, feedingCardFlyer,
+} from "@/data/images";
+import type { ToolKey } from "@/data/tools";
 
 export const instagramLink = "https://www.instagram.com/dielchadigilab";
 export const githubLink = "https://github.com/DielchaDigilab";
+export const youtubeLink = "https://www.youtube.com/@DielchaDigilab";
+export const facebookLink = "https://www.facebook.com/profile.php?id=61592998569753";
 
+/**
+ * WhatsApp is not listed here on purpose: its link is built in the browser from src/lib/contact.ts,
+ * so the phone number never appears in the page markup.
+ */
 export const socialLinks = [
+  { name: "YouTube", icon: "youtube" as const, url: youtubeLink },
   { name: "GitHub", icon: "github" as const, url: githubLink },
   { name: "Instagram", icon: "instagram" as const, url: instagramLink },
-  { name: "Facebook", icon: "facebook" as const, url: "https://www.facebook.com/profile.php?id=61592998569753" },
-  { name: "WhatsApp", icon: "whatsapp" as const, url: whatsappLink },
+  { name: "Facebook", icon: "facebook" as const, url: facebookLink },
 ];
 
 export const brand = {
-  name: "DIELCHA DIGILAB",
+  name: "Dielcha Digilab",
   tagline: "Engineering & Digital Product Development",
-  motto: "",
-  positioning: "DIELCHA DIGILAB designs and develops electronic hardware, embedded systems, connected devices, engineering designs and supporting software when a product or connected system needs it.",
-  email: "dielcha.digilab@gmail.com",
-  phone: "+254715924448",
-  whatsapp: "+254715924448",
-  social: socialLinks,
+  positioning:
+    "Dielcha Digilab designs electronics, embedded systems and connected products, from the first sketch to files that are ready to build.",
 };
 
 export type HeroSlide = {
@@ -46,103 +38,83 @@ export type HeroSlide = {
   label: string;
   /** Background tint of the slide. */
   tone: "blue" | "green" | "yellow" | "red";
-  /** "cutout" images are transparent and sit directly on the tint; "photo" images are shown in a rounded frame. */
-  fit: "cutout" | "photo";
   width: number;
   height: number;
-  points: string[];
 };
 
+/** Every hero image is a transparent cut-out, so it sits straight on the slide tint. */
 export const heroSlides: HeroSlide[] = [
-  {
-    image: heroPcb3d, alt: "3D view of a multi-layer PCB layout", label: "PCB Design, Layout & 3D",
-    tone: "blue", fit: "cutout", width: 1030, height: 625,
-    points: ["Schematic capture and PCB layout", "3D board models for fit checks", "Design files delivered online"],
-  },
-  {
-    image: heroEmbedded, alt: "A drone, a four-wheel robot and a robotic arm built on embedded controllers", label: "Embedded Systems & IoT",
-    tone: "green", fit: "cutout", width: 1480, height: 1260,
-    points: ["ESP32 and Arduino firmware in C/C++", "Sensors, Wi-Fi and Bluetooth", "Robots, drones and connected devices"],
-  },
-  {
-    image: heroEnclosure, alt: "3D CAD model of an enclosure with a display, battery and PCB inside", label: "Enclosure & CAD Design",
-    tone: "yellow", fit: "cutout", width: 1036, height: 748,
-    points: ["3D enclosures that fit your PCB", "STEP and STL files for 3D printing", "Dimensioned 2D drawings"],
-  },
-  {
-    image: heroDashboard, alt: "IoT monitoring dashboard showing device status, alerts and live sensor readings", label: "IoT Dashboards & Monitoring",
-    tone: "red", fit: "photo", width: 773, height: 630,
-    points: ["Live device and sensor dashboards", "Alerts, trends and reports", "Cloud and API integration"],
-  },
+  { image: heroPcbBoard, alt: "3D view of a multi-layer PCB layout", label: "Circuit boards", tone: "yellow", width: 1030, height: 625 },
+  { image: heroDroneRobotArm, alt: "A drone, a four-wheel robot and a robotic arm built on embedded controllers", label: "Connected devices", tone: "blue", width: 1480, height: 1260 },
+  { image: heroEnclosureCad, alt: "3D CAD model of an enclosure with a display, battery and PCB inside", label: "Product enclosures", tone: "green", width: 1036, height: 748 },
+  { image: heroIotDashboard, alt: "IoT monitoring dashboard showing device status, alerts and live sensor readings", label: "Live dashboards", tone: "red", width: 773, height: 630 },
 ];
 
 export type Service = {
   number: string; slug: string; title: string; short: string; image: string; tags: string[];
   overview: string; capabilities: string[]; deliverables: string[];
-  audience: string[]; requirement: string; process: string[]; ctaLabel: string;
+  audience: string[]; requirement: string; process: string[]; tools: ToolKey[];
   metaTitle: string; metaDescription: string;
 };
 
 export const services: Service[] = [
   {
     number: "01", slug: "electronics-systems-pcb-design", title: "Electronics Systems & PCB Design",
-    short: "Schematic design, PCB layout, 3D board models and design files.", image: cardPcb,
-    tags: ["SCHEMATIC", "PCB", "BOM", "GERBER", "DFM"],
-    overview: "Design and documentation of electronic hardware from system requirements through schematic capture, PCB layout and manufacturing files.",
-    capabilities: ["Circuit and schematic design", "PCB layout and routing", "Component selection", "Power and signal design", "Multi-layer PCB design", "BOM preparation", "Gerber and manufacturing files", "DFM and design review", "Existing PCB analysis", "Schematic recreation"],
+    short: "From a circuit idea to a board that is ready to be made.", image: servicePcbWorkstation,
+    tags: ["Schematic", "PCB layout", "BOM", "Gerber", "DFM"],
+    overview: "We take your idea through schematics, PCB layout and the files a manufacturer needs. Along the way we review the design the way a careful second pair of eyes would, so problems show up on screen and not on your bench.",
+    capabilities: ["Circuit and schematic design", "PCB layout and routing", "Component selection", "Power and signal design", "Multi-layer PCB design", "BOM preparation", "Gerber and manufacturing files", "Design for manufacturing (DFM) review", "Review of existing boards", "Schematic recreation"],
     deliverables: ["Schematic files", "PCB source files", "Gerber files", "BOM", "Assembly documentation", "Design review notes"],
     audience: ["Product developers and startups", "Engineering teams", "Businesses improving or replacing existing hardware"],
-    requirement: "Work can usually be handled remotely using drawings, design files, measurements and technical information.",
-    process: ["Requirements", "System Design", "Schematic", "PCB Layout", "Verification", "Manufacturing Files"],
-    ctaLabel: "Explore Service", metaTitle: "Electronics Systems & PCB Design - DIELCHA DIGILAB",
-    metaDescription: "Electronic hardware and PCB design including schematics, PCB layout, BOMs, Gerbers, DFM review and documentation.",
+    requirement: "Almost everything happens online. Drawings, design files, measurements and photos are all we need to begin.",
+    process: ["Requirements", "System design", "Schematic", "PCB layout", "Verification", "Manufacturing files"],
+    tools: ["kicad", "easyeda", "circuitmaker", "proteus", "ltspice"],
+    metaTitle: "Electronics Systems & PCB Design - Dielcha Digilab",
+    metaDescription: "Schematics, PCB layout, BOMs, Gerber files and design for manufacturing reviews for electronic products.",
   },
   {
     number: "02", slug: "embedded-systems-iot", title: "Embedded Systems & IoT",
-    short: "Firmware, sensors, connectivity and IoT integration.", image: cardEmbedded,
-    tags: ["ESP32", "ARDUINO", "C/C++", "MICROPYTHON", "IOT"],
-    overview: "Development of embedded systems that combine microcontrollers, sensors, actuators, communication interfaces and software.",
-    capabilities: ["ESP32 and Arduino development", "C/C++ firmware", "MicroPython", "Sensor and actuator integration", "Wi-Fi and Bluetooth", "Data acquisition", "Embedded interfaces", "Hardware/firmware integration", "IoT architecture", "API and cloud integration"],
-    deliverables: ["Firmware", "Circuit/interface documentation", "Prototype design", "Communication or IoT integration notes", "Test documentation"],
+    short: "Devices that sense, decide and report back.", image: serviceEmbeddedBench,
+    tags: ["ESP32", "Arduino", "C/C++", "MicroPython", "IoT"],
+    overview: "We build the firmware and hardware that make a device work in the real world: sensors, motors, wireless links and the code that ties it all together.",
+    capabilities: ["ESP32 and Arduino development", "C/C++ firmware", "MicroPython", "Sensor and actuator integration", "Wi-Fi and Bluetooth", "Data acquisition", "Embedded interfaces", "Hardware and firmware integration", "IoT architecture", "API and cloud integration"],
+    deliverables: ["Firmware", "Circuit and interface documentation", "Prototype design", "Communication and IoT integration notes", "Test documentation"],
     audience: ["IoT prototypes", "Automation projects", "Sensor and control systems", "Early-stage product development"],
-    requirement: "Most design and firmware work can be performed remotely; physical hardware is only needed when testing requires it.",
+    requirement: "Design and firmware work is done remotely. We only need the physical hardware when testing calls for it.",
     process: ["Requirements", "Hardware", "Firmware", "Integration", "Testing"],
-    ctaLabel: "Explore Service", metaTitle: "Embedded Systems & IoT - DIELCHA DIGILAB",
+    tools: ["arduino", "esp32", "stm32", "raspberryPi", "c", "cpp", "wokwi", "firebase", "python"],
+    metaTitle: "Embedded Systems & IoT - Dielcha Digilab",
     metaDescription: "ESP32, Arduino, C/C++, MicroPython, sensors, connectivity, firmware and IoT development.",
   },
   {
     number: "03", slug: "engineering-design-product-cad", title: "Engineering Design & Product CAD",
-    short: "Enclosures, 3D models and engineering drawings that fit your PCB.", image: cardCad,
-    tags: ["3D CAD", "ENCLOSURES", "STEP", "STL", "DRAWINGS"],
-    overview: "Mechanical design that supports electronic hardware, including enclosures, mounting features, clearances and technical drawings.",
-    capabilities: ["3D enclosure design", "PCB-to-enclosure integration", "Component clearance checks", "Battery and connector placement", "Mounting features", "STEP/STL models", "3D-print-ready models", "2D engineering drawings", "CAD modifications"],
-    deliverables: ["3D CAD models", "STEP/STL files", "2D drawings", "Dimensioned views", "Design revision files"],
+    short: "Enclosures and drawings that fit your electronics.", image: serviceCadWorkstation,
+    tags: ["3D CAD", "Enclosures", "STEP", "STL", "Drawings"],
+    overview: "Mechanical design that fits around your electronics: enclosures, mounting points, clearances and drawings you can hand straight to a workshop or a 3D printer. We design product and electronics enclosures in FreeCAD and prepare technical drawings in AutoCAD.",
+    capabilities: ["3D enclosure design in FreeCAD", "PCB-to-enclosure integration", "Component clearance checks", "Battery and connector placement", "Mounting features", "STEP and STL models", "3D-print-ready models", "2D engineering drawings", "CAD modifications"],
+    deliverables: ["3D CAD models", "STEP and STL files", "2D drawings", "Dimensioned views", "Design revision files"],
     audience: ["PCB and electronics projects", "Prototype enclosures", "3D-printing projects", "Engineering documentation"],
-    requirement: "Remote collaboration works through dimensions, PCB files, reference models, drawings and photographs.",
-    process: ["Requirements", "Mechanical Layout", "3D Model", "Clearance Review", "Drawing", "Export"],
-    ctaLabel: "Explore Service", metaTitle: "Engineering Design & Product CAD - DIELCHA DIGILAB",
-    metaDescription: "Engineering design and product CAD for electronics enclosures, PCB integration, 3D models and technical drawings.",
+    requirement: "Working remotely is easy here: dimensions, PCB files, reference models, drawings and photos are enough.",
+    process: ["Requirements", "Mechanical layout", "3D model", "Clearance review", "Drawing", "Export"],
+    tools: ["freecad", "autocad", "tinkercad"],
+    metaTitle: "Engineering Design & Product CAD - Dielcha Digilab",
+    metaDescription: "Product and electronics enclosure design in FreeCAD, PCB integration, 3D models and technical drawings.",
   },
   {
     number: "04", slug: "engineering-documentation-technical-support", title: "Engineering Documentation & Technical Support",
-    short: "Technical documents, diagrams, specifications and design reviews.", image: cardDocs,
-    tags: ["DOCUMENTATION", "DIAGRAMS", "BOM", "REVIEW", "SUPPORT"],
-    overview: "Technical documentation and support for electronic and engineering projects, including existing hardware that needs clearer records.",
-    capabilities: ["Technical specifications", "Engineering reports", "System block diagrams", "Wiring diagrams", "Circuit and PCB documentation", "BOM documentation", "Assembly documentation", "Existing hardware documentation", "Design reviews", "Troubleshooting support"],
-    deliverables: ["Technical reports", "Specifications", "Diagrams", "BOMs", "Review notes", "Organized project documentation"],
+    short: "Clear records, so the next person can pick up where you left off.", image: serviceDocumentationDesk,
+    tags: ["Documentation", "Diagrams", "BOM", "Review", "Support"],
+    overview: "Specifications, diagrams, reports and design reviews for projects that need clearer records, including hardware that already exists but was never properly documented.",
+    capabilities: ["Technical specifications", "Engineering reports", "System block diagrams", "Wiring diagrams", "Circuit and PCB documentation", "BOM documentation", "Assembly documentation", "Documentation of existing hardware", "Design reviews", "Troubleshooting support"],
+    deliverables: ["Technical reports", "Specifications", "Diagrams", "BOMs", "Review notes", "Organised project documentation"],
     audience: ["Engineering teams", "Product developers", "Businesses with incomplete technical records"],
-    requirement: "Remote support uses project files, photographs, measurements, drawings and live discussion where needed.",
-    process: ["Collect Information", "Review", "Document", "Verify", "Deliver"],
-    ctaLabel: "Explore Service", metaTitle: "Engineering Documentation & Technical Support - DIELCHA DIGILAB",
+    requirement: "Support is remote too: project files, photos, measurements, drawings and a video call when it helps.",
+    process: ["Collect information", "Review", "Document", "Verify", "Deliver"],
+    tools: ["github", "vscode"],
+    metaTitle: "Engineering Documentation & Technical Support - Dielcha Digilab",
     metaDescription: "Engineering reports, specifications, diagrams, BOMs, design reviews and technical support.",
   },
 ];
-
-const projectFiles = import.meta.glob("/src/assets/projects/{esp32-drone-flight-controller-pcb,esp32-health-data-acquisition-monitoring-unit,tokenized-biometrics-school-feeding-program}/*.{png,jpg,jpeg,webp}", { eager: true, query: "?url", import: "default" }) as Record<string, string>;
-
-function projectAsset(slug: string, filename: string) {
-  return projectFiles[`/src/assets/projects/${slug}/${filename}`] ?? "";
-}
 
 export type Project = {
   slug: string; title: string; category: string; summary: string; image: string; hero: string; githubUrl: string;
@@ -154,8 +126,8 @@ export const projects: Project[] = [
   {
     slug: "esp32-drone-flight-controller-pcb", title: "ESP32 Drone Flight Controller PCB", category: "PCB Design", githubUrl: "https://github.com/DielchaDigilab/AeroCore-Flight-Controller",
     summary: "A compact flight-controller PCB design study built around an ESP32, with attention to programming access, power, sensors, connectors and physical placement.",
-    image: projectAsset("esp32-drone-flight-controller-pcb", "cover.jpg"),
-    hero: projectAsset("esp32-drone-flight-controller-pcb", "hero.webp"),
+    image: droneCover,
+    hero: droneBanner,
     overview: "An ESP32-based drone controller PCB design study focused on translating the circuit into a practical physical board while keeping development access and component placement visible throughout the design.",
     objective: "Create a compact controller board layout while identifying the physical constraints that need to be solved before fabrication.",
     designApproach: ["Define the main controller, sensor, power and connector interfaces", "Place the ESP32 and major interfaces before detailed routing", "Reserve physical access for USB/programming and connectors", "Review clearances, routing priorities and serviceability before fabrication"],
@@ -164,17 +136,17 @@ export const projects: Project[] = [
     deliverables: ["Schematic", "PCB layout", "Design review notes", "Manufacturing-ready design files when finalized"],
     notes: ["This case study presents PCB design work and design decisions; it does not claim completed flight testing or fabricated-board performance."],
     evidence: [
-      { image: projectAsset("esp32-drone-flight-controller-pcb", "01-system-architecture.jpg"), caption: "System architecture and controller interfaces" },
-      { image: projectAsset("esp32-drone-flight-controller-pcb", "02-schematic.jpg"), caption: "Circuit schematic" },
-      { image: projectAsset("esp32-drone-flight-controller-pcb", "03-pcb-layout.jpg"), caption: "PCB layout and routing" },
-      { image: projectAsset("esp32-drone-flight-controller-pcb", "04-3d-board.jpg"), caption: "3D board and component placement" },
+      { image: droneArchitecture, caption: "System architecture and controller interfaces" },
+      { image: droneSchematic, caption: "Circuit schematic" },
+      { image: droneLayout, caption: "PCB layout and routing" },
+      { image: drone3dBoard, caption: "3D board and component placement" },
     ],
   },
   {
     slug: "esp32-health-data-acquisition-monitoring-unit", title: "ESP32 Health Data Acquisition & Monitoring Unit", category: "Embedded Systems", githubUrl: "https://github.com/DielchaDigilab/ESP32-Health-Data-Acquisition-and-Monitoring-Unit",
     summary: "A four-layer embedded electronics platform for acquiring, processing and recording physiological sensor data.",
-    image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "cover.jpg"),
-    hero: projectAsset("esp32-health-data-acquisition-monitoring-unit", "hero.webp"),
+    image: healthCover,
+    hero: healthBanner,
     overview: "A four-layer embedded electronics platform for acquiring, processing and recording physiological sensor data. The design integrates an ESP32, ECG acquisition, heart-rate and SpO2 sensing, temperature measurement, microSD storage, USB Type-C, Ethernet, wireless connectivity and regulated power management. It is presented as a realistic engineering prototype/development project, not a certified medical device or clinically validated product.",
     objective: "Build a single board that can acquire multiple physiological signals, process them locally on an ESP32, log measurements to microSD and make the data available over Wi-Fi/Bluetooth or Ethernet for viewing or transfer.",
     designApproach: [
@@ -196,17 +168,17 @@ export const projects: Project[] = [
     deliverables: ["Schematic", "4-layer PCB layout", "BOM", "Power and RF section documentation", "Test-point and bring-up notes"],
     notes: ["This is an engineering prototype/development project, not a certified medical device or clinically validated product."],
     evidence: [
-      { image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "01-system-architecture.jpg"), caption: "Health monitoring system architecture" },
-      { image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "02-schematic.jpg"), caption: "Circuit schematic" },
-      { image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "03-pcb-layout.jpg"), caption: "Four-layer PCB layout and routing" },
-      { image: projectAsset("esp32-health-data-acquisition-monitoring-unit", "04-sensor-interfaces.jpg"), caption: "Sensor and connector interfaces" },
+      { image: healthArchitecture, caption: "System architecture" },
+      { image: healthWiring, caption: "Sensor wiring to the ESP32" },
+      { image: health3dBoard, caption: "3D view of the four-layer board" },
+      { image: healthBlockDiagram, caption: "Sensor and interface block diagram" },
     ],
   },
   {
     slug: "tokenized-biometrics-school-feeding-program", title: "Tokenized Biometrics-Enhanced School Feeding Program", category: "IoT & Embedded Systems", githubUrl: "https://github.com/DielchaDigilab/Tokenized-Biometrics-Enhanced-School-Feeding-Program",
     summary: "A two-node ESP32 system that ties each learner's meal to a fingerprint token, verified at the serving point and settled through M-Pesa.",
-    image: projectAsset("tokenized-biometrics-school-feeding-program", "cover.jpg"),
-    hero: projectAsset("tokenized-biometrics-school-feeding-program", "hero.webp"),
+    image: feedingCover,
+    hero: feedingBanner,
     overview: "A tokenized school feeding system built around two ESP32 nodes: one dedicated to learner registration and fingerprint enrolment, and one dedicated to live meal verification and serving-point feedback. Every meal is tied to a fingerprint token, verified with an AS608 sensor, and settled through M-Pesa STK Push via the Daraja API, with all records synced to Firebase and surfaced on a React web dashboard.",
     objective: "Reduce meal-queue fraud and manual bookkeeping in a school feeding program by verifying each learner's identity with a fingerprint token and settling payment automatically through mobile money.",
     designApproach: [
@@ -228,10 +200,10 @@ export const projects: Project[] = [
     deliverables: ["Registration-node firmware", "Serving-node firmware", "PCB schematic and layout", "Firebase data schema", "M-Pesa Daraja payment integration", "React web dashboard", "Payment dashboard"],
     notes: ["This project combines embedded hardware, biometrics, mobile payments and a web dashboard into a single tokenized school-feeding workflow."],
     evidence: [
-      { image: projectAsset("tokenized-biometrics-school-feeding-program", "01-system-architecture.jpg"), caption: "System architecture and node roles" },
-      { image: projectAsset("tokenized-biometrics-school-feeding-program", "02-pcb-design.jpg"), caption: "PCB design and routing" },
-      { image: projectAsset("tokenized-biometrics-school-feeding-program", "03-hardware-unit.jpg"), caption: "Biometric serving hardware" },
-      { image: projectAsset("tokenized-biometrics-school-feeding-program", "04-dashboard-payment.jpg"), caption: "Dashboard and payment workflow" },
+      { image: feedingModels, caption: "How school feeding programs are organised" },
+      { image: feedingPcb, caption: "Routed PCB layout" },
+      { image: feedingFingerprint, caption: "Fingerprint sensor on the prototype" },
+      { image: feedingCardFlyer, caption: "Tap2Eat card and sign-up guide" },
     ],
   },
 ];
@@ -248,10 +220,17 @@ export const githubProjects: GithubProject[] = [
 ];
 
 export const workflowSteps = [
-  { title: "Share", text: "Send your idea, files, drawings or measurements." },
-  { title: "Agree", text: "We confirm the scope, deliverables, timeline and cost." },
-  { title: "Design", text: "We design and review, sharing progress online." },
-  { title: "Deliver", text: "You receive the agreed files, organised and ready to use." },
+  { title: "Tell us", text: "Share your idea, sketches, files or measurements. Rough is fine." },
+  { title: "Agree the plan", text: "We confirm what you will receive, when, and what it costs, before any work starts." },
+  { title: "Build it together", text: "We design and test, and you see progress along the way." },
+  { title: "Receive and use", text: "You get the agreed files, organised and ready to use." },
+];
+
+export const principles = [
+  { title: "Clear from the start", text: "Scope, deliverables, timeline and cost are agreed in writing before work begins." },
+  { title: "Honest about fit", text: "If a job is outside what we do well, we will say so early and point you in a better direction." },
+  { title: "Made to be handed over", text: "Files, notes and documentation your own team can pick up and carry on with." },
+  { title: "Online first, tested for real", text: "Most work happens remotely. When a project needs real hardware on a bench, we test it there." },
 ];
 
 export type Resource = {
@@ -262,7 +241,7 @@ export type Resource = {
 export const resources: Resource[] = [
   {
     slug: "pcb-pre-fabrication-checklist", title: "PCB Pre-Fabrication Checklist",
-    image: resourcePcbPrefab,
+    image: resourcePreFabChecklist,
     description: "A final review reference for checking a PCB before fabrication files are released.", format: "PDF",
     fileLabel: "PDF checklist", detail: "Use this checklist as the final engineering gate before a PCB design is released to a manufacturer. It brings the schematic, PCB layout, footprints, clearances, board outline, silkscreen, documentation and fabrication outputs into one review sequence. The purpose is to catch issues while the source files are still easy to correct, rather than discovering them after fabrication or assembly.",
     points: ["Schematic and net consistency", "Footprints, references and component values", "Clearances, routing and board-edge checks", "Manufacturing outputs and documentation"],
@@ -270,7 +249,7 @@ export const resources: Resource[] = [
   },
   {
     slug: "pcb-design-review-checklist", title: "PCB Design Review Checklist",
-    image: resourcePcbReview,
+    image: resourceDesignReviewChecklist,
     description: "Structured checks for reviewing schematic intent, layout quality and manufacturing readiness.", format: "PDF",
     fileLabel: "PDF checklist", detail: "This review reference provides a repeatable way to inspect a PCB design from electrical intent through physical layout and manufacturing readiness. It is especially useful when a second engineer, client or production partner needs to understand what was checked, what was found and what still needs attention before release.",
     points: ["Schematic review", "Component and footprint review", "Placement and routing review", "Manufacturing and documentation review"],
@@ -278,7 +257,7 @@ export const resources: Resource[] = [
   },
   {
     slug: "bom-review-checklist", title: "BOM Review Checklist",
-    image: resourceBom,
+    image: resourceBomChecklist,
     description: "Checks for part numbers, packages, availability, lifecycle and alternatives before procurement or assembly.", format: "Excel",
     fileLabel: "Excel worksheet", detail: "A BOM review verifies more than whether every row contains a part number. Each component should be identifiable, compatible with its footprint and electrical role, realistically procurable, and documented well enough for purchasing and assembly. Checking lifecycle, availability and approved alternatives early also reduces the chance of a technically correct design becoming difficult or expensive to build.",
     points: ["Manufacturer and part-number checks", "Package and footprint consistency", "Availability and lifecycle considerations", "Approved alternatives and notes"],
@@ -286,7 +265,7 @@ export const resources: Resource[] = [
   },
   {
     slug: "component-selection-worksheet", title: "Component Selection Worksheet",
-    image: resourceComponent,
+    image: resourceComponentWorksheet,
     description: "A structured worksheet for comparing component requirements and documenting engineering choices.", format: "Excel",
     fileLabel: "Excel worksheet", detail: "Use the worksheet before committing a component to the design. Compare electrical ratings, package and mechanical constraints, operating environment, availability, lifecycle and cost, then record why the selected part meets the actual requirement. Keeping the comparison documented makes later substitutions and design reviews much easier.",
     points: ["Electrical requirements", "Package and mechanical constraints", "Environmental requirements", "Cost, availability and alternatives"],
@@ -301,7 +280,7 @@ export type Article = {
 
 export const articles: Article[] = [
   {
-    slug: "from-schematic-to-pcb", title: "From Schematic to PCB", category: "PCB Design", summary: "A practical look at the transition from circuit intent to physical PCB layout.", image: articleSchematic,
+    slug: "from-schematic-to-pcb", title: "From Schematic to PCB", category: "PCB Design", summary: "A practical look at the transition from circuit intent to physical PCB layout.", image: noteSchematicToPcb,
     introduction: "Moving from a schematic to a PCB is more than transferring symbols into a board editor. The physical layout must preserve the electrical intent while introducing placement, routing, mechanical and manufacturing constraints.",
     sections: [
       { heading: "Start with the circuit intent", text: "Confirm the functional blocks, interfaces, power requirements and important signal relationships before placing components on the board." },
@@ -311,7 +290,7 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: "understanding-power-rails", title: "Understanding Power Rails", category: "Hardware", summary: "How to think about power rails when reviewing or analysing electronic hardware.", image: articlePowerRails,
+    slug: "understanding-power-rails", title: "Understanding Power Rails", category: "Hardware", summary: "How to think about power rails when reviewing or analysing electronic hardware.", image: notePowerRails,
     introduction: "Power rails provide a useful way to understand an electronic system. Tracing where each rail originates, where it is converted and what loads it supplies can reveal how the system is organized.",
     sections: [
       { heading: "Identify the source", text: "Start at the incoming supply or battery and identify the protection, switching and conversion stages that follow." },
@@ -321,7 +300,7 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: "esp32-prototype-notes", title: "ESP32 Prototype Notes", category: "Embedded", summary: "Design notes and practical considerations when building ESP32-based prototypes.", image: articleEsp32,
+    slug: "esp32-prototype-notes", title: "ESP32 Prototype Notes", category: "Embedded", summary: "Design notes and practical considerations when building ESP32-based prototypes.", image: noteEsp32Prototype,
     introduction: "ESP32 prototypes combine microcontroller firmware, power, sensors, communications and physical connections. Good prototype design therefore requires both software and hardware planning.",
     sections: [
       { heading: "Plan development access", text: "Keep USB, programming and debugging access physically reachable after the board is assembled or installed." },
@@ -331,7 +310,7 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: "common-pcb-design-mistakes", title: "Common PCB Design Mistakes (And How to Avoid Them)", category: "PCB Design", summary: "Recurring layout, placement and documentation mistakes in PCB work, with practical fixes that help designs reach fabrication with fewer avoidable problems.", image: articlePcbMistakes,
+    slug: "common-pcb-design-mistakes", title: "Common PCB Design Mistakes (And How to Avoid Them)", category: "PCB Design", summary: "Recurring layout, placement and documentation mistakes in PCB work, with practical fixes that help designs reach fabrication with fewer avoidable problems.", image: notePcbMistakes,
     introduction: "Most PCB failures are not caused by exotic problems. They come from a short list of recurring mistakes in placement, routing, power and documentation that repeat across almost every project that goes wrong. This note collects the ones seen most often during design review, starting with the single most common layout mistake in ESP32 and other microcontroller-based boards.",
     sections: [
       { heading: "1. Placing the microcontroller in the middle of the board", text: "Putting the ESP32 (or any MCU) in the geometric centre of the PCB looks tidy but usually creates the worst layout. It forces power, USB, antenna and peripheral traces to cross the board from every direction, lengthens routing, and pushes the antenna keep-out zone into space needed by other parts. Place the MCU close to the edge nearest its most critical interface (USB, antenna, or main connector) and let everything else be arranged around it, not the other way round." },

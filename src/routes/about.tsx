@@ -1,44 +1,93 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
+import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
-import { WhatsAppButton } from "@/components/WhatsAppFab";
-import { brand } from "@/data/site";
-import aboutPhoto from "@/assets/bg-about.jpg";
+import { PageShell } from "@/components/PageShell";
+import { SectionHead } from "@/components/SectionHead";
+import { Toolbox } from "@/components/Toolbox";
+import { YouTubeBand } from "@/components/YouTubeBand";
+import { workshopShelves } from "@/data/images";
+import { brand, principles } from "@/data/site";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About - Dielcha Digilab" },
-      { name: "description", content: "Dielcha Digilab designs and develops electronic hardware, embedded systems, connected devices, engineering designs and supporting software for products, businesses and technical teams." },
+      { name: "description", content: "Dielcha Digilab designs and builds electronic hardware, embedded systems, connected devices, engineering designs and the software around them for products, businesses and technical teams." },
     ],
   }),
   component: AboutPage,
 });
 
+const tones = ["blue", "green", "yellow", "red"] as const;
+
 function AboutPage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <SiteHeader />
-      <main className="flex-1">
-        <PageHero tone="red" crumbs={[{ label: "About" }]} title="About" intro="PCB design, embedded systems, product CAD and documentation from a small lab in Juja, Kenya." />
+    <PageShell>
+      <PageHero
+        tone="red"
+        crumbs={[{ label: "About" }]}
+        title="Hello, we are Dielcha Digilab."
+        intro="We help people turn ideas into working electronics, connected devices and the clear documents behind them."
+      />
 
-        <section className="mx-auto max-w-7xl px-4 section sm:px-6">
-          <div className="grid items-center gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,22rem)]">
-            <div className="min-w-0">
-              <h2 className="section-title">Who we are</h2>
-              <p className="mt-3 text-[0.95rem] leading-7 text-[#3a4654]">{brand.name} designs and develops electronic hardware, embedded systems, connected devices, engineering designs and supporting software for products, businesses and technical teams.</p>
-              <p className="mt-2.5 text-[0.95rem] leading-7 text-[#3a4654]">Work is handled remotely wherever possible, using drawings, design files, measurements and photographs, with physical testing where it is needed. Projects from other disciplines are welcome too: send the details and we will say honestly whether we are the right fit.</p>
-              <div className="mt-4 flex flex-wrap gap-3">
-                <Link to="/start-a-project" className="btn btn--primary">Start a project</Link>
-                <WhatsAppButton className="rounded-full" />
-              </div>
+      <section className="section">
+        <div className="container-x about">
+          <div className="about__copy">
+            <h2 className="h2">
+              Who <span className="mark mark--gold">we are.</span>
+            </h2>
+            <p className="lead">{brand.name} designs and builds electronic hardware, embedded systems, connected devices, engineering designs and the software that supports them, for products, businesses and technical teams.</p>
+            <p>
+              Most of the work happens online, using drawings, design files, measurements and photographs. When a project needs a real device on a real bench, we test it there. Have something from another discipline? Send us the details and we will tell you honestly whether we are the right people for it.
+            </p>
+            <div className="about__actions">
+              <Link to="/start-a-project" className="btn btn--primary btn--lg">
+                Start a project <ArrowRight className="size-5" />
+              </Link>
+              <Link to="/work" className="btn btn--ghost btn--lg">
+                See our work
+              </Link>
             </div>
-            <img src={aboutPhoto} alt="A workshop shelved with electronic components and test equipment" loading="lazy" decoding="async" className="aspect-[16/10] w-full rounded-2xl object-cover shadow-lift md:aspect-[4/3]" />
           </div>
-        </section>
-      </main>
-      <SiteFooter />
-    </div>
+          <figure className="about__photo">
+            <span className="about__back" aria-hidden="true" />
+            <img src={workshopShelves} alt="A workshop shelved with electronic components and test equipment" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+      </section>
+
+      <section className="section section--tint">
+        <div className="container-x">
+          <SectionHead
+            title={
+              <>
+                How we like <span className="mark mark--green">to work.</span>
+              </>
+            }
+            text="A few simple promises we try to keep on every project."
+          />
+          <ul className="values">
+            {principles.map((p, i) => (
+              <li key={p.title} className={`value tone-${tones[i % 4]}`}>
+                <span className="value__dot" aria-hidden="true" />
+                <h3 className="value__title">{p.title}</h3>
+                <p>{p.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container-x">
+          <SectionHead center title={<>The tools we <span className="mark mark--blue">rely on.</span></>} text="Familiar, well-supported tools, so your files open on your side too." />
+          <div className="section__body">
+            <Toolbox />
+          </div>
+        </div>
+      </section>
+
+      <YouTubeBand />
+    </PageShell>
   );
 }
