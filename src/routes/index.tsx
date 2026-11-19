@@ -7,13 +7,14 @@ import { PageShell } from "@/components/PageShell";
 import { ProjectShowcase } from "@/components/ProjectShowcase";
 import { SectionHead } from "@/components/SectionHead";
 import { ServiceCards } from "@/components/ServiceCards";
+import { EnclosurePromise } from "@/components/EnclosurePromise";
 import { Toolbox } from "@/components/Toolbox";
 import { YouTubeBand } from "@/components/YouTubeBand";
 import { githubLink, projects, workflowSteps } from "@/data/site";
 
 const title = "Dielcha Digilab - Product Design, Embedded Systems & IoT";
 const description =
-  "Got an idea? Dielcha Digilab helps you turn it into something real: PCB design, embedded systems and IoT, product CAD and clear technical documentation, delivered online.";
+  "Dielcha Digilab gives your idea a body, a brain and a voice: PCB design with 3D models, embedded systems and IoT, enclosure and product CAD, and clear technical documentation, delivered online.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,6 +53,8 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <EnclosurePromise />
 
       <section className="section section--tint">
         <div className="container-x">

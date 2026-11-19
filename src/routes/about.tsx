@@ -5,7 +5,7 @@ import { PageShell } from "@/components/PageShell";
 import { SectionHead } from "@/components/SectionHead";
 import { Toolbox } from "@/components/Toolbox";
 import { YouTubeBand } from "@/components/YouTubeBand";
-import { workshopShelves } from "@/data/images";
+import { componentShelves } from "@/data/images";
 import { brand, principles } from "@/data/site";
 
 export const Route = createFileRoute("/about")({
@@ -38,7 +38,7 @@ function AboutPage() {
             </h2>
             <p className="lead">{brand.name} designs and builds electronic hardware, embedded systems, connected devices, engineering designs and the software that supports them, for products, businesses and technical teams.</p>
             <p>
-              Most of the work happens online, using drawings, design files, measurements and photographs. When a project needs a real device on a real bench, we test it there. Have something from another discipline? Send us the details and we will tell you honestly whether we are the right people for it.
+              Most of the work happens online, using drawings, design files, measurements and photographs. When a project needs real hardware, we put it through proper testing before it reaches you. Have something from another discipline? Send us the details and we will tell you honestly whether we are the right people for it.
             </p>
             <div className="about__actions">
               <Link to="/start-a-project" className="btn btn--primary btn--lg">
@@ -51,7 +51,7 @@ function AboutPage() {
           </div>
           <figure className="about__photo">
             <span className="about__back" aria-hidden="true" />
-            <img src={workshopShelves} alt="A workshop shelved with electronic components and test equipment" loading="lazy" decoding="async" />
+            <img src={componentShelves} alt="Shelves of electronic components and test equipment" loading="lazy" decoding="async" />
           </figure>
         </div>
       </section>

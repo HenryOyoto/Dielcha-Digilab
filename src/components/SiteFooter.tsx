@@ -42,8 +42,8 @@ export function SiteFooter() {
         </nav>
 
         <div className="footer__col footer__cta">
-          <h2>Have an idea?</h2>
-          <p>Tell us about it. We would love to hear it.</p>
+          <h2>Ready when you are.</h2>
+          <p>Tell us what you have in mind. We would love to hear it.</p>
           <Link to="/start-a-project" className="btn btn--gold">
             Start a project <ArrowRight className="size-4" />
           </Link>

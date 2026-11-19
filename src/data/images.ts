@@ -11,12 +11,12 @@ export { default as heroIotDashboard } from "@/assets/hero/iot-dashboard.webp";
 
 // Service photos
 export { default as servicePcbWorkstation } from "@/assets/services/pcb-design-workstation.jpg";
-export { default as serviceEmbeddedBench } from "@/assets/services/embedded-iot-bench.jpg";
+export { default as serviceEmbeddedPrototyping } from "@/assets/services/embedded-iot-prototyping.jpg";
 export { default as serviceCadWorkstation } from "@/assets/services/product-cad-workstation.jpg";
 export { default as serviceDocumentationDesk } from "@/assets/services/engineering-documentation-desk.jpg";
 
 // About
-export { default as workshopShelves } from "@/assets/about/electronics-workshop-shelves.jpg";
+export { default as componentShelves } from "@/assets/about/electronic-components-shelves.jpg";
 
 // Lab: notes
 export { default as noteSchematicToPcb } from "@/assets/lab/articles/from-schematic-to-pcb.jpg";

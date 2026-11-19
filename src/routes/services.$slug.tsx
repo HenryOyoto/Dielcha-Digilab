@@ -58,6 +58,11 @@ function ServiceDetail() {
               <h2 className="card__title">What this is</h2>
               <p className="card__text">{service.overview}</p>
               <p className="note">{service.requirement}</p>
+              {(service.slug === "electronics-systems-pcb-design" || service.slug === "engineering-design-product-cad") && (
+                <p className="note note--gold">
+                  Every board and project comes with an enclosure designed for it: fine, elegant and built around the 3D model of your board from KiCad, then finished in AutoCAD or FreeCAD.
+                </p>
+              )}
             </div>
 
             <div className="card">

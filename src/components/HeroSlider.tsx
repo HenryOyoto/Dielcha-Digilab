@@ -61,23 +61,20 @@ export function HeroSlider() {
       <div className="container-x hero__grid">
         <div className="hero__copy">
           <h1 className="hero__title">
-            Got an idea?
-            <span className="hero__title-line">
-              Let&rsquo;s make it <span className="mark mark--gold">real.</span>
-            </span>
+            Give your idea a <span className="mark mark--blue">body</span>, a <span className="mark mark--gold">brain</span> and a <span className="mark mark--green">voice.</span>
           </h1>
           <p className="hero__sub">
-            Bring us a rough sketch, a half-built prototype or just a problem that will not leave you alone. We will work it out with you, one step at a time.
+            Every great product begins as something only you can see. We shape it into something you can hold, switch on and be proud of.
           </p>
           <div className="hero__actions">
             <Link to="/start-a-project" className="btn btn--primary btn--lg">
-              Tell us your idea <ArrowRight className="size-5" />
+              Bring it to life <ArrowRight className="size-5" />
             </Link>
             <Link to="/work" className="btn btn--ghost btn--lg">
               See what we have built
             </Link>
           </div>
-          <p className="hero__note">No pressure. A rough idea is a perfectly good place to start.</p>
+          <p className="hero__note">Start with a sketch, a sentence or a single question. That is plenty.</p>
         </div>
 
         <div className="hero__stage">

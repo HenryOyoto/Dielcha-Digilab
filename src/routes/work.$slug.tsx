@@ -88,9 +88,15 @@ function ProjectPage() {
               <ul className="tlist">
                 {p.technologies.map((t) => {
                   const known = findTool(t);
-                  return (
-                    <li key={t} className={known ? "tchip" : "chip"}>
-                      {known && <img src={known.logo} alt="" width={28} height={28} loading="lazy" />}
+                  return known ? (
+                    <li key={t}>
+                      <a className="tchip" href={known.url} target="_blank" rel="noreferrer noopener" title={`Visit the official ${known.name} website`} aria-label={`${known.name}, official website (opens in a new tab)`}>
+                        <img src={known.logo} alt="" width={28} height={28} loading="lazy" />
+                        <span>{t}</span>
+                      </a>
+                    </li>
+                  ) : (
+                    <li key={t} className="chip">
                       <span>{t}</span>
                     </li>
                   );

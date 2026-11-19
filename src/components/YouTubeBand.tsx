@@ -12,7 +12,7 @@ export function YouTubeBand({ id }: { id?: string }) {
             Learn it with us, <span className="mark mark--red">for free.</span>
           </h2>
           <p className="lead">
-            We publish useful tutorials on YouTube, made for people who are learning. If you are stuck on a board, a sensor or a sketch, there may already be a video that helps.
+            We publish useful tutorials on YouTube, made for people who are learning. If you are stuck on a board, a sensor or a sketch, chances are a video already covers it.
           </p>
           <a href={youtubeLink} target="_blank" rel="noreferrer" className="btn btn--yt btn--lg">
             <YouTubeGlyph className="size-5" /> Watch on YouTube

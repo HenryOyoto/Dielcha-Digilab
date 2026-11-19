@@ -1,6 +1,6 @@
 import {
   heroPcbBoard, heroDroneRobotArm, heroEnclosureCad, heroIotDashboard,
-  servicePcbWorkstation, serviceEmbeddedBench, serviceCadWorkstation, serviceDocumentationDesk,
+  servicePcbWorkstation, serviceEmbeddedPrototyping, serviceCadWorkstation, serviceDocumentationDesk,
   noteSchematicToPcb, notePowerRails, noteEsp32Prototype, notePcbMistakes,
   resourcePreFabChecklist, resourceDesignReviewChecklist, resourceBomChecklist, resourceComponentWorksheet,
   droneCover, droneBanner, droneArchitecture, droneSchematic, droneLayout, drone3dBoard,
@@ -44,7 +44,7 @@ export type HeroSlide = {
 
 /** Every hero image is a transparent cut-out, so it sits straight on the slide tint. */
 export const heroSlides: HeroSlide[] = [
-  { image: heroPcbBoard, alt: "3D view of a multi-layer PCB layout", label: "Circuit boards", tone: "yellow", width: 1030, height: 625 },
+  { image: heroPcbBoard, alt: "3D view of a multi-layer PCB layout", label: "Circuit boards in 3D", tone: "yellow", width: 1030, height: 625 },
   { image: heroDroneRobotArm, alt: "A drone, a four-wheel robot and a robotic arm built on embedded controllers", label: "Connected devices", tone: "blue", width: 1480, height: 1260 },
   { image: heroEnclosureCad, alt: "3D CAD model of an enclosure with a display, battery and PCB inside", label: "Product enclosures", tone: "green", width: 1036, height: 748 },
   { image: heroIotDashboard, alt: "IoT monitoring dashboard showing device status, alerts and live sensor readings", label: "Live dashboards", tone: "red", width: 773, height: 630 },
@@ -60,21 +60,21 @@ export type Service = {
 export const services: Service[] = [
   {
     number: "01", slug: "electronics-systems-pcb-design", title: "Electronics Systems & PCB Design",
-    short: "From a circuit idea to a board that is ready to be made.", image: servicePcbWorkstation,
-    tags: ["Schematic", "PCB layout", "BOM", "Gerber", "DFM"],
-    overview: "We take your idea through schematics, PCB layout and the files a manufacturer needs. Along the way we review the design the way a careful second pair of eyes would, so problems show up on screen and not on your bench.",
-    capabilities: ["Circuit and schematic design", "PCB layout and routing", "Component selection", "Power and signal design", "Multi-layer PCB design", "BOM preparation", "Gerber and manufacturing files", "Design for manufacturing (DFM) review", "Review of existing boards", "Schematic recreation"],
-    deliverables: ["Schematic files", "PCB source files", "Gerber files", "BOM", "Assembly documentation", "Design review notes"],
+    short: "From a circuit idea to a board you can see in 3D before it is ever made.", image: servicePcbWorkstation,
+    tags: ["Schematic", "PCB layout", "3D model", "BOM", "Gerber", "DFM"],
+    overview: "We take your idea through schematics, PCB layout and the files a manufacturer needs, and we give you a full 3D model of the finished board so you can see it, turn it around and check how it fits before anything is made. Along the way we review the design the way a careful second pair of eyes would, so problems show up on screen and not later.",
+    capabilities: ["Circuit and schematic design", "PCB layout and routing", "3D PCB layout and 3D board model", "Matching enclosure design", "Component selection", "Power and signal design", "Multi-layer PCB design", "BOM preparation", "Gerber and manufacturing files", "Design for manufacturing (DFM) review", "Review of existing boards", "Schematic recreation"],
+    deliverables: ["Schematic files", "PCB source files", "3D board model (STEP)", "Matching enclosure design", "Gerber files", "BOM", "Assembly documentation", "Design review notes"],
     audience: ["Product developers and startups", "Engineering teams", "Businesses improving or replacing existing hardware"],
     requirement: "Almost everything happens online. Drawings, design files, measurements and photos are all we need to begin.",
-    process: ["Requirements", "System design", "Schematic", "PCB layout", "Verification", "Manufacturing files"],
+    process: ["Requirements", "System design", "Schematic", "PCB layout", "3D model and enclosure", "Verification", "Manufacturing files"],
     tools: ["kicad", "easyeda", "circuitmaker", "proteus", "ltspice"],
     metaTitle: "Electronics Systems & PCB Design - Dielcha Digilab",
-    metaDescription: "Schematics, PCB layout, BOMs, Gerber files and design for manufacturing reviews for electronic products.",
+    metaDescription: "Schematics, PCB layout, 3D board models, matching enclosures, BOMs, Gerber files and design for manufacturing reviews for electronic products.",
   },
   {
     number: "02", slug: "embedded-systems-iot", title: "Embedded Systems & IoT",
-    short: "Devices that sense, decide and report back.", image: serviceEmbeddedBench,
+    short: "Devices that sense, decide and report back.", image: serviceEmbeddedPrototyping,
     tags: ["ESP32", "Arduino", "C/C++", "MicroPython", "IoT"],
     overview: "We build the firmware and hardware that make a device work in the real world: sensors, motors, wireless links and the code that ties it all together.",
     capabilities: ["ESP32 and Arduino development", "C/C++ firmware", "MicroPython", "Sensor and actuator integration", "Wi-Fi and Bluetooth", "Data acquisition", "Embedded interfaces", "Hardware and firmware integration", "IoT architecture", "API and cloud integration"],
@@ -90,13 +90,13 @@ export const services: Service[] = [
     number: "03", slug: "engineering-design-product-cad", title: "Engineering Design & Product CAD",
     short: "Enclosures and drawings that fit your electronics.", image: serviceCadWorkstation,
     tags: ["3D CAD", "Enclosures", "STEP", "STL", "Drawings"],
-    overview: "Mechanical design that fits around your electronics: enclosures, mounting points, clearances and drawings you can hand straight to a workshop or a 3D printer. We design product and electronics enclosures in FreeCAD and prepare technical drawings in AutoCAD.",
-    capabilities: ["3D enclosure design in FreeCAD", "PCB-to-enclosure integration", "Component clearance checks", "Battery and connector placement", "Mounting features", "STEP and STL models", "3D-print-ready models", "2D engineering drawings", "CAD modifications"],
+    overview: "Mechanical design that fits around your electronics: enclosures, mounting points, clearances and drawings you can hand straight to a manufacturer or a 3D printer. Every enclosure is built around your board's own 3D model, so the fit is right and the finish looks refined. We design product and electronics enclosures in AutoCAD and FreeCAD.",
+    capabilities: ["Elegant enclosure design in AutoCAD and FreeCAD", "PCB-to-enclosure integration from the KiCad 3D model", "Component clearance checks", "Battery and connector placement", "Mounting features", "STEP and STL models", "3D-print-ready models", "2D engineering drawings", "CAD modifications"],
     deliverables: ["3D CAD models", "STEP and STL files", "2D drawings", "Dimensioned views", "Design revision files"],
     audience: ["PCB and electronics projects", "Prototype enclosures", "3D-printing projects", "Engineering documentation"],
-    requirement: "Working remotely is easy here: dimensions, PCB files, reference models, drawings and photos are enough.",
+    requirement: "This one works beautifully online: dimensions, PCB files, reference models, drawings and photos are enough.",
     process: ["Requirements", "Mechanical layout", "3D model", "Clearance review", "Drawing", "Export"],
-    tools: ["freecad", "autocad", "tinkercad"],
+    tools: ["freecad", "autocad", "kicad", "tinkercad"],
     metaTitle: "Engineering Design & Product CAD - Dielcha Digilab",
     metaDescription: "Product and electronics enclosure design in FreeCAD, PCB integration, 3D models and technical drawings.",
   },
@@ -230,7 +230,7 @@ export const principles = [
   { title: "Clear from the start", text: "Scope, deliverables, timeline and cost are agreed in writing before work begins." },
   { title: "Honest about fit", text: "If a job is outside what we do well, we will say so early and point you in a better direction." },
   { title: "Made to be handed over", text: "Files, notes and documentation your own team can pick up and carry on with." },
-  { title: "Online first, tested for real", text: "Most work happens remotely. When a project needs real hardware on a bench, we test it there." },
+  { title: "Online first, proven for real", text: "Most work happens online. When a project needs real hardware, we put it through proper testing before it reaches you." },
 ];
 
 export type Resource = {

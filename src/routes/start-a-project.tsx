@@ -58,8 +58,8 @@ function StartProjectPage() {
       <PageHero
         tone="yellow"
         crumbs={[{ label: "Start a project" }]}
-        title="Tell us your idea."
-        intro="An early idea is plenty. Say hello whichever way you like, or fill in the short form below."
+        title="Tell us what you have in mind."
+        intro="A rough sketch or a single sentence is plenty. Say hello whichever way you like, or fill in the short form below."
       />
 
       <section className="section start-contact">

@@ -20,30 +20,30 @@ import pycharm from "@/assets/tools/pycharm.svg";
 import visualstudio from "@/assets/tools/visualstudio.svg";
 import github from "@/assets/tools/github.svg";
 
-export type Tool = { name: string; logo: string };
+export type Tool = { name: string; logo: string; /** Official website, so visitors can learn what the tool is. */ url: string };
 
 export const tool = {
-  kicad: { name: "KiCad", logo: kicad },
-  easyeda: { name: "EasyEDA", logo: easyeda },
-  circuitmaker: { name: "CircuitMaker", logo: circuitmaker },
-  proteus: { name: "Proteus", logo: proteus },
-  ltspice: { name: "LTspice", logo: ltspice },
-  arduino: { name: "Arduino", logo: arduino },
-  esp32: { name: "ESP32", logo: esp32 },
-  stm32: { name: "STM32", logo: stm32 },
-  raspberryPi: { name: "Raspberry Pi", logo: raspberryPi },
-  c: { name: "C", logo: cLang },
-  cpp: { name: "C++", logo: cppLang },
-  wokwi: { name: "Wokwi", logo: wokwi },
-  firebase: { name: "Firebase", logo: firebase },
-  freecad: { name: "FreeCAD", logo: freecad },
-  autocad: { name: "AutoCAD", logo: autocad },
-  tinkercad: { name: "Tinkercad", logo: tinkercad },
-  python: { name: "Python", logo: python },
-  vscode: { name: "VS Code", logo: vscode },
-  pycharm: { name: "PyCharm", logo: pycharm },
-  visualstudio: { name: "Visual Studio", logo: visualstudio },
-  github: { name: "GitHub", logo: github },
+  kicad: { name: "KiCad", logo: kicad, url: "https://www.kicad.org/" },
+  easyeda: { name: "EasyEDA", logo: easyeda, url: "https://easyeda.com/" },
+  circuitmaker: { name: "CircuitMaker", logo: circuitmaker, url: "https://circuitmaker.com/" },
+  proteus: { name: "Proteus", logo: proteus, url: "https://www.labcenter.com/" },
+  ltspice: { name: "LTspice", logo: ltspice, url: "https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html" },
+  arduino: { name: "Arduino", logo: arduino, url: "https://www.arduino.cc/" },
+  esp32: { name: "ESP32", logo: esp32, url: "https://www.espressif.com/en/products/socs/esp32" },
+  stm32: { name: "STM32", logo: stm32, url: "https://www.st.com/en/microcontrollers-microprocessors/stm32-32-bit-arm-cortex-mcus.html" },
+  raspberryPi: { name: "Raspberry Pi", logo: raspberryPi, url: "https://www.raspberrypi.com/" },
+  c: { name: "C", logo: cLang, url: "https://www.open-std.org/jtc1/sc22/wg14/" },
+  cpp: { name: "C++", logo: cppLang, url: "https://isocpp.org/" },
+  wokwi: { name: "Wokwi", logo: wokwi, url: "https://wokwi.com/" },
+  firebase: { name: "Firebase", logo: firebase, url: "https://firebase.google.com/" },
+  freecad: { name: "FreeCAD", logo: freecad, url: "https://www.freecad.org/" },
+  autocad: { name: "AutoCAD", logo: autocad, url: "https://www.autodesk.com/products/autocad/overview" },
+  tinkercad: { name: "Tinkercad", logo: tinkercad, url: "https://www.tinkercad.com/" },
+  python: { name: "Python", logo: python, url: "https://www.python.org/" },
+  vscode: { name: "VS Code", logo: vscode, url: "https://code.visualstudio.com/" },
+  pycharm: { name: "PyCharm", logo: pycharm, url: "https://www.jetbrains.com/pycharm/" },
+  visualstudio: { name: "Visual Studio", logo: visualstudio, url: "https://visualstudio.microsoft.com/" },
+  github: { name: "GitHub", logo: github, url: "https://github.com/" },
 } satisfies Record<string, Tool>;
 
 export type ToolKey = keyof typeof tool;
